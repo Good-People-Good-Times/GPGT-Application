@@ -7,8 +7,8 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
     @Id
