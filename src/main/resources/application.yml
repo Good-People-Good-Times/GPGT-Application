@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active: prod
+
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+  thymeleaf:
+    prefix: classpath:/templates/
+
+logging:
+  level:
+    org.springframework.security: ERROR
+    org.springframework.boot.autoconfigure.security: ERROR
