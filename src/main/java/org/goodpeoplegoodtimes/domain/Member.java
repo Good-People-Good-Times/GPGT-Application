@@ -1,14 +1,15 @@
 package org.goodpeoplegoodtimes.domain;
 
 import lombok.*;
+import org.goodpeoplegoodtimes.dto.SignupDto;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class Member {
 
     @Id
@@ -27,5 +28,18 @@ public class Member {
 
     @Column(nullable = false)
     private int imgNum;
+
+    /** Dto > Entity 변환 메서드
+     *
+     * @param signupDto
+     */
+    public static Member of(SignupDto signupDto) {
+        return Member.builder()
+                .email(signupDto.getEmail())
+                .password(signupDto.getPassword())
+                .nickname(signupDto.getNickname())
+                .imgNum(signupDto.getImgNum())
+                .build();
+    }
 
 }
