@@ -8,8 +8,8 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
     @Id
@@ -29,17 +29,17 @@ public class Member {
     @Column(nullable = false)
     private int imgNum;
 
-    /** Dto > Entity 변환 메서드
-     *
+    /**
+     * Dto -> Entity 변환 메서드
      * @param signupDto
      */
     public static Member of(SignupDto signupDto) {
         return Member.builder()
-                .email(signupDto.getEmail())
-                .password(signupDto.getPassword())
-                .nickname(signupDto.getNickname())
-                .imgNum(signupDto.getImgNum())
-                .build();
+            .email(signupDto.getEmail())
+            .password(signupDto.getPassword())
+            .nickname(signupDto.getNickname())
+            .imgNum(signupDto.getImgNum())
+            .build();
     }
 
 }
