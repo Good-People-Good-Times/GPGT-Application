@@ -13,22 +13,22 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http
-            .httpBasic()
-
-            .and()
-
             .authorizeRequests()
-            .antMatchers("/").authenticated()
+                .antMatchers("/members/**").permitAll()
+                .antMatchers("/").permitAll()
 
             .and()
 
+            .httpBasic().and()
             .csrf().disable();
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
+        web
+            .ignoring()
+            .antMatchers("/css/**", "/js/**", "/img/**");
     }
 
 }

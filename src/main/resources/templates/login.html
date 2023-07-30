@@ -1,0 +1,21 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/singup.css}"/>
+</head>
+
+<div layout:fragment="content" class="container py-5">
+    <div class="input-form-backgroud row">
+        <div class="input-form col-md-12 mx-auto">
+            <h4 class="mb-3">로그인</h4>
+        </div>
+    </div>
+    <footer class="my-3 text-center text-small">
+        <p class="mb-1">&copy; Good-Times-Good-Peoples</p>
+    </footer>
+
+    <script type="text/javascript" th:src="@{/js/signup.js}"></script>
+</div>
+</html>
