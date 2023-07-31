@@ -34,4 +34,8 @@ public class MemberController {
         memberService.signup(signupDto);
         return "redirect:/members/login";
     }
+    @GetMapping(value = "findpw")
+    public String findepw() {
+        return "findpw";
+    }
 }
