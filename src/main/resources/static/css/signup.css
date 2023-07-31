@@ -1,6 +1,6 @@
 body {
     min-height: 100vh;
-    background: linear-gradient(#ecedee, #e6dbb9);
+    background: linear-gradient(#9966FF, #c5d7f2);
 }
 
 .input-form {
@@ -16,4 +16,16 @@ body {
     -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
     box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
+}
+
+.button {
+    background-color: #9966FF;
+    color: white;
+    border-radius: 13%;
+    border-color: #9966FF;
+    border-width: 4px;
+}
+
+.img_container {
+    display : inline-flex;
 }
