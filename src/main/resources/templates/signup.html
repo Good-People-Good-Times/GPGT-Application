@@ -14,19 +14,11 @@
             <form th:action="@{/members/signup}" th:object="${SignupDto}" method="post"
                   class="validation-form" novalidate>
                 <br>
-                <div>
-                    <div class="img_container">
-                        <img src="..." class="rounded mx-auto d-block" alt="...">
-                    </div>
-                    <div class="img_container">
-                        <img src="..." class="rounded mx-auto d-block" alt="...">
-                    </div>
-                    <div class="img_container">
-                        <img src="..." class="rounded mx-auto d-block" alt="...">
-                    </div>
-                    <div class="img_container">
-                        <img src="..." class="rounded mx-auto d-block" alt="...">
-                    </div>
+                <div style="text-align: center">
+                    <div class="img_container"><img th:src="@{/img/example.png}"/></div>
+                    <div class="img_container"><img th:src="@{/img/example.png}"/></div>
+                    <div class="img_container"><img th:src="@{/img/example.png}"/></div>
+                    <div class="img_container"><img th:src="@{/img/example.png}"/></div>
                 </div>
                 <br>
                 <!-- ========== 이메일 ========== -->
