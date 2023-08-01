@@ -3,6 +3,8 @@ package org.goodpeoplegoodtimes.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.goodpeoplegoodtimes.dto.SignupDto;
+import org.goodpeoplegoodtimes.exception.EmailDuplicationException;
+import org.goodpeoplegoodtimes.exception.NicknameDuplicationException;
 import org.goodpeoplegoodtimes.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,11 +33,28 @@ public class MemberController {
     @PostMapping(value = "/signup")
     public String signup(SignupDto signupDto) {
         // 회원가입
-        memberService.signup(signupDto);
+        /* try {
+            memberService.signup(signupDto);
+        } catch(EmailDuplicationException e) {
+            return "redirect:/members/login";
+        } catch(NicknameDuplicationException e) {
+            return  "redirect:/members/signup";
+        } */
+
         return "redirect:/members/login";
     }
-    @GetMapping(value = "findpw")
-    public String findepw() {
+    @GetMapping(value = "/pw")
+    public String findPassword() {
         return "findpw";
+    }
+
+    @GetMapping(value = "/email")
+    public String findEmail() {
+        return "findEmail";
+    }
+
+    @GetMapping(value = "/resetpw")
+    public String resetPassword() {
+        return "resetPW";
     }
 }
