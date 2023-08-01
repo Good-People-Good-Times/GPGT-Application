@@ -32,20 +32,21 @@ public class MemberController {
 
     @PostMapping(value = "/signup")
     public String signup(SignupDto signupDto) {
-        // 회원가입
-        /* try {
+
+/*        // 회원가입
+        try {
             memberService.signup(signupDto);
-        } catch(EmailDuplicationException e) {
+        } catch (EmailDuplicationException e) {
             return "redirect:/members/login";
-        } catch(NicknameDuplicationException e) {
-            return  "redirect:/members/signup";
-        } */
+        } catch (NicknameDuplicationException e) {
+            return "redirect:/members/signup";
+        }*/
 
         return "redirect:/members/login";
     }
     @GetMapping(value = "/pw")
     public String findPassword() {
-        return "findpw";
+        return "findPW";
     }
 
     @GetMapping(value = "/email")
@@ -56,5 +57,15 @@ public class MemberController {
     @GetMapping(value = "/resetpw")
     public String resetPassword() {
         return "resetPW";
+    }
+
+    @GetMapping(value = "/party")
+    public String newParty() {
+        return "newParty";
+    }
+
+    @GetMapping("/notice")
+    public String noticeCreate(){
+        return "notice_form";
     }
 }
