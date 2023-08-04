@@ -14,7 +14,8 @@ public class NoticeService {
 
     private final NoticeRepository noticeRepository;
 
-    public Long notice(NoticeDto noticeDto) {
+    public Long save(NoticeDto noticeDto) {
         return noticeRepository.save(Notice.of(noticeDto)).getNotice_id();
     }
+
 }
