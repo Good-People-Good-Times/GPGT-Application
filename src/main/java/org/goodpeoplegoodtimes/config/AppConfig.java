@@ -13,7 +13,23 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http
+            .formLogin()
+                .loginPage("/auth/login").permitAll()
+                .loginProcessingUrl("/auth/login/process").permitAll()
+                    .usernameParameter("email")
+                    .passwordParameter("password")
+                .defaultSuccessUrl("/")
+
+            .and()
+
+            .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/auth/login").permitAll()
+
+            .and()
+
             .authorizeRequests()
                 .antMatchers("/members/**").permitAll()
                 .antMatchers("/").permitAll()
