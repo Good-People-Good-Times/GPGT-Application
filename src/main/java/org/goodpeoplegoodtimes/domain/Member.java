@@ -1,7 +1,7 @@
 package org.goodpeoplegoodtimes.domain;
 
 import lombok.*;
-import org.goodpeoplegoodtimes.dto.SignupDto;
+import org.goodpeoplegoodtimes.dto.SignupForm;
 
 import javax.persistence.*;
 
@@ -31,14 +31,14 @@ public class Member {
 
     /**
      * Dto -> Entity 변환 메서드
-     * @param signupDto
+     * @param signupForm
      */
-    public static Member of(SignupDto signupDto) {
+    public static Member of(SignupForm signupForm) {
         return Member.builder()
-            .email(signupDto.getEmail())
-            .password(signupDto.getPassword())
-            .nickname(signupDto.getNickname())
-            .imgNum(signupDto.getImgNum())
+            .email(signupForm.getEmail())
+            .password(signupForm.getPassword())
+            .nickname(signupForm.getNickname())
+            .imgNum(signupForm.getImgNum())
             .build();
     }
 

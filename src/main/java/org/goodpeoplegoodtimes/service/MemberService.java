@@ -2,7 +2,7 @@ package org.goodpeoplegoodtimes.service;
 
 import lombok.RequiredArgsConstructor;
 import org.goodpeoplegoodtimes.domain.Member;
-import org.goodpeoplegoodtimes.dto.SignupDto;
+import org.goodpeoplegoodtimes.dto.SignupForm;
 import org.goodpeoplegoodtimes.exception.EmailAlreadyExistsException;
 import org.goodpeoplegoodtimes.exception.NicknameAlreadyExistsException;
 import org.goodpeoplegoodtimes.repository.MemberRepository;
@@ -16,10 +16,10 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public Long save(SignupDto signupDto) {
-        validateEmailDuplication(signupDto.getEmail());
-        validateNicknameDuplication(signupDto.getNickname());
-        return memberRepository.save(Member.of(signupDto)).getId();
+    public Long save(SignupForm signupForm) {
+        validateEmailDuplication(signupForm.getEmail());
+        validateNicknameDuplication(signupForm.getNickname());
+        return memberRepository.save(Member.of(signupForm)).getId();
     }
 
     @Transactional(readOnly = true)
