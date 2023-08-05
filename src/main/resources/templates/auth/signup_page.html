@@ -1,0 +1,96 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}"/>
+</head>
+
+<div layout:fragment="content" class="container py-5">
+    <div class="input-form-backgroud row">
+        <div class="input-form col-md-12 mx-auto">
+            <h4 style="text-align: center;" class="mb-3">회원가입</h4>
+            <form th:action="@{/auth/signup}" th:object="${form}" method="post"
+                  class="validation-form" novalidate>
+                <br>
+                <div style="text-align: center">
+                    <div class="img_container"><img th:src="@{/img/example.png}"/></div>
+                    <div class="img_container"><img th:src="@{/img/example.png}"/></div>
+                    <div class="img_container"><img th:src="@{/img/example.png}"/></div>
+                    <div class="img_container"><img th:src="@{/img/example.png}"/></div>
+                </div>
+                <br>
+                <!-- ========== 이메일 ========== -->
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="email">이메일</label>
+                        <input type="email" class="form-control" id="email" th:field="*{email}"
+                               placeholder="you@example.com" required>
+                        <div class="invalid-feedback">
+                            이메일을 입력해주세요.
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <br>
+                        <button class="button" type="button">중복 확인</button>
+                    </div>
+                    <p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</p>
+                </div>
+
+                <!-- ========== 닉네임 ========== -->
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="nickname">닉네임</label>
+                        <input type="text" class="form-control" minlength="2" id="nickname" th:field="*{nickname}"
+                               placeholder="닉네임을 2자 이상 입력해주세요." value="" required>
+                        <div class="invalid-feedback">
+                            닉네임을 2자 이상 입력해주세요.
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <br>
+                        <button class="button" type="button">중복 확인</button>
+                    </div>
+                    <p class="error" th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}">Email Error</p>
+                </div>
+
+                <!-- ========== 비밀번호 ========== -->
+                <div class="mb-3">
+                    <label for="password">비밀번호</label>
+                    <input type="password" class="form-control" id="password" minlength="8" th:field="*{password}"
+                           placeholder="8자이상, 특수문자 포함"
+                           value="" required>
+                    <div class="invalid-feedback">비밀번호를 8자 이상 입력해주세요.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="password2">비밀번호 확인</label>
+                    <input type="password" class="form-control" id="password2" minlength="8"
+                           placeholder="비밀번호를 다시 한 번 입력해주세요." value="" required>
+                    <div class="invalid-feedback">비밀번호를 다시 한 번 입력해주세요.</div>
+                </div>
+                <br>
+                <p class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Email Error</p>
+
+                <!-- ========== 개인정보수집 ========== -->
+
+                <div style="text-align: center;" class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="aggrement" required>
+                    <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
+                </div>
+                <div class="mb-4"></div>
+
+                <div style="text-align: center;">
+                    <button class="button" type="submit">가입 완료</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <footer class="my-3 text-center text-small">
+        <p class="mb-1">&copy; Good-People-Good-Times</p>
+    </footer>
+
+    <script type="text/javascript" th:src="@{/js/signup.js}"></script>
+</div>
+</html>
