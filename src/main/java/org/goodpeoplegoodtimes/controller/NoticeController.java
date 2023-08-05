@@ -17,16 +17,18 @@ public class NoticeController {
 
     private final NoticeRepository noticeRepository;
 
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/notice_list")
     public String notice(Model model) {
         List<Notice> noticeList = this.noticeRepository.findAll();
         model.addAttribute("NoticeDto", new NoticeDto());
-        return "noticelist";
+        return "notice/notice_list";
     }
 
     @GetMapping("/form")
     public String noticeCreate() {
         return "notice_form";
     }
+
+
 
 }
