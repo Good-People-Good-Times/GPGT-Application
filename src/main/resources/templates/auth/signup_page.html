@@ -24,7 +24,7 @@
                 <!-- ========== 이메일 ========== -->
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="email">이메일</label>
+                        <label class="login_info" for="email">이메일</label>
                         <input type="email" class="form-control" id="email" th:field="*{email}"
                                placeholder="you@example.com" required>
                         <div class="invalid-feedback">
@@ -41,7 +41,7 @@
                 <!-- ========== 닉네임 ========== -->
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="nickname">닉네임</label>
+                        <label class="login_info" for="nickname">닉네임</label>
                         <input type="text" class="form-control" minlength="2" id="nickname" th:field="*{nickname}"
                                placeholder="닉네임을 2자 이상 입력해주세요." value="" required>
                         <div class="invalid-feedback">
@@ -57,14 +57,14 @@
 
                 <!-- ========== 비밀번호 ========== -->
                 <div class="mb-3">
-                    <label for="password">비밀번호</label>
+                    <label class="login_info" for="password">비밀번호</label>
                     <input type="password" class="form-control" id="password" minlength="8" th:field="*{password}"
                            placeholder="8자이상, 특수문자 포함"
                            value="" required>
                     <div class="invalid-feedback">비밀번호를 8자 이상 입력해주세요.</div>
                 </div>
                 <div class="mb-3">
-                    <label for="password2">비밀번호 확인</label>
+                    <label class="login_info" for="password2">비밀번호 확인</label>
                     <input type="password" class="form-control" id="password2" minlength="8"
                            placeholder="비밀번호를 다시 한 번 입력해주세요." value="" required>
                     <div class="invalid-feedback">비밀번호를 다시 한 번 입력해주세요.</div>

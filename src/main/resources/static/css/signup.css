@@ -53,3 +53,15 @@ a:active {
 h4 {
     font-weight: bold;
 }
+
+.login_info {
+    font-weight: bold;
+}
+
+.custom-control-label {
+    font-weight: bold;
+}
+
+.form-control {
+    font-weight: bold;
+}
