@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.goodpeoplegoodtimes.domain.Notice;
 import org.goodpeoplegoodtimes.dto.NoticeDto;
 import org.goodpeoplegoodtimes.repository.NoticeRepository;
+import org.goodpeoplegoodtimes.service.NoticeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,18 +16,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/notice")
 public class NoticeController {
 
-    private final NoticeRepository noticeRepository;
+    private final NoticeService noticeService;
 
     @GetMapping(value = "/notice_list")
     public String notice(Model model) {
-        List<Notice> noticeList = this.noticeRepository.findAll();
-        model.addAttribute("NoticeDto", new NoticeDto());
+        List<Notice> noticeList = this.noticeService.getList();
+        model.addAttribute("noticeList", noticeList);
         return "notice/notice_list";
     }
 
-    @GetMapping("/form")
+    @GetMapping("/notice_form")
     public String noticeCreate() {
-        return "notice_form";
+        return "notice/notice_form";
     }
 
 
