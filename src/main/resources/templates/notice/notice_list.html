@@ -1,0 +1,32 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}"/>
+</head>
+
+<div layout:fragment="content" class="container py-5">
+    <div class="input-form-backgroud row">
+        <div class="input-form col-md-12 mx-auto">
+            <h4 style="text-align: center;" class="mb-3">공지사항</h4>
+            <table>
+                <thead>
+                <tr>
+                    <th>글 번호</th>
+                    <th>제목</th>
+                    <th>작성 일시</th>
+                </tr>
+                </thead>
+                <body>
+                <tr th:each="notice : ${noticeList}">
+                    <td th:text="${notice.notice_id}"></td>
+                    <td th:text="${notice.subject}"></td>
+                    <td th:text="${notice.createDate}"></td>
+                </tr>
+                </body>
+            </table>
+        </div>
+    </div>
+</div>

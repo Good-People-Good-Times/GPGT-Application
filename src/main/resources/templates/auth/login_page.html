@@ -1,0 +1,58 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}"/>
+</head>
+
+<div layout:fragment="content" class="container py-5">
+    <div class="input-form-backgroud row">
+        <div class="input-form col-md-5 mx-auto">
+            <h4 style="text-align: center;" class="mb-3">로그인</h4>
+            <form th:action="@{example/example}" th:object="${example}" method="GET" class="validation-form" novalidate>
+
+                <br>
+                <div style="text-align: center"><img th:src="@{/img/logo.png}"/></div>
+                <br>
+
+                <div class="row">
+                    <div class="mb-3">
+                        <label for="email">이메일</label>
+                        <input type="email" class="form-control" id="email" placeholder="이메일을 입력해주세요!" required>
+                        <div class="invalid-feedback">
+                            이메일을 입력해주세요.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password">비밀번호</label>
+                    <input type="password" class="form-control" id="password" minlength="8" placeholder="비밀번호를 입력해주세요!(8자 이상)"
+                           value="" required>
+                    <div class="invalid-feedback">비밀번호를 8자 이상 입력해주세요.</div>
+                </div>
+
+                <a th:href="@{signup}">회원가입</a>
+                <span> / </span>
+                <a th:href="@{email}">이메일 찾기</a>
+                <span> / </span>
+                <a th:href="@{pw}">비밀번호 찾기</a>
+
+                <p></p>
+
+                <div style="text-align: center;" class="mb-4">
+                    <button class="button" type="submit">로그인</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <footer class="my-3 text-center text-small">
+        <p class="mb-1">&copy; Good-People-Good-Times</p>
+    </footer>
+
+    <script type="text/javascript" th:src="@{/js/signup.js}"></script>
+</div>
+</html>

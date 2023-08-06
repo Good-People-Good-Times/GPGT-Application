@@ -1,0 +1,25 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}"/>
+</head>
+<body>
+<div layout:fragment="content" class="container">
+  <h4 class="my-3 border-bottom pb-2">공지등록</h4>
+  <form th:action="@{/templates/notice}" method="post">
+    <div class="mb-3">
+      <label for="subject" class="form-label">제목</label>
+      <input type="text" name="subject" id="subject" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="content" class="form-label">내용</label>
+      <textarea name="content" id="content" class="form-control" rows="10"></textarea>
+    </div>
+    <input type="submit" value="저장하기" class="button">
+  </form>
+</div>
+</body>
+</html>
