@@ -10,23 +10,27 @@
 <div layout:fragment="content" class="container py-5">
     <div class="input-form-backgroud row">
         <div class="input-form col-md-12 mx-auto">
-            <h4 style="text-align: center;" class="mb-3">공지사항</h4>
-            <table>
-                <thead>
-                <tr>
-                    <th>글 번호</th>
-                    <th>제목</th>
-                    <th>작성 일시</th>
-                </tr>
-                </thead>
-                <body>
-                <tr th:each="notice : ${noticeList}">
-                    <td th:text="${notice.notice_id}"></td>
-                    <td th:text="${notice.subject}"></td>
-                    <td th:text="${notice.createDate}"></td>
-                </tr>
-                </body>
-            </table>
+            <div class="container my-3">
+                <h4 style="text-align: center;" class="mb-3">공지사항</h4>
+                <table class="table">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>작성일시</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="notice, loop : ${questionList}">
+                        <td th:text="${notice.count}"></td>
+                        <td>
+                            <a th:href="@{|/notice/detail/${notice.id}|}" th:text="${notice.subject}"></a>
+                        </td>
+                        <td th:text="${#temporals.format(notice.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
