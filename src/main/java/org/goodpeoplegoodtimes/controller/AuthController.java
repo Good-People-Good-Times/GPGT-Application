@@ -28,6 +28,13 @@ public class AuthController {
         return "auth/login_page";
     }
 
+
+    @GetMapping(value = "/login?error")
+    public String loginPage(Model model) {
+        model.addAttribute("errorMsg", "로그인에 실패했습니다.");
+        return "auth/login_page";
+    }
+
     @GetMapping(value = "/signup")
     public String signup(Model model) {
         model.addAttribute("form", new SignupForm());
