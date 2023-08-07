@@ -1,6 +1,7 @@
 package org.goodpeoplegoodtimes.domain;
 
 import lombok.*;
+import org.goodpeoplegoodtimes.domain.constant.Role;
 import org.goodpeoplegoodtimes.dto.SignupForm;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Builder
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
@@ -29,16 +31,21 @@ public class Member {
     @Column(nullable = false)
     private int imgNum;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+
     /**
      * Dto -> Entity 변환 메서드
      * @param signupForm
      */
-    public static Member of(SignupForm signupForm) {
+    public static Member of(SignupForm signupForm, String encodedPassword) {
         return Member.builder()
             .email(signupForm.getEmail())
-            .password(signupForm.getPassword())
+            .password(encodedPassword)
             .nickname(signupForm.getNickname())
             .imgNum(signupForm.getImgNum())
+            .role(Role.USER)
             .build();
     }
 
