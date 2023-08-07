@@ -1,3 +1,51 @@
-<nav th:fragment="header" class="navbar navbar-expand-lg navbar-light bg-gradient">
-    <h1>HEADER</h1>
+<nav th:fragment="header" class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">파티현황</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="makeParty">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a th:href="@{/party/party_form}" class="nav-link" href="#">파티생성</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="collapse navbar-collapse" id="scrapParty">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">스크랩</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="collapse navbar-collapse" id="notice">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a th:href="@{/notice/notice_list}" class="nav-link" href="#">공지사항</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="collapse navbar-collapse" id="myParty">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">내 파티</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="collapse navbar-collapse" id="logout">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">로그아웃</a>
+                </li>
+            </ul>
+        </div>
+
+        <button class="button" type="submit">프로필 이미지 넣어야 함</button>
+    </div>
 </nav>
