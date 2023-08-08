@@ -54,14 +54,56 @@ h4 {
     font-weight: bold;
 }
 
+
+.row1 {
+    margin-left: 17%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.row2 {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.button2 {
+    margin-left: 20px;
+    margin-top: 3px;
+    background-color: white;
+    color: black;
+    border-radius: 8%;
+    border-color: black;
+    border-width: 1px;
+}
+
 .login_info {
-    font-weight: bold;
+    font-weight: bolder;
 }
 
 .custom-control-label {
-    font-weight: bold;
+    font-weight: bolder;
 }
 
-.form-control {
-    font-weight: bold;
+.row3 {
+    text-align: center;
+}
+
+.row4 {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-left: 7%;
+}
+
+.button3 {
+    margin-left: 7%;
+}
+
+.row5 {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-right: 10%;
 }
