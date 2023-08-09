@@ -1,7 +1,9 @@
 package org.goodpeoplegoodtimes.domain;
 
 import lombok.*;
-import org.goodpeoplegoodtimes.dto.PartyDto;
+import org.goodpeoplegoodtimes.domain.constant.Category;
+import org.goodpeoplegoodtimes.domain.constant.PartyStatus;
+import org.goodpeoplegoodtimes.dto.party.PartyForm;
 
 import javax.persistence.*;
 
@@ -15,34 +17,37 @@ public class Party {
     @Id
     @Column(name = "party_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long party_id;
+    private Long id;
 
-    @Column
+    @Column(name = "party_title")
     private String title;
 
-    @Column
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private Category category;
 
-    @Column
-    private String date;
+    @Enumerated(EnumType.STRING)
+    private PartyStatus status;
 
-    @Column
-    private String people;
-
-    @Column
-    private String place;
-
-    @Column
+    @Lob
     private String content;
 
-    public static Party of(PartyDto partyDto) {
+    @ManyToOne
+    @JoinColumn(name = "party_owner")
+    private Member owner;
+
+
+    /**
+     * @param partyForm -> 사용자로부터 입력받은 폼
+     * @param member    -> 파티 소유자.
+     */
+    public static Party of(PartyForm partyForm, Member member) {
         return Party.builder()
-                .title(partyDto.getTitle())
-                .type(partyDto.getType())
-                .date(partyDto.getDate())
-                .people(partyDto.getPeople())
-                .place(partyDto.getPlace())
-                .content(partyDto.getContent())
-                .build();
+            .title(partyForm.getTitle())
+            .category(partyForm.getCategory())
+            .status(PartyStatus.RECRUITING)
+            .content(partyForm.getContent())
+            .owner(member)
+            .build();
     }
+
 }
