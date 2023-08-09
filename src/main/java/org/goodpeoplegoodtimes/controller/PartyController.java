@@ -1,6 +1,5 @@
 package org.goodpeoplegoodtimes.controller;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.goodpeoplegoodtimes.repository.PartyRepository;
 import org.springframework.stereotype.Controller;
@@ -13,6 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PartyController {
 
     private final PartyRepository PartyRepository;
+
+    @GetMapping(value = "/party_list")
+    public String Party() {
+        return "party/party_list";
+    }
 
     @GetMapping(value = "/party_form")
     public String makeParty() {

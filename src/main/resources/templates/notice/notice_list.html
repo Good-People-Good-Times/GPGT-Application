@@ -7,17 +7,18 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}"/>
 </head>
 
+<body>
 <div layout:fragment="content" class="container py-5">
     <div class="input-form-backgroud row">
         <div class="input-form col-md-12 mx-auto">
             <div class="container my-3">
                 <h4 style="text-align: center;" class="mb-3">공지사항</h4>
                 <table class="table">
-                    <thead class="table-dark">
-                    <tr>
-                        <th>번호</th>
-                        <th>제목</th>
-                        <th>작성일시</th>
+                    <thead class="bg-dark text-white bg-opacity-75">
+                    <tr style="text-align: center">
+                        <th class="border border-2 border-secondary-subtle">번호</th>
+                        <th class="border border-2 border-secondary-subtle">제목</th>
+                        <th class="border border-2 border-secondary-subtle">작성일시</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -34,3 +35,4 @@
         </div>
     </div>
 </div>
+</body>
