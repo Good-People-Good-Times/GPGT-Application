@@ -122,3 +122,11 @@ h4 {
     text-align: center;
     margin-right: 10%;
 }
+
+.img {
+    display: block;
+    max-width: 350px;
+    height: auto;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+}
