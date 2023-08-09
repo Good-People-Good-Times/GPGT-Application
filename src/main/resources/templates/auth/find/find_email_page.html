@@ -9,36 +9,54 @@
 
 <div layout:fragment="content" class="container py-5">
     <div class="input-form-backgroud row">
-        <div class="input-form col-md-12 mx-auto">
+        <div class="input-form col-md-5 mx-auto">
             <h4 style="text-align: center;" class="mb-3">이메일 찾기</h4>
-            <div class="row">
+            <br>
+            <div>
+            <div class="row4">
                 <div class="col-md-6 mb-3">
+                    <div>
+                        <label class="login_info" for = "nickname">닉네임</label>
+                    </div>
                     <br>
-                    <label class="login_info" for = "nickname">닉네임</label>
-                    <input type="nickname" class="form-control" id="nickname" required>
+                    <div>
+                        <input type="text" name="nickname" class="form-control" id="nickname" placeholder="닉네임을 입력해주세요." required>
+                    </div>
                     <div class="invalid-feedback">
                         닉네임을 입력해주세요.
                     </div>
                 </div>
-                <div class="col-md-6 mb-3">
+                <div class="button3">
                     <br>
                     <br>
                     <button class="button" type="button">확인</button>
                 </div>
-
+            </div>
+                <div>
+                <div class="row4">
                 <div class="col-md-6 mb-3">
+                    <div>
+                        <br>
                     <label class="login_info" for="phonenumber">휴대전화</label>
+                    </div>
+                    <br>
+                    <div>
                     <input type="phonenumber" class="form-control" id="phonenumber"
                            placeholder="010-0000-0000" required>
+                    </div>
                     <div class="invalid-feedback">
                         휴대전화를 입력해주세요
                     </div>
                 </div>
-                <div class="col-md-6 mb-3">
+                <div class="button3">
                     <br>
-                    <button class="button" type="button">PASS로 인증하기</button>
+                    <br>
+                    <br>
+                    <button class="button" type="button">인증</button>
                     <div class="invalid-feedback">PASS 인증이 되지 않나요? </div>
                 </div>
+            </div>
+            </div>
             </div>
             </form>
         </div>
