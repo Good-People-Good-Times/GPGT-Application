@@ -129,3 +129,11 @@ h4 {
     margin: 0 auto 20px;
     border-radius: 50%;
 }
+.page-item.active .page-link {
+    z-index: 1;
+    color: #555;
+    font-weight:bold;
+    background-color: #f1f1f1;
+    border-color: #ccc;
+
+}
