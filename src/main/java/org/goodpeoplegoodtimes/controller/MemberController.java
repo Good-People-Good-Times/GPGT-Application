@@ -10,8 +10,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @RequestMapping(value = "/members")
 public class MemberController {
-
     private final MemberService memberService;
-
-
 }
