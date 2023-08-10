@@ -32,6 +32,15 @@ body {
     box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
 }
 
+.login_button {
+    background-color: #9966FF;
+    color: white;
+    border-radius: 13%;
+    border-color: #9966FF;
+    border-width: 4px;
+    width: 320px;
+}
+
 .button {
     background-color: #9966FF;
     color: white;
