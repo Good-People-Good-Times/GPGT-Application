@@ -2,6 +2,7 @@ package org.goodpeoplegoodtimes.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -11,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @Configuration
+@EnableJpaAuditing
 @EnableWebSecurity
 public class AppConfig extends WebSecurityConfigurerAdapter {
 
@@ -29,21 +31,18 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
                     .usernameParameter("email")
                     .passwordParameter("password")
                 .defaultSuccessUrl("/")
-
             .and()
-
+                .exceptionHandling()
+                    .accessDeniedPage("/auth/login")
+            .and()
             .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/auth/login").permitAll()
-
             .and()
-
             .authorizeRequests()
-                .antMatchers("/members/**").permitAll()
-                .antMatchers("/").permitAll()
-
+                .antMatchers("/party/**").authenticated()
+                .antMatchers("/members/**", "/").permitAll()
             .and()
-
             .httpBasic().and()
             .csrf().disable();
     }
