@@ -8,135 +8,50 @@
 </head>
 
 <body>
-<div layout:fragment="content" class="container py-5">
+<div class="container py-5" layout:fragment="content">
     <div class="input-form-backgroud row">
         <div class="party-list col-md-12 mx-auto">
             <h4 style="text-align: center;" class="mb-3">파티 현황</h4>
-            <div style="display: flex">
-                <div class="container my-3">
-                    <h4 style="text-align: center; padding-top: 15px; padding-bottom: 15px; background-color: #9966FF;" class="mb-3 border border-2 border-black">택시 파티</h4>
-                    <div style="white-space: nowrap; overflow: hidden; margin-top: 10px; padding: 10px" class="border border-2 border-black">
-                        <a class="link-opacity-100-hover" href="#">
-                            <p>- 제목</p>
-                            <div style="padding-left: 15px">
-                                <span>날짜</span>
-                                <span>인원 수</span>
-                                <span>장소</span>
-                                <span>스크랩</span>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div style="white-space: nowrap; overflow: hidden; margin-top: 10px; padding: 10px" class="border border-2 border-black">
-                        <a class="link-opacity-100-hover" href="#">
-                            <p>- 제목</p>
-                            <div style="padding-left: 15px">
-                                <span>날짜</span>
-                                <span>인원 수</span>
-                                <span>장소</span>
-                                <span>스크랩</span>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div style="text-align: center">
-                        <button style="margin-top: 10px" class="button" type="button" href="#">더 보기</button>
-                    </div>
-                </div>
-                <div class="container my-3">
-                    <h4 style="text-align: center; padding-top: 15px; padding-bottom: 15px" class="mb-3 border border-2 border-black">택시 파티</h4>
-                    <div style="white-space: nowrap; overflow: hidden; margin-top: 10px; padding: 10px" class="border border-2 border-black">
-                        <a class="link-opacity-100-hover" href="#">
-                            <p>- 제목</p>
-                            <div style="padding-left: 15px">
-                                <span>날짜</span>
-                                <span>인원 수</span>
-                                <span>장소</span>
-                                <span>스크랩</span>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div style="white-space: nowrap; overflow: hidden; margin-top: 10px; padding: 10px" class="border border-2 border-black">
-                        <a class="link-opacity-100-hover" href="#">
-                            <p>- 제목</p>
-                            <div style="padding-left: 15px">
-                                <span>날짜</span>
-                                <span>인원 수</span>
-                                <span>장소</span>
-                                <span>스크랩</span>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div style="text-align: center">
-                        <button style="margin-top: 10px" class="button" type="button" href="#">더 보기</button>
+            <div th:each="row : ${#numbers.sequence(0, 3)}" class="row">
+                <div th:each="party, iterStat : ${parties}" class="col-md-6"
+                     th:if="${iterStat.index >= row * 2} and ${iterStat.index < (row + 1) * 2}">
+                    <div class="container my-3">
+                        <h4 style="text-align: center; padding-top: 15px; padding-bottom: 15px; background-color: #9966FF;"
+                            class="mb-3 border border-2 border-black" th:text="${party.category}"></h4>
+                        <div style="white-space: nowrap; overflow: hidden; margin-top: 10px; padding: 10px"
+                             class="border border-2 border-black">
+                            <a class="link-opacity-100-hover" href="#">
+                                <p th:text="'- ' + ${party.title}"></p>
+                                <div style="padding-left: 15px">
+                                    <span>날짜: </span><span th:text="${party.dateTime}"></span>
+                                    <span>파티 상태: </span><span th:text="${party.status}"></span>
+                                    <span>파티 장르: </span><span th:text="${party.category}"></span>
+                                    <span>인원 수: </span><span>1명</span>
+                                    <span>장소: </span><span>경기도 용인시</span>
+                                    <span>스크랩: </span><span>스크랩</span>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div style="display: flex">
-                <div class="container my-3">
-                    <h4 style="text-align: center; padding-top: 15px; padding-bottom: 15px" class="mb-3 border border-2 border-black">택시 파티</h4>
-                    <div style="white-space: nowrap; overflow: hidden; margin-top: 10px; padding: 10px" class="border border-2 border-black">
-                        <a class="link-opacity-100-hover" href="#">
-                            <p>- 제목</p>
-                            <div style="padding-left: 15px">
-                                <span>날짜</span>
-                                <span>인원 수</span>
-                                <span>장소</span>
-                                <span>스크랩</span>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div style="white-space: nowrap; overflow: hidden; margin-top: 10px; padding: 10px" class="border border-2 border-black">
-                        <a class="link-opacity-100-hover" href="#">
-                            <p>- 제목</p>
-                            <div style="padding-left: 15px">
-                                <span>날짜</span>
-                                <span>인원 수</span>
-                                <span>장소</span>
-                                <span>스크랩</span>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div style="text-align: center">
-                        <button style="margin-top: 10px" class="button" type="button" href="#">더 보기</button>
-                    </div>
-                </div>
-                <div class="container my-3">
-                    <h4 style="text-align: center; padding-top: 15px; padding-bottom: 15px" class="mb-3 border border-2 border-black">택시 파티</h4>
-                    <div style="white-space: nowrap; overflow: hidden; margin-top: 10px; padding: 10px" class="border border-2 border-black">
-                        <a class="link-opacity-100-hover" href="#">
-                            <p>- 제목</p>
-                            <div style="padding-left: 15px">
-                                <span>날짜</span>
-                                <span>인원 수</span>
-                                <span>장소</span>
-                                <span>스크랩</span>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div style="white-space: nowrap; overflow: hidden; margin-top: 10px; padding: 10px" class="border border-2 border-black">
-                        <a class="link-opacity-100-hover" href="#">
-                            <p>- 제목</p>
-                            <div style="padding-left: 15px">
-                                <span>날짜</span>
-                                <span>인원 수</span>
-                                <span>장소</span>
-                                <span>스크랩</span>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div style="text-align: center">
-                        <button style="margin-top: 10px" class="button" type="button" href="#">더 보기</button>
-                    </div>
-                </div>
+            <!-- Pagination -->
+            <div class="pagination text-center">
+                <ul class="pagination justify-content-center">
+                    <li th:if="${currentPage != 0}" class="page-item">
+                        <a class="page-link" th:href="@{/party?page=__${currentPage}__}">이전</a>
+                    </li>
+                    <li th:each="i : ${#numbers.sequence(0, totalPages)}" class="page-item"
+                        th:classappend="${i == currentPage} ? 'active'">
+                        <a class="page-link" th:href="@{/party?page=__${i}__}" th:text="${i + 1}"></a>
+                    </li>
+                    <li th:if="${currentPage + 1 < totalPages}" class="page-item">
+                        <a class="page-link" th:href="@{/party?page=__${currentPage+1}__}">다음</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
 </div>
 </body>
+</html>
