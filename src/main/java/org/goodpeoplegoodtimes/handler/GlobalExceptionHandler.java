@@ -2,8 +2,8 @@ package org.goodpeoplegoodtimes.handler;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.goodpeoplegoodtimes.exception.EmailAlreadyExistsException;
-import org.goodpeoplegoodtimes.exception.NicknameAlreadyExistsException;
+import org.goodpeoplegoodtimes.exception.member.EmailAlreadyExistsException;
+import org.goodpeoplegoodtimes.exception.member.NicknameAlreadyExistsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 

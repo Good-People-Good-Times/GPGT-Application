@@ -1,4 +1,4 @@
-package org.goodpeoplegoodtimes.dto.party;
+package org.goodpeoplegoodtimes.domain.dto.party.request;
 
 import lombok.Data;
 import org.goodpeoplegoodtimes.domain.constant.Category;

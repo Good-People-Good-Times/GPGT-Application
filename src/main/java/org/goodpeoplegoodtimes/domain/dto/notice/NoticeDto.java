@@ -1,4 +1,4 @@
-package org.goodpeoplegoodtimes.dto;
+package org.goodpeoplegoodtimes.domain.dto.notice;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

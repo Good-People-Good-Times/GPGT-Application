@@ -1,4 +1,4 @@
-package org.goodpeoplegoodtimes.dto;
+package org.goodpeoplegoodtimes.domain.dto.auth;
 
 import lombok.*;
 
@@ -7,6 +7,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SignupForm {
 
     @Email(message = "이메일 형식을 올바르게 입력해 주세요.")

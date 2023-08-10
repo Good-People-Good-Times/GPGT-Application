@@ -1,9 +1,10 @@
 package org.goodpeoplegoodtimes.domain;
 
 import lombok.*;
+import org.goodpeoplegoodtimes.domain.base.BaseEntity;
 import org.goodpeoplegoodtimes.domain.constant.Category;
 import org.goodpeoplegoodtimes.domain.constant.PartyStatus;
-import org.goodpeoplegoodtimes.dto.party.PartyForm;
+import org.goodpeoplegoodtimes.domain.dto.party.request.PartyForm;
 
 import javax.persistence.*;
 
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Party {
+public class Party extends BaseEntity {
 
     @Id
     @Column(name = "party_id")
@@ -36,10 +37,6 @@ public class Party {
     private Member owner;
 
 
-    /**
-     * @param partyForm -> 사용자로부터 입력받은 폼
-     * @param member    -> 파티 소유자.
-     */
     public static Party of(PartyForm partyForm, Member member) {
         return Party.builder()
             .title(partyForm.getTitle())

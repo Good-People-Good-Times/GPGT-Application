@@ -1,7 +1,8 @@
 package org.goodpeoplegoodtimes.domain;
 
 import lombok.*;
-import org.goodpeoplegoodtimes.dto.NoticeDto;
+import org.goodpeoplegoodtimes.domain.base.BaseEntity;
+import org.goodpeoplegoodtimes.domain.dto.notice.NoticeDto;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Notice {
+public class Notice extends BaseEntity {
     
     @Id
     @Column(name = "notice_id")
@@ -27,11 +28,8 @@ public class Notice {
 
     @CreatedDate
     private LocalDateTime date;
-    
-    /**
-     * Dto -> Entity 변환 메서드
-     * @param NoticeDto
-     */
+
+
     public static Notice of(NoticeDto noticeDto) {
         return Notice.builder()
                 .subject(noticeDto.getSubject())
