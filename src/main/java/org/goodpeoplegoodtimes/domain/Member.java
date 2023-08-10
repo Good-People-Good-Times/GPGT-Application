@@ -1,8 +1,9 @@
 package org.goodpeoplegoodtimes.domain;
 
 import lombok.*;
+import org.goodpeoplegoodtimes.domain.base.BaseEntity;
 import org.goodpeoplegoodtimes.domain.constant.Role;
-import org.goodpeoplegoodtimes.dto.SignupForm;
+import org.goodpeoplegoodtimes.domain.dto.auth.SignupForm;
 
 import javax.persistence.*;
 
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @Column(name = "member_id")
@@ -35,10 +36,6 @@ public class Member {
     private Role role;
 
 
-    /**
-     * Dto -> Entity 변환 메서드
-     * @param signupForm
-     */
     public static Member of(SignupForm signupForm, String encodedPassword) {
         return Member.builder()
             .email(signupForm.getEmail())

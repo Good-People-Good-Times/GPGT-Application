@@ -3,8 +3,6 @@ package org.goodpeoplegoodtimes.controller;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.goodpeoplegoodtimes.domain.Notice;
-import org.goodpeoplegoodtimes.dto.NoticeDto;
-import org.goodpeoplegoodtimes.repository.NoticeRepository;
 import org.goodpeoplegoodtimes.service.NoticeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

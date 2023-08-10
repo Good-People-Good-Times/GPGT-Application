@@ -2,7 +2,7 @@ package org.goodpeoplegoodtimes.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import org.goodpeoplegoodtimes.dto.SignupForm;
+import org.goodpeoplegoodtimes.domain.dto.auth.SignupForm;
 import org.goodpeoplegoodtimes.service.MemberService;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.stereotype.Controller;
@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.stream.Collectors;
@@ -22,18 +23,14 @@ public class AuthController {
 
     private final MemberService memberService;
 
-
     @GetMapping(value = "/login")
-    public String loginPage() {
+    public String loginPage(@RequestParam(name = "error", required = false) String error, Model model) {
+        if (error != null) {
+            model.addAttribute("errorMsg", "로그인에 실패했습니다.");
+        }
         return "auth/login_page";
     }
 
-
-    @GetMapping(value = "/login?error")
-    public String loginPage(Model model) {
-        model.addAttribute("errorMsg", "로그인에 실패했습니다.");
-        return "auth/login_page";
-    }
 
     @GetMapping(value = "/signup")
     public String signup(Model model) {

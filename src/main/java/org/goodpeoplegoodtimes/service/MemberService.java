@@ -3,9 +3,9 @@ package org.goodpeoplegoodtimes.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.goodpeoplegoodtimes.domain.Member;
-import org.goodpeoplegoodtimes.dto.SignupForm;
-import org.goodpeoplegoodtimes.exception.EmailAlreadyExistsException;
-import org.goodpeoplegoodtimes.exception.NicknameAlreadyExistsException;
+import org.goodpeoplegoodtimes.domain.dto.auth.SignupForm;
+import org.goodpeoplegoodtimes.exception.member.EmailAlreadyExistsException;
+import org.goodpeoplegoodtimes.exception.member.NicknameAlreadyExistsException;
 import org.goodpeoplegoodtimes.exception.member.EmailNotFoundException;
 import org.goodpeoplegoodtimes.repository.MemberRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -54,7 +54,6 @@ public class MemberService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Member member = getMember(email);
-        System.out.println(member);
         return User.builder()
             .username(member.getEmail())
             .password(member.getPassword())
