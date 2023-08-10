@@ -1,12 +1,11 @@
 body {
     min-height: 100vh;
-    background: linear-gradient(#9966FF, #c5d7f2);
+    background-color: rgb(217, 214, 243);
 }
 
 .input-form {
     max-width: 680px;
-
-    margin-top: 10px;
+    margin-top: 80px;
     padding: 32px;
 
     background: #fff;
@@ -21,7 +20,7 @@ body {
 .party-list {
     max-width: 900px;
 
-    margin-top: 10px;
+    margin-top: 80px;
     padding: 32px;
 
     background: #fff;
