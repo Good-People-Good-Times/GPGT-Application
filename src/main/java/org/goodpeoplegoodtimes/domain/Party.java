@@ -41,7 +41,7 @@ public class Party extends BaseEntity {
         return Party.builder()
             .title(partyForm.getTitle())
             .category(partyForm.getCategory())
-            .status(PartyStatus.RECRUITING)
+            .status(PartyStatus.모집중)
             .content(partyForm.getContent())
             .owner(member)
             .build();
