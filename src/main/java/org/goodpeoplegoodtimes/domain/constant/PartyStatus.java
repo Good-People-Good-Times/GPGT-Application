@@ -4,5 +4,5 @@ import lombok.Getter;
 
 @Getter
 public enum PartyStatus {
-    RECRUITING, CLOSED;
+    모집중, 마감;
 }
