@@ -35,6 +35,16 @@ public class PartyController {
         return "party/party_form";
     }
 
+    @GetMapping(value = "/scrap")
+    public String scrapParty() {
+      return "scrap/scrap";
+    }
+
+    @GetMapping(value = "/party-list-detail")
+    public String detailParty() {
+      return "party/party-list-detail";
+    }
+  
     @GetMapping("/my-party")
     public String MyPartyList() {
         return "party/myparty/my-party";
