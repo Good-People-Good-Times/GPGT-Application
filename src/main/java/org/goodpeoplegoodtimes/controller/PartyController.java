@@ -2,7 +2,6 @@ package org.goodpeoplegoodtimes.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.goodpeoplegoodtimes.domain.dto.party.response.PartyListResponseDto;
-import org.goodpeoplegoodtimes.repository.PartyRepository;
 import org.goodpeoplegoodtimes.service.PartyService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,15 +30,28 @@ public class PartyController {
         return "party/party_list";
     }
 
-
     @GetMapping(value = "/party_form")
     public String createParty() {
         return "party/party_form";
     }
 
     @GetMapping(value = "/scrap")
-    public String scrapParty() {return "scrap/scrap";}
+    public String scrapParty() {
+      return "scrap/scrap";
+    }
 
     @GetMapping(value = "/party-list-detail")
-    public String detailParty() {return "party/party-list-detail";}
+    public String detailParty() {
+      return "party/party-list-detail";
+    }
+  
+    @GetMapping("/my-party")
+    public String MyPartyList() {
+        return "party/myparty/my-party";
+    }
+
+    @GetMapping("/party-change")
+    public String changeParty() {
+        return "party/change/party-change";
+    }
 }
