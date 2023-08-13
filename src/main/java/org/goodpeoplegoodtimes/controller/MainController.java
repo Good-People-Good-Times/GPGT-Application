@@ -11,6 +11,6 @@ public class MainController {
 
     @GetMapping
     public String mainPage() {
-        return "redirect:/party";
+        return "redirect:/party/party_list";
     }
 }
