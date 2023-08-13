@@ -54,4 +54,7 @@ public class PartyController {
     public String changeParty() {
         return "party/change/party-change";
     }
+
+    @GetMapping("/party-post")
+    public String partyPost() {return "party/party-post";}
 }
