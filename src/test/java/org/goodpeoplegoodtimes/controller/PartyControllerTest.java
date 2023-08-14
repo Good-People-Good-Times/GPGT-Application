@@ -41,7 +41,7 @@ class PartyControllerTest {
         PageRequest pageable = PageRequest.of(page, 8);
         Page<PartyListResponseDto> partyPage = new PageImpl<>(Collections.emptyList(), pageable, 0);
 
-        given(partyService.getPartyList(pageable)).willReturn(partyPage);
+        given(partyService.getPartyList(null, pageable)).willReturn(partyPage);
 
         // When & Then
         mockMvc.perform(get("/party").param("page", String.valueOf(page)))

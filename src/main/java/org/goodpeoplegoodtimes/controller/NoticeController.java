@@ -17,17 +17,14 @@ public class NoticeController {
     private final NoticeService noticeService;
 
     @GetMapping(value = "/notice_list")
-    public String notice(Model model) {
+    public String displayNoticeList(Model model) {
         List<Notice> noticeList = this.noticeService.getList();
         model.addAttribute("noticeList", noticeList);
         return "notice/notice_list";
     }
 
     @GetMapping("/notice_form")
-    public String noticeCreate() {
+    public String displayNoticeCreationForm() {
         return "notice/notice_form";
     }
-
-
-
 }

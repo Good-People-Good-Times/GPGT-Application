@@ -14,12 +14,12 @@ public class ProfileController {
     private final MemberService memberService;
 
     @GetMapping(value = "/my_profile")
-    public String myProfile() {
+    public String displayMyProfile() {
         return "profile/my_profile";
     }
 
     @GetMapping(value = "/your_profile")
-    public String yourProfile() {
+    public String displayOtherUserProfile() {
         return "profile/your_profile";
     }
 

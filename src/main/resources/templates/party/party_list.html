@@ -12,31 +12,55 @@
     <div class="input-form-backgroud row">
         <div class="party-list col-md-12 mx-auto">
             <h4 style="text-align: center;" class="mb-3">파티 현황</h4>
+            <div class="mb-3" style="text-align: center;">
+                <form th:action="@{/party/search}" method="get">
+                    <input type="text" name="query" placeholder="검색..." class="form-control" style="display: inline-block; width: 70%;">
+                    <button type="submit" class="button">검색</button>
+                </form>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-left: 17px; margin-right: 17px">
+                <div th:each="party, iterStat : ${parties}" style="margin-left: 17px; margin-right: 17px">
+                    <button class="button4" style="text-align: center" th:text="${party.category}"></button>
+                </div>
+            </div>
             <div th:each="row : ${#numbers.sequence(0, 3)}" class="row">
                 <div th:each="party, iterStat : ${parties}" class="col-md-6"
                      th:if="${iterStat.index >= row * 2} and ${iterStat.index < (row + 1) * 2}">
                     <div class="container my-3">
-                        <h4 style="text-align: center; padding-top: 15px; padding-bottom: 15px; background-color: #9966FF;"
-                            class="mb-3 border border-2 border-black" th:text="${party.category}"></h4>
-                        <div style="white-space: nowrap; overflow: hidden; margin-top: 10px; padding: 10px"
+                        <h4 style="text-align: center; padding-top: 15px; padding-bottom: 15px; background-color: rgba(193, 176, 239, 0.97); border-radius: 5px; border-width: 3px"
+                            class="mb-3 border border-2" th:text="${party.category}"></h4>
+                        <div style="white-space: nowrap; overflow: hidden; margin-top: 10px; padding: 10px; border-radius: 5px"
                              class="border border-2 border-black">
-                            <a class="link-opacity-100-hover" href="#">
-                                <p th:text="'- ' + ${party.title}"></p>
+                            <a class="link-opacity-100-hover" th:href="@{/party/{id}(id=${party.id})}">
+
+                            <span style="font-weight: bold; padding-top: 10px; padding-left: 15px" th:text="${party.title}"></span>
+                                <hr>
                                 <div style="padding-left: 15px">
-                                    <span>날짜: </span><span th:text="${party.dateTime}"></span>
-                                    <span>파티 상태: </span><span th:text="${party.status}"></span>
-                                    <span>파티 장르: </span><span th:text="${party.category}"></span>
-                                    <span>인원 수: </span><span>1명</span>
-                                    <span>장소: </span><span>경기도 용인시</span>
-                                    <span>스크랩: </span><span>스크랩</span>
+                                    <div>
+                                        <div>
+                                            <span>작성일 : </span><span th:text="${#temporals.format(party.dateTime, 'MM-dd HH:mm:ss')}"></span>
+                                        </div>
+                                        <div>
+                                            <span>장소 : </span><span>경기도 용인시</span>
+                                        </div>
+                                        <div>
+                                            <span>인원수 : </span><span>1명</span>
+                                        </div>
+                                        <div style="display: flex; justify-content: right">
+                                            <span th:text="${party.status}"></span>
+                                        </div>
+                                        <div style="display: flex; justify-content: right; margin-right: 15px">
+                                            <span>♡</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Pagination -->
-            <div class="pagination text-center">
+            <div>
+                <br>
                 <ul class="pagination justify-content-center">
                     <li th:if="${currentPage != 0}" class="page-item">
                         <a class="page-link" th:href="@{/party?page=__${currentPage}__}">이전</a>

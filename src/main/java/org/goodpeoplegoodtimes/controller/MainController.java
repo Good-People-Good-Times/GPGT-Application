@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
 
     @GetMapping
-    public String mainPage() {
+    public String root() {
         return "redirect:/party";
     }
 }

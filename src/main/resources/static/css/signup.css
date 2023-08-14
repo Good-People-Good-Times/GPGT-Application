@@ -1,12 +1,11 @@
 body {
     min-height: 100vh;
-    background: linear-gradient(#9966FF, #c5d7f2);
+    background-color: rgb(217, 214, 243);
 }
 
 .input-form {
     max-width: 680px;
-
-    margin-top: 10px;
+    margin-top: 80px;
     padding: 32px;
 
     background: #fff;
@@ -21,7 +20,7 @@ body {
 .party-list {
     max-width: 900px;
 
-    margin-top: 10px;
+    margin-top: 80px;
     padding: 32px;
 
     background: #fff;
@@ -31,6 +30,15 @@ body {
     -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
     box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
+}
+
+.login_button {
+    background-color: rgba(193, 176, 239, 0.97);
+    color: white;
+    font-weight: bold;
+    border-color: #9d9d9d;
+    border-radius: 5px;
+    width: 320px;
 }
 
 .button {
@@ -129,4 +137,24 @@ h4 {
     height: auto;
     margin: 0 auto 20px;
     border-radius: 50%;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #555;
+    font-weight:bold;
+    background-color: #f1f1f1;
+    border-color: #ccc;
+}
+
+.page {
+    font-size: 18px;
+    line-height: 180%;
+}
+
+.button4 {
+    background-color: rgba(193, 176, 239, 0.97);
+    color: white;
+    border-radius: 5px;
+    border-color: white;
 }

@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class PartyListResponseDto {
 
+    private Long id;
     private String title;
     private Category category;
     private PartyStatus status;

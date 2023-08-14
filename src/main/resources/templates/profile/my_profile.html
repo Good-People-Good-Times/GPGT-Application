@@ -3,37 +3,40 @@
       layout:decorate="~{layouts/layout}">
 
 <head>
-  <link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}"/>
 </head>
 
 <div layout:fragment="content" class="container py-5">
-  <div class="input-form-backgroud row">
-    <div class="input-form col-md-5 mx-auto">
-        <br>
-        <div style="text-align: center"><img th:src="@{/img/character.png}"/></div>
-        <br>
+    <div class="input-form-background row">
+        <div class="input-form col-md-5 mx-auto">
+            <h4 style="text-align: center;" class="mb-3">내 프로필</h4>
+            <br>
+            <div style="text-align: center"><img th:src="@{/img/character.png}" width="400px"/></div>
+            <br>
 
-        <div class="row2">
-          <div class="nickname">
-            <p>닉네임: </p>
-          </div>
+            <div class="page" style="text-align: center">
+                <div class="nickname">
+                <b>닉네임: </b><span>안녕</span>
+                <img th:src="@{/img/red.png}" width="25px"/>
+                </div>
 
-          <div class="email">
-            <p>이메일: </p>
-          </div>
+                <div class="email">
+                <b>이메일: </b><span>test1@test.com</span>
+                </div>
 
-          <div class="password">
-            <p>비밀번호: </p>
-          </div>
+                <div class="password">
+                <b>비밀번호: </b><span>123123123</span>
+                <button class="button2" type="button">수정</button>
+                </div>
 
-          <div class="endparty">
-            <p> 지금까지 완료한 파티 수: </p>
-          </div>
+                <div class="endparty">
+                <b>지금까지 완료한 파티 수: </b><span>10</span>
+                </div>
+            </div>
+
         </div>
-
     </div>
-  </div>
 
-  <script type="text/javascript" th:src="@{/js/signup.js}"></script>
+    <script type="text/javascript" th:src="@{/js/signup.js}"></script>
 </div>
 </html>
