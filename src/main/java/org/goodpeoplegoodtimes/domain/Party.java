@@ -32,7 +32,7 @@ public class Party extends BaseEntity {
     @Lob
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "party_owner")
     private Member owner;
 
@@ -41,7 +41,7 @@ public class Party extends BaseEntity {
         return Party.builder()
             .title(partyForm.getTitle())
             .category(partyForm.getCategory())
-            .status(PartyStatus.모집중)
+            .status(PartyStatus.RECRUITING)
             .content(partyForm.getContent())
             .owner(member)
             .build();
