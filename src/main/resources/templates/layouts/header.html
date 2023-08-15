@@ -1,40 +1,42 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<header th:fragment="header" class="border-top py-1" >
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<header th:fragment="header" class="border-top py-1">
     <head>
         <title>좋사좋시</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" type="text/css" th:href="@{/css/nav.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/css/nav.css}"/>
         <script th:src="@{/js/nav.js}" defer></script>
     </head>
-
     <body>
     <nav class="navbar fixed-top">
-
-        <div class="navbar_logo">
-            <img th:src="@{/img/logo.png}" width="60px"/>
-            <b>좋사좋시</b>
-        </div>
+        <a th:href="@{/}">
+            <div class="navbar_logo">
+                <img th:src="@{/img/logo.png}" width="60px"/>
+                <b>좋사좋시</b>
+            </div>
+        </a>
 
         <ul class="navbar_menu">
-            <li><a th:href="@{/party/party_list}">파티현황</a></li>
-            <li><a th:href="@{/party/party_form}">파티생성</a></li>
-            <li><a th:href="@{/party/scrap}">스크랩</a></li>
+            <li><a th:href="@{/party}">파티리스트</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/party/create}">파티생성</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/party/scrap}">스크랩</a></li>
             <li><a th:href="@{/notice/notice_list}">공지사항</a></li>
-            <li><a th:href="@{/party/my-party}">내 파티</a></li>
-            <li><a th:href="@{/logout}">로그아웃</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/party/my-party}">내 파티</a></li>
         </ul>
-
-        <div class="navbar_my">
-            <a th:href="@{/profile/my_profile}">
-                <img th:src="@{/img/character.png}" width="60px"/>
+        <div sec:authorize="isAnonymous()" class="navbar_menu small" style="margin-right: 5px">
+            <a th:href="@{/auth/login}">
+                <li>로그인</li>
             </a>
         </div>
-
+        <div sec:authorize="isAuthenticated()" class="navbar_my">
+            <a th:href="@{/profile/my_profile}">
+                <img th:src="@{/img/profile/1.png}" width="60px"/>
+            </a>
+        </div>
         <a href="" class="navbar_toogleBtn">
             <img th:src="@{/img/bar.png}" width="50px"/>
         </a>
-
     </nav>
     </body>
 </header>

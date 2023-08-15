@@ -10,10 +10,10 @@ import java.time.LocalDateTime;
 
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class PartyDetailResponseDto {
 
+    private Long id;
     private String title;
     private Category category;
     private PartyStatus status;

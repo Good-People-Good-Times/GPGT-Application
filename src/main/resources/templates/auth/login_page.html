@@ -19,9 +19,7 @@
                         </div>
                         <div>
                             <input type="email" class="form-control" id="email" name="email" placeholder="이메일을 입력해주세요!" required>
-                        </div>
-                        <div class="invalid-feedback">
-                            이메일을 입력해주세요.
+                            <div class="invalid-feedback">이메일을 입력해주세요.</div>
                         </div>
                     </div>
                 </div>
@@ -37,6 +35,9 @@
                             <div class="invalid-feedback">비밀번호를 8자 이상 입력해주세요.</div>
                         </div>
                     </div>
+                </div>
+                <div th:if="${errorMsg}" class="alert alert-danger text-center p-1 mx-1">
+                    <span th:text="${errorMsg}"></span>
                 </div>
                 <div style="text-align: center;" class="mb-3">
                     <button style="margin-top: 12px" class="login_button" type="submit">로그인</button>

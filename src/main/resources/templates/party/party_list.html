@@ -12,9 +12,17 @@
     <div class="input-form-backgroud row">
         <div class="party-list col-md-12 mx-auto">
             <h4 style="text-align: center;" class="mb-3">파티 현황</h4>
+            <div class="mb-3" style="text-align: center;">
+                <form th:action="@{/party/search}" method="get">
+                    <input type="text" name="query" placeholder="검색..." class="form-control" style="display: inline-block; width: 70%;">
+                    <button type="submit" class="button">검색</button>
+                </form>
+            </div>
             <div style="display: flex; justify-content: space-between; margin-left: 17px; margin-right: 17px">
                 <div th:each="party, iterStat : ${parties}" style="margin-left: 17px; margin-right: 17px">
-                    <button class="button4" style="text-align: center" th:text="${party.category}"></button>
+                    <form th:action="@{/party/search}" method="get">
+                        <button class="button4" name="category" style="text-align: center" th:value="${party.category}"></button>
+                    </form>
                 </div>
             </div>
             <div th:each="row : ${#numbers.sequence(0, 3)}" class="row">
@@ -25,8 +33,9 @@
                             class="mb-3 border border-2" th:text="${party.category}"></h4>
                         <div style="white-space: nowrap; overflow: hidden; margin-top: 10px; padding: 10px; border-radius: 5px"
                              class="border border-2 border-black">
-                            <a class="link-opacity-100-hover" href="#">
-                                <span style="font-weight: bold; padding-top: 10px; padding-left: 15px" th:text="${party.title}"></span>
+                            <a class="link-opacity-100-hover" th:href="@{/party/{id}(id=${party.id})}">
+
+                            <span style="font-weight: bold; padding-top: 10px; padding-left: 15px" th:text="${party.title}"></span>
                                 <hr>
                                 <div style="padding-left: 15px">
                                     <div>
@@ -40,7 +49,7 @@
                                             <span>인원수 : </span><span>1명</span>
                                         </div>
                                         <div style="display: flex; justify-content: right">
-                                            <span th:text="${party.status}"></span>
+                                            <span th:text="${party.status.value}"></span>
                                         </div>
                                         <div style="display: flex; justify-content: right; margin-right: 15px">
                                             <span>♡</span>
@@ -52,7 +61,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Pagination -->
             <div>
                 <br>
                 <ul class="pagination justify-content-center">
