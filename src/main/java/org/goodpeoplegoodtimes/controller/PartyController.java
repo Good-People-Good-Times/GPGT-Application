@@ -2,6 +2,7 @@ package org.goodpeoplegoodtimes.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.goodpeoplegoodtimes.domain.constant.Category;
 import org.goodpeoplegoodtimes.domain.dto.party.request.PartyForm;
 import org.goodpeoplegoodtimes.domain.dto.party.response.PartyListResponseDto;
 import org.goodpeoplegoodtimes.service.PartyService;
@@ -23,32 +24,20 @@ public class PartyController {
 
     private Pageable pageable;
 
-    @GetMapping
-    public String displayPartyList(@RequestParam(value = "page", defaultValue = "0") int page, Model model) {
+    @GetMapping({"", "/search"})
+    public String displayPartyList(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "cond", required = false) String cond,
+            @RequestParam(value = "category", required = false) Category category,
+            Model model) {
+
         pageable = PageRequest.of(page, 8);
-        Page<PartyListResponseDto> partyPage = partyService.getPartyList(null, pageable);
+        Page<PartyListResponseDto> partyPage = getPartyList(cond, category, pageable);
 
         model.addAttribute("parties", partyPage.getContent());
         model.addAttribute("totalPages", partyPage.getTotalPages());
         model.addAttribute("currentPage", page);
         return "party/party_list";
-    }
-
-    @GetMapping
-    public String findPartyBySearch(@RequestParam(value = "page", defaultValue = "0") int page, Model model,
-                                    @RequestParam("search") String search) {
-        pageable = PageRequest.of(page, 8);
-        Page<PartyListResponseDto> partyPage = partyService.getPartyList(search, pageable);
-        model.addAttribute("parties", partyPage.getContent());
-        model.addAttribute("totalPages", partyPage.getTotalPages());
-        model.addAttribute("currentPage", page);
-        return "party/party_list";
-    }
-
-    @GetMapping(value = "/{id}")
-    public String displayPartyDetailPage(@PathVariable("id") String id, Model model) {
-        model.addAttribute("detail", partyService.findPartyDetailById(Long.parseLong(id)));
-        return "party/party_detail";
     }
 
     @GetMapping(value = "/create")
@@ -59,8 +48,14 @@ public class PartyController {
 
     @PostMapping(value = "/create")
     public String createParty(PartyForm partyForm, Authentication authentication) {
-        Long savedId = partyService.save(partyForm, authentication);
+        Long savedId = partyService.createParty(partyForm, authentication);
         return "redirect:/party/" + savedId;
+    }
+
+    @GetMapping(value = "/{id}")
+    public String displayPartyDetailPage(@PathVariable("id") String id, Model model) {
+        model.addAttribute("detail", partyService.findPartyDetailById(Long.parseLong(id)));
+        return "party/party_detail";
     }
 
     @GetMapping(value = "/scrap")
@@ -75,11 +70,17 @@ public class PartyController {
 
     @GetMapping("/party-change")
     public String displayPartyModificationPage() {
-        return "party/change/party-change";
+        return "party_change";
     }
 
     @GetMapping("/party-post")
     public String displayPartyPostPage() {
-        return "party/party-post";
+        return "party_create";
+    }
+
+    private Page<PartyListResponseDto> getPartyList(String cond, Category category, Pageable pageable) {
+        if (cond != null && category == null) return partyService.getPartyList(cond, pageable);
+        else if (cond == null & category != null) return partyService.getPartyList(category, pageable);
+        else return partyService.getPartyList(pageable);
     }
 }
