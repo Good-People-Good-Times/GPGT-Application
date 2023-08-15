@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum PartyStatus {
-    RECRUITING("모집중."),
-    CLOSE("마감.");
+    RECRUITING("모집중"),
+    CLOSE("마감");
 
     private String value;
 

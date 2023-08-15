@@ -16,7 +16,6 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="title">파티명</label>
-                        <!-- Using th:field to bind this input to the 'title' property of PartyForm -->
                         <input type="text" class="form-control" id="title" th:field="*{title}" required>
                         <div class="invalid-feedback">
                             파티명을 입력해주세요.
@@ -27,12 +26,12 @@
                     <div class="col-md-6 mb-3">
                         <label for="category">파티유형</label>
                         <select class="form-control" th:field="*{category}" id="category" required>
-                            <option value="TAXI">택시팟</option>
-                            <option value="MOVIE">영화팟</option>
-                            <option value="CAFE">카페팟</option>
-                            <option value="MEAL">밥팟</option>
-                            <option value="EXERCISE">운동팟</option>
-                            <option value="HOBBY">취미팟</option>
+                            <option value="TAXI">택시파티</option>
+                            <option value="MOVIE">영화파티</option>
+                            <option value="CAFE">카페파티</option>
+                            <option value="MEAL">식사파티</option>
+                            <option value="EXERCISE">운동파티</option>
+                            <option value="HOBBY">취미파티</option>
                             <option value="ETC">기타</option>
                         </select>
                         <div class="invalid-feedback">
