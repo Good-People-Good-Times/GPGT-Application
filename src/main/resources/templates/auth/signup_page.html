@@ -8,17 +8,17 @@
 </head>
 
 <div layout:fragment="content" class="container py-5">
-    <div class="input-form-backgroud row">
+    <div class="input-form-background row">
         <div class="input-form col-md-8 mx-auto">
             <h4 style="text-align: center;" class="mb-3">회원가입</h4>
             <form th:action="@{/auth/signup}" th:object="${form}" method="post"
                   class="validation-form" novalidate>
                 <br>
                 <div style="text-align: center">
-                    <div class="img_container"><img th:src="@{/img/profile/1.png}"/></div>
-                    <div class="img_container"><img th:src="@{/img/profile/2.png}"/></div>
-                    <div class="img_container"><img th:src="@{/img/profile/1.png}"/></div>
-                    <div class="img_container"><img th:src="@{/img/profile/2.png}"/></div>
+                    <div class="img_container"><img th:src="@{/img/profile/1.png}" width="120px"/></div>
+                    <div class="img_container"><img th:src="@{/img/profile/2.png}" width="120px"/></div>
+                    <div class="img_container"><img th:src="@{/img/profile/1.png}" width="120px"/></div>
+                    <div class="img_container"><img th:src="@{/img/profile/2.png}" width="120px"/></div>
                 </div>
                 <br>
                 <!-- ========== 이메일 ========== -->
