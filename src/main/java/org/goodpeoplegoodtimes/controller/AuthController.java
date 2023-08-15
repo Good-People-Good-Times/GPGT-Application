@@ -24,13 +24,10 @@ public class AuthController {
     private final MemberService memberService;
 
     @GetMapping(value = "/login")
-    public String displayLoginPage(@RequestParam(name = "error", required = false) String error,
-                                   Model model) {
-
+    public String displayLoginPage(@RequestParam(name = "error", required = false) String error, Model model) {
         if (error != null) {
             model.addAttribute("errorMsg", "이메일 혹은 비밀번호가 잘못되었습니다.");
         }
-
         return "auth/login_page";
     }
 

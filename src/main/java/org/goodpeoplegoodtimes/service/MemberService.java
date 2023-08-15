@@ -19,32 +19,30 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MemberService implements UserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
 
+    @Transactional
     public Long save(SignupForm signupForm) {
         validateEmailDuplication(signupForm.getEmail());
         validateNicknameDuplication(signupForm.getNickname());
         return memberRepository.save(Member.of(signupForm, passwordEncoder.encode(signupForm.getPassword()))).getId();
     }
 
-    @Transactional(readOnly = true)
     public void validateEmailDuplication(String email) {
         if (memberRepository.existsByEmail(email))
             throw new EmailAlreadyExistsException(email + " is already registered.");
     }
 
-    @Transactional(readOnly = true)
     public void validateNicknameDuplication(String nickname) {
         if (memberRepository.existsByNickname(nickname))
             throw new NicknameAlreadyExistsException(nickname + " is already in use.");
     }
 
-    @Transactional(readOnly = true)
     public Member getMember(String email) throws EmailNotFoundException {
         return memberRepository.findByEmail(email).orElseThrow(
             () -> new EmailNotFoundException("해당 이메일의 유저는 존재하지 않습니다.")
