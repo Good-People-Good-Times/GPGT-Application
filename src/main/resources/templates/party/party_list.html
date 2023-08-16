@@ -8,6 +8,7 @@
 </head>
 
 <body>
+
 <div class="container py-5" layout:fragment="content">
     <div class="input-form-background row">
         <div class="party-list col-md-12 mx-auto">
@@ -16,7 +17,7 @@
                 <div class="mb-3" style="text-align: center; margin-top: 15px;">
                     <form th:action="@{/party/search}" method="get">
                         <input type="text" name="cond" placeholder="파티명으로 검색해보세요!" class="form-control" style="display: inline-block; width: 70%;">
-                        <button type="submit" class="button">검색</button>
+                        <button type="submit" class="button" style="height: 37px; width: 37px">🔍︎</button>
                     </form>
                 </div>
             <br>
