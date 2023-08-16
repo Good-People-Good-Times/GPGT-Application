@@ -1,6 +1,14 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
 body {
+    font-family: 'Pretendard-Regular';
     min-height: 100vh;
-    background-color: rgb(217, 214, 243);
+    background-color: rgba(156, 140, 213, 0.18);
 }
 
 .input-form {
@@ -32,21 +40,11 @@ body {
     box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
 }
 
-.login_button {
-    background-color: rgba(193, 176, 239, 0.97);
-    color: white;
-    font-weight: bold;
-    border-color: #9d9d9d;
-    border-radius: 5px;
-    width: 320px;
-}
-
 .button {
-    background-color: #9966FF;
-    color: white;
-    border-radius: 13%;
-    border-color: #9966FF;
-    border-width: 4px;
+    background-color: #ffffff;
+    color: #000000;
+    border: 2px solid #b598ec;
+    border-radius: 5px;
 }
 
 .img_container {
