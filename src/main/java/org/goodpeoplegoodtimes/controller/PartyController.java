@@ -70,12 +70,7 @@ public class PartyController {
 
     @GetMapping("/party-change")
     public String displayPartyModificationPage() {
-        return "party_change";
-    }
-
-    @GetMapping("/party-post")
-    public String displayPartyPostPage() {
-        return "party_create";
+        return "party/change/party_change";
     }
 
     private Page<PartyListResponseDto> getPartyList(String cond, Category category, Pageable pageable) {
@@ -83,4 +78,5 @@ public class PartyController {
         else if (cond == null & category != null) return partyService.getPartyList(category, pageable);
         else return partyService.getPartyList(pageable);
     }
+
 }
