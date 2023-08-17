@@ -37,6 +37,7 @@ public class PartyController {
         model.addAttribute("parties", partyPage.getContent());
         model.addAttribute("totalPages", partyPage.getTotalPages());
         model.addAttribute("currentPage", page);
+        model.addAttribute("categories", Category.values());
         return "party/party_list";
     }
 
