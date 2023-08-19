@@ -24,10 +24,9 @@
                 <!-- ========== 이메일 ========== -->
                 <div class="row1">
                     <div class="col-md-6 mb-3">
-                        <div>
+                        <div style="text-align: left; margin-bottom: 10px;">
                             <label class="login_info" for="email">이메일</label>
                         </div>
-                        <br>
                         <div>
                             <input type="email" name="email" class="form-control" id="email" th:field="*{email}"
                                placeholder="you@example.com" required>
@@ -38,8 +37,7 @@
                     </div>
                     <div class="mb-3">
                         <br>
-                        <br>
-                        <button class="button2" type="button">중복 확인</button>
+                        <button class="button" type="button" style="margin-left: 30px; margin-top: 13px">중복 확인</button>
                     </div>
                     <p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</p>
                 </div>
@@ -47,11 +45,10 @@
                 <!-- ========== 닉네임 ========== -->
                 <div class="row1">
                     <div class="col-md-6 mb-3">
-                        <div>
+                        <div style="text-align: left; margin-bottom: 10px">
                             <br>
                         <label class="login_info" for="nickname">닉네임</label>
                         </div>
-                        <br>
                         <div>
                         <input type="text" name="nickname" class="form-control" minlength="2" id="nickname" th:field="*{nickname}"
                                placeholder="2자 이상 입력해주세요." value="" required>
@@ -63,8 +60,7 @@
                     <div class="mb-3">
                         <br>
                         <br>
-                        <br>
-                        <button class="button2" type="button">중복 확인</button>
+                        <button class="button" type="button" style="margin-left: 30px; margin-top: 13px">중복 확인</button>
                     </div>
                     <p class="error" th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}">Email Error</p>
                 </div>
@@ -73,11 +69,10 @@
                 <div class="row2">
                     <div class="col-md-5 mb-3">
                         <div>
-                            <div>
+                            <div style="text-align: left; margin-bottom: 10px">
                                 <br>
                             <label class="login_info" for="password">비밀번호</label>
                             </div>
-                            <br>
                             <div>
                             <input type="password" name="password" class="form-control" id="password" minlength="8" th:field="*{password}"
                            placeholder="8자이상, 특수문자 포함"
@@ -89,11 +84,10 @@
                 </div>
                 <div class="row2">
                     <div class="col-md-5 mb-3">
-                        <div>
+                        <div style="text-align: left; margin-bottom: 10px">
                             <br>
                         <label class="login_info" for="password2">비밀번호 확인</label>
                         </div>
-                        <br>
                         <div>
                         <input type="password" class="form-control" id="password2" minlength="8"
                            placeholder="다시 한 번 입력해주세요." value="" required>
@@ -113,7 +107,7 @@
                 <div class="mb-4"></div>
 
                 <div style="text-align: center;">
-                    <button class="button" type="submit">가입 완료</button>
+                    <button class="button" type="submit" style="font-weight: bold; width: 250px">가입 완료</button>
                 </div>
 
             </form>

@@ -15,7 +15,7 @@
             <form th:action="@{/party/create}" th:object="${partyForm}" method="post">
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="title">파티명</label>
+                        <label for="title" style="margin-bottom: 10px; font-weight: bold;">파티명</label>
                         <input style="width: 620px" type="text" class="form-control" id="title" th:field="*{title}" required>
                         <div class="invalid-feedback">
                             파티명을 입력해주세요.
@@ -25,7 +25,7 @@
                 <br>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="category">파티유형</label>
+                        <label for="category" style="margin-bottom: 10px; font-weight: bold;">파티유형</label>
                         <select style="width: 620px" class="form-control" th:field="*{category}" id="category" required>
                             <option value="TAXI">택시파티</option>
                             <option value="MOVIE">영화파티</option>
@@ -43,7 +43,7 @@
                 <br>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="people">인원수</label>
+                        <label for="people" style="margin-bottom: 10px; font-weight: bold;">인원수</label>
                         <select style="width: 620px" class="form-control" id="people" required>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -64,7 +64,7 @@
                 <br>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="date">시간</label>
+                        <label for="date" style="margin-bottom: 10px; font-weight: bold;">시간</label>
                         <form>
                             <p>
                                 <input style="width: 50%; float: left;" type="date" id="date" value="today">
@@ -79,7 +79,7 @@
                 <br>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="title">장소</label>
+                        <label for="title" style="margin-bottom: 10px; font-weight: bold;">장소</label>
                         <input style="width: 620px" type="text" class="form-control" id="where" th:field="*{title}" required>
                         <div class="invalid-feedback">
                             파티명을 입력해주세요.
@@ -89,7 +89,7 @@
                 <br>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="content">소개</label>
+                        <label for="content" style="margin-bottom: 10px; font-weight: bold;">소개</label>
                         <textarea style="width: 620px" class="form-control" th:field="*{content}" id="content" required placeholder="파티에 대한 상세한 소개 작성해주세요!"></textarea>
                         <div class="invalid-feedback">
                             파티 소개 작성은 필수입니다.
@@ -98,7 +98,7 @@
                 </div>
                 <br>
                 <div style="text-align: center;">
-                    <button class="button" type="submit">파티 등록</button>
+                    <button class="button" type="submit" style="width: 620px">파티 등록</button>
                 </div>
             </form>
         </div>
