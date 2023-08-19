@@ -1,0 +1,19 @@
+/* 
+   대상 요소(div, span, 혹은 .disabled-link 클래스를 가진 요소)의 투명도를 80%로 줄여
+   약간 흐리게. 그리고 사용자의 마우스 동작을 막기 위해 pointer-events를 none으로 설정.
+   이렇게 하면 해당 요소 위에서 마우스 클릭 등의 동작을 할 수 없게 설정.
+*/
+.disabled-link div,
+.disabled-link span,
+.disabled-link {
+    opacity: 80%;
+    pointer-events: none;
+}
+
+/* 
+   .disabled-link 클래스를 가진 요소 내부의 <hr> 요소의 투명도를 30%로 설정하여
+   훨씬 더 흐리게 설정.
+*/
+.disabled-link hr {
+    opacity: 30%;
+}
