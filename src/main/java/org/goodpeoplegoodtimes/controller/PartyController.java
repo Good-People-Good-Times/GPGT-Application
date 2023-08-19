@@ -4,7 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.goodpeoplegoodtimes.domain.constant.Category;
 import org.goodpeoplegoodtimes.domain.dto.party.request.PartyForm;
+import org.goodpeoplegoodtimes.domain.dto.party.response.PartyDetailResponseDto;
 import org.goodpeoplegoodtimes.domain.dto.party.response.PartyListResponseDto;
+import org.goodpeoplegoodtimes.service.CommentsService;
+import org.goodpeoplegoodtimes.service.PartyMemberService;
 import org.goodpeoplegoodtimes.service.PartyService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,9 +23,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/party")
 public class PartyController {
 
-    private final PartyService partyService;
+    private static final int PAGE_SIZE = 8;
+    private static final String REDIRECT_TO_PARTY = "redirect:/party/";
 
-    private Pageable pageable;
+    private final PartyService partyService;
+    private final PartyMemberService partyMemberService;
+    private final CommentsService commentsService;
 
     @GetMapping({"", "/search"})
     public String displayPartyList(
@@ -31,8 +37,8 @@ public class PartyController {
             @RequestParam(value = "category", required = false) Category category,
             Model model) {
 
-        pageable = PageRequest.of(page, 8);
-        Page<PartyListResponseDto> partyPage = getPartyList(cond, category, pageable);
+        Pageable pageable = PageRequest.of(page, PAGE_SIZE);
+        Page<PartyListResponseDto> partyPage = partyService.getPartyList(cond, category, pageable);
 
         model.addAttribute("parties", partyPage.getContent());
         model.addAttribute("totalPages", partyPage.getTotalPages());
@@ -49,14 +55,36 @@ public class PartyController {
 
     @PostMapping(value = "/create")
     public String createParty(PartyForm partyForm, Authentication authentication) {
+        validatePartyForm(partyForm);
         Long savedId = partyService.createParty(partyForm, authentication);
-        return "redirect:/party/" + savedId;
+        return REDIRECT_TO_PARTY + savedId;
     }
 
-    @GetMapping(value = "/{id}")
-    public String displayPartyDetailPage(@PathVariable("id") String id, Model model) {
-        model.addAttribute("detail", partyService.findPartyDetailById(Long.parseLong(id)));
+    @GetMapping(value = "/{partyId}")
+    public String displayPartyDetail(@PathVariable Long partyId, Model model, Authentication authentication) {
+        model.addAttribute("isOwner", partyService.isOwnerForParty(partyId, authentication.getName()));
+        model.addAttribute("applicants", partyMemberService.listPartyMember(partyId));
+        model.addAttribute("comments", commentsService.listComments(partyId));
+        model.addAttribute("detail", partyService.findPartyDetailById(partyId));
         return "party/party_detail";
+    }
+
+    @PostMapping(value = "{partyId}/join/accept")
+    public String acceptPartyMember(@PathVariable Long partyId, Long targetId, Authentication authentication) {
+        partyMemberService.acceptPartyMember(partyId, targetId, authentication.getName());
+        return REDIRECT_TO_PARTY + partyId;
+    }
+
+    @PostMapping(value = "{partyId}/join/deny")
+    public String denyPartyMember(@PathVariable Long partyId, Long targetId, Authentication authentication) {
+        partyMemberService.deletePartyMember(partyId, targetId, authentication.getName());
+        return REDIRECT_TO_PARTY + partyId;
+    }
+
+    @GetMapping("/my")
+    public String displayMyPartyList(Authentication authentication, Model model) {
+        model.addAttribute("myPartyList", partyService.getMyPartyList(authentication.getName()));
+        return "party/my_party";
     }
 
     @GetMapping(value = "/scrap")
@@ -64,20 +92,18 @@ public class PartyController {
         return "scrap/scrap";
     }
 
-    @GetMapping("/my-party")
-    public String displayMyPartyList() {
-        return "party/myparty/my-party";
-    }
-
     @GetMapping("/party-change")
     public String displayPartyModificationPage() {
         return "party/change/party_change";
     }
 
-    private Page<PartyListResponseDto> getPartyList(String cond, Category category, Pageable pageable) {
-        if (cond != null && category == null) return partyService.getPartyList(cond, pageable);
-        else if (cond == null & category != null) return partyService.getPartyList(category, pageable);
-        else return partyService.getPartyList(pageable);
+    @PostMapping(value = "/join/{partyId}")
+    public String joinParty(@PathVariable Long partyId, Authentication authentication) {
+        partyMemberService.joinParty(partyId, authentication.getName());
+        return REDIRECT_TO_PARTY + partyId;
     }
 
+    private void validatePartyForm(PartyForm partyForm) {
+        // Add validation logic here
+    }
 }

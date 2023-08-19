@@ -11,12 +11,12 @@
         <div class="input-form col-md-5 mx-auto">
             <h4 style="text-align: center;" class="mb-3">내 프로필</h4>
             <br>
-            <div style="text-align: center"><img th:src="@{/img/profile/1.png}" width="400px"/></div>
+            <div style="text-align: center"><img th:src="@{/img/profile/1.jpg}" width="400px"/></div>
             <br>
 
             <div class="page" style="text-align: center">
                 <div class="nickname">
-                <b>닉네임: </b><span>안녕</span>
+                <b>닉네임: </b><span th:text="${detail.owner}"></span>
                 <img th:src="@{/img/red.png}" width="25px"/>
                 </div>
 
