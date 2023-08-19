@@ -40,7 +40,7 @@ a{
     color: var(--text-color);
     margin-block: 5px;
     margin-left: auto;
-    margin-right: 20px;
+    margin-right: 150px;
 }
 
 .navbar_menu a {
@@ -91,6 +91,12 @@ a{
 
     .navbar_menu.active {
         display: flex;
+    }
+
+    .category_button:focus {
+        background-color: rgb(150,122,241);
+        border: 2px solid white;
+        color:white;
     }
 }
 

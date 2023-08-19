@@ -25,21 +25,16 @@
             <li sec:authorize="isAuthenticated()"><a th:href="@{/party/scrap}">스크랩</a></li>
             <li><a th:href="@{/notice}">공지사항</a></li>
             <li sec:authorize="isAuthenticated()"><a th:href="@{/party/my-party}">내 파티</a></li>
-            <li><a th:href="@{/logout}">로그아웃</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">로그아웃</a></li>
+            <li sec:authorize="isAnonymous()"><a th:href="@{/auth/login}">로그인</a></li>
         </ul>
         <div sec:authorize="isAnonymous()" class="navbar_menu small" style="margin-right: 5px">
-            <a th:href="@{/auth/login}">
-                <li>로그인</li>
-            </a>
         </div>
         <div sec:authorize="isAuthenticated()" class="navbar_my">
             <a th:href="@{/profile/my_profile}">
-                <img th:src="@{/img/profile/1.png}" width="60px"/>
+                <img th:src="@{/img/profile/1.jpg}" width="60px"/>
             </a>
         </div>
-        <a href="" class="navbar_toogleBtn">
-            <img th:src="@{/img/bar.png}" width="50px"/>
-        </a>
     </nav>
     </body>
 </header>
