@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/party_list.css}"/>
 </head>
 
 <body>
@@ -21,16 +22,16 @@
                     </form>
                 </div>
             <br>
-            <form th:action="@{/party/search}" method="get" style="display: flex; justify-content: space-between; border-color: white;" class="mx-5">
+            <form th:action="@{/party/search}" method="get" style="display: flex; justify-content: space-between;" class="mx-5">
                 <div th:each="category : ${categories}">
-                    <button th:value="${category}" th:text="${category}" name="category" class="badge rounded-pill">1</button>
+                    <button th:value="${category}" th:text="${category}" name="category" class="badge rounded-pill" style="background-color: white; border: 2px solid rgb(150,122,241); color:rgb(150,122,241);">1</button>
                 </div>
             </form>
             <br>
             <div th:each="row : ${#numbers.sequence(0, 3)}" class="row">
                 <div th:each="party, iterStat : ${parties}" class="col-md-6"
                      th:if="${iterStat.index >= row * 2} and ${iterStat.index < (row + 1) * 2}">
-                    <div class="container my-3">
+                    <div th:classappend="${party.status.value == '마감'} ? 'disabled-link'" class="container my-3">
                         <div style="white-space: nowrap; overflow: hidden; margin-top: 10px; padding: 10px; border-radius: 5px"
                              class="border border-2 border-black">
                             <a class="link-opacity-100-hover" th:href="@{/party/{id}(id=${party.id})}">
