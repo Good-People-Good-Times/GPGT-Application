@@ -11,18 +11,21 @@
     <div class="input-form-background row">
         <div class="input-form col-md-12 mx-auto">
 
+            <div th:if="${isOwner}">파티장</div>
             <div style="display: flex; align-items: center; justify-content: space-between;">
                 <div style="display: flex; align-items: center;">
-                    <img th:src="@{/img/profile/2.png}" width="70px" style="display: inline">
-                    <h4 style="display: inline; margin-left: 5px;">하이</h4>
+                    <img th:src="@{/img/profile/2.jpg}" width="70px" style="display: inline">
+                    <h4 style="display: inline; margin-left: 5px;"><span th:text="${detail.owner}"></span></h4>
                     <img th:src="@{/img/yellow.png}" width="33px" style="margin-left: 5px;">
                 </div>
                 <div style="font-size: 50px;">
                     <span>♡</span>
                 </div>
             </div>
-
-            <a style="display: inline">지금까지 완료한 파티 수: </a><span>6</span>
+            <div style="display: inline-flex; justify-content: space-between; align-items: center; width: 100%;">
+                <div><a style="display: inline">지금까지 완료한 파티 수: </a><span>6</span></div>
+                <span class="badge rounded-pill" style="text-align: right;"><span th:text="${detail.status.value}"></span></span>
+            </div>
             <br><br>
 
             <div style="text-align: center; padding-top: 15px; padding-bottom: 15px; background-color: white; border-radius: 5px; border-width: 3px; font-size: 18px;  font-weight:bold;"
@@ -30,12 +33,6 @@
                 <h3><strong th:text="${detail.title}"></strong></h3>
                 <hr>
                 <div style="font-weight: normal">
-                    <div>
-                        <span>상태 : </span><span th:text="${detail.status}"></span>
-                    </div>
-                    <div>
-                        <span>작성자 : </span><span th:text="${detail.owner}"></span>
-                    </div>
                     <div>
                         <span>장소 : </span><span>기흥역</span>
                     </div>
@@ -47,40 +44,53 @@
                         <span th:text="${detail.content}"></span>
                     </div>
                     <br>
-                    <div style="text-align: right; margin-right: 10px; font-size: 15px; color: #6c757d" >
-                        <span>작성일 : </span><span th:text="${#temporals.format(detail.dateTime, 'yyyy-MM-dd')}"></span>
+                    <div style="text-align: right; margin-right: 10px; font-size: 15px; color: #6c757d">
+                        <span>작성일 : </span><span th:text="${#temporals.format(detail.dateTime, 'yyyy-MM-dd HH:mm')}"></span>
+                        <form th:if="${!isOwner}" th:action="@{/party/join/{id}(id=${detail.partyId})}" method="post">
+                            <button>파티 신청</button>
+                        </form>
                     </div>
                 </div>
             </div>
-
+            <div th:if="${isOwner}" th:each="applicant : ${applicants}">
+                <div style="text-align: center; padding-top: 15px; padding-bottom: 15px; background-color: white; border-radius: 5px; border-width: 3px; font-size: 18px; font-weight:bold;"
+                     class="mb-3 border border-2">
+                    <div>
+                        <span>멤버Id : </span><span th:text="${applicant.memberId}"></span>
+                    </div>
+                    <div>
+                        <span>닉네임 : </span><span th:text="${applicant.nickname}"></span>
+                    </div>
+                    <form th:action="@{/party/{partyId}/join/accept(partyId=${detail.partyId})}" method="post">
+                        <input type="hidden" name="targetId" th:value="${applicant.memberId}">
+                        <input type="hidden" name="ownerId" th:value="${detail.ownerId}">
+                        <button class="accept-button">수락</button>
+                    </form>
+                    <form th:action="@{/party/{partyId}/join/deny(partyId=${detail.partyId})}" method="post">
+                        <input type="hidden" name="targetId" th:value="${applicant.memberId}">
+                        <input type="hidden" name="ownerId" th:value="${detail.ownerId}">
+                        <button class="deny-button">거절</button>
+                    </form>
+                </div>
+            </div>
             <hr>
-            <div class="row2">
+            <form th:action="@{/comments}" method="post" class="row2">
                 <input type="text" name="comment" class="form-control" id="comment"
                        placeholder="댓글을 입력해주세요." style="width: 550px" value="" required>
-                <button class="button" type="button" style="margin-left: 15px;">확인</button>
-            </div>
+                <input type="hidden" name="partyId" th:value="${detail.getPartyId()}">
+                <button class="button" type="submit" style="margin-left: 15px;">확인</button>
+            </form>
             <br>
-
-            <div style="display: flex; justify-content: flex-end; align-items: center; width: 100%;">
-                <img th:src="@{/img/profile/1.png}" width="40px" style="display: inline">
-                <h5 style="display: inline; margin-left: 5px;"><strong>안녕</strong></h5>
+            <div th:each="comment : ${comments}">
+                <img th:src="@{/img/profile/1.jpg}" width="40px" style="display: inline">
+                <h5 th:text="${comment.getOwner()}" style="display: inline; margin-left: 5px;"></h5>
                 <img th:src="@{/img/red.png}" width="25px" style="margin-right: auto;">
                 <h5>&nbsp</h5>
-                <div style="flex-grow: 1; text-align: center; padding: 5px; background-color: rgba(193, 176, 239, 0.97); border-radius: 5px; border-width: 3px; font-size: 18px; margin-top: 5px;"
+                <div th:text="${comment.getContent()}"
+                     style="flex-grow: 1; text-align: center; padding: 5px; background-color: rgba(193, 176, 239, 0.97); border-radius: 5px; border-width: 3px; font-size: 18px; margin-top: 5px;"
                      class="mb-3 border border-2">
-                    지금 도착했어요!
                 </div>
-            </div>
-
-            <div style="display: flex; justify-content: flex-end; align-items: center; width: 100%;">
-                <img th:src="@{/img/profile/2.png}" width="40px" style="display: inline">
-                <h5 style="display: inline; margin-left: 5px;"><strong>하이</strong></h5>
-                <img th:src="@{/img/yellow.png}" width="25px" style="margin-right: auto;">
-                <h5>&nbsp</h5>
-                <div style="flex-grow: 1; text-align: center; padding: 5px; background-color: white; border-radius: 5px; border-width: 3px; font-size: 18px; margin-top: 5px;"
-                     class="mb-3 border border-2">
-                    3명 남았습니다!
-                </div>
+                <div th:text="${comment.getDateTime()}"></div>
             </div>
         </div>
     </div>
