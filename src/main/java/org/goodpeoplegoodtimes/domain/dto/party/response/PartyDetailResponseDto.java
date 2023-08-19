@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class PartyDetailResponseDto {
 
-    private Long id;
+    private Long partyId;
+    private Long ownerId;
     private String title;
     private Category category;
     private PartyStatus status;

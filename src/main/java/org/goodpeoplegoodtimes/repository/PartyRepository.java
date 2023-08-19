@@ -2,7 +2,6 @@ package org.goodpeoplegoodtimes.repository;
 
 import org.goodpeoplegoodtimes.domain.Party;
 import org.goodpeoplegoodtimes.domain.constant.Category;
-import org.goodpeoplegoodtimes.domain.constant.PartyStatus;
 import org.goodpeoplegoodtimes.domain.dto.party.response.PartyDetailResponseDto;
 import org.goodpeoplegoodtimes.domain.dto.party.response.PartyListResponseDto;
 import org.springframework.data.domain.Page;
@@ -11,7 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 
@@ -30,7 +28,15 @@ public interface PartyRepository extends JpaRepository <Party, Long> {
     Page<PartyListResponseDto> fetchPartyListByCategory(@Param("category") Category category, Pageable pageable);
 
     @Query("select new org.goodpeoplegoodtimes.domain.dto.party.response.PartyDetailResponseDto" +
-            "(p.id, p.title, p.category, p.status, p.content, p.owner.nickname, p.createdAt) from Party p where p.id = :partyId")
+            "(p.id, m.id, p.title, p.category, p.status, p.content, m.nickname, p.createdAt) from Party p LEFT JOIN p.owner m where p.id = :partyId")
     Optional<PartyDetailResponseDto> fetchPartyDetail(@Param("partyId") Long partyId);
+
+    @Query("SELECT CASE WHEN (COUNT(p) > 0) " +
+            "THEN true " +
+            "ELSE false " +
+            "END " +
+            "FROM Party p JOIN p.owner m WHERE p.id = :partyId AND m.email = :email")
+    boolean existsByPartyIdAndOwnerEmail(@Param("partyId") Long partyId, @Param("email") String ownerEmail);
+
 
 }
