@@ -84,7 +84,7 @@ public class PartyController {
     @GetMapping("/my")
     public String displayMyPartyList(Authentication authentication, Model model) {
         model.addAttribute("myPartyList", partyService.getMyPartyList(authentication.getName()));
-        return "party/my_party";
+        return "party/myparty/my-party";
     }
 
     @GetMapping(value = "/scrap")

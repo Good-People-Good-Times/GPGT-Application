@@ -47,6 +47,14 @@ body {
     border-radius: 6px;
 }
 
+.button:hover {
+    background-color: rgba(229, 217, 253, 0.97);
+}
+
+.button:active {
+    background-color: #ffffff;
+}
+
 .img_container {
     display : inline-block;
 }
