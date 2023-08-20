@@ -52,8 +52,8 @@
                                         <div>
                                             <span>필요 인원수 : </span><span>1명</span>
                                         </div>
-                                        <div style="display: flex; justify-content: right">
-                                            <span th:text="${party.status.value}"></span>
+                                        <div style="display: flex; justify-content: right; color: cornflowerblue;">
+                                            <span th:text="${party.status.value}" th:classappend="${party.status.value =='마감'} ? 'status-closed'"></span>
                                         </div>
                                         <div style="display: flex; justify-content: right; margin-right: 15px">
                                             <span>♡</span>
