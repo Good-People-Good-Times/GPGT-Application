@@ -30,6 +30,31 @@
             </div>
             <br><br>
 
+            <div th:if="${isOwner}" th:each="applicant : ${applicants}">
+                <div style="text-align: center; padding: 15px; background-color: white; border-radius: 5px; border: 2px solid rgba(193, 176, 239, 0.97); font-size: 17px; font-weight: bold" class="mb-3">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: none">
+                            <span>멤버Id : </span><span th:text="${applicant.memberId}"></span>
+                        </div>
+                        <div>
+                            <span>닉네임 : </span><span th:text="${applicant.nickname}"></span>
+                        </div>
+                        <div style="display: flex; justify-content: flex-end;">
+                            <form th:action="@{/party/{partyId}/join/accept(partyId=${detail.partyId})}" method="post" style="margin-right: 10px;">
+                                <input type="hidden" name="targetId" th:value="${applicant.memberId}">
+                                <input type="hidden" name="ownerId" th:value="${detail.ownerId}">
+                                <button class="button">수락</button>
+                            </form>
+                            <form th:action="@{/party/{partyId}/join/deny(partyId=${detail.partyId})}" method="post">
+                                <input type="hidden" name="targetId" th:value="${applicant.memberId}">
+                                <input type="hidden" name="ownerId" th:value="${detail.ownerId}">
+                                <button class="button">거절</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div style="text-align: center; padding-top: 15px; padding-bottom: 15px; background-color: white; border-radius: 5px; border-width: 3px; font-size: 18px;  font-weight:bold;"
                  class="mb-3 border border-2">
                 <h3><strong th:text="${detail.title}"></strong></h3>
@@ -56,32 +81,7 @@
                     </div>
                 </div>
             </div>
-            <div th:if="${isOwner}" th:each="applicant : ${applicants}">
-                <div style="text-align: center; padding: 15px; background-color: white; border-radius: 5px; border: 2px solid rgba(193, 176, 239, 0.97); font-size: 17px; font-weight: bold" class="mb-3">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div style="display: none">
-                            <span>멤버Id : </span><span th:text="${applicant.memberId}"></span>
-                        </div>
-                        <div>
-                            <span>닉네임 : </span><span th:text="${applicant.nickname}"></span>
-                        </div>
-                        <div style="display: flex; justify-content: flex-end;">
-                            <form th:action="@{/party/{partyId}/join/accept(partyId=${detail.partyId})}" method="post" style="margin-right: 10px;">
-                                <input type="hidden" name="targetId" th:value="${applicant.memberId}">
-                                <input type="hidden" name="ownerId" th:value="${detail.ownerId}">
-                                <button class="button">수락</button>
-                            </form>
-                            <form th:action="@{/party/{partyId}/join/deny(partyId=${detail.partyId})}" method="post">
-                                <input type="hidden" name="targetId" th:value="${applicant.memberId}">
-                                <input type="hidden" name="ownerId" th:value="${detail.ownerId}">
-                                <button class="button">거절</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <hr>
             <form th:action="@{/comments}" method="post" class="row2">
                 <input type="text" name="comment" class="form-control" id="comment"
                        placeholder="댓글을 입력해주세요." style="width: 550px" value="" required>
