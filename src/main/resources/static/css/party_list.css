@@ -17,3 +17,7 @@
 .disabled-link hr {
     opacity: 30%;
 }
+
+.status-closed {
+    color: #e73e3e;
+}
