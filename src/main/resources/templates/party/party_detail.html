@@ -11,13 +11,11 @@
     <div class="input-form-background row">
         <div class="input-form col-md-12 mx-auto">
 
+            <div th:if="${isOwner}">파티장</div>
             <div style="display: flex; align-items: center; justify-content: space-between;">
                 <div style="display: flex; align-items: center;">
                     <img th:src="@{/img/profile/2.jpg}" width="70px" style="display: inline">
-                    <h4 style="display: inline; margin-left: 5px;">
-                        <div th:if="${isOwner}" style="color: slategray; font-size: 17px;">파티장</div>
-                        <div th:text="${detail.owner}"></div>
-                    </h4>
+                    <h4 style="display: inline; margin-left: 5px;"><span th:text="${detail.owner}"></span></h4>
                     <img th:src="@{/img/yellow.png}" width="33px" style="margin-left: 5px;">
                 </div>
                 <div style="font-size: 50px;">
@@ -46,28 +44,25 @@
                         <span th:text="${detail.content}"></span>
                     </div>
                     <br>
-                    <div style="display: flex; justify-content: space-between; align-items: center; ">
-                        <div style="text-align: left; margin-left: 20px; font-size: 15px; color: #6c757d;">
-                            <span>작성일 : </span><span th:text="${#temporals.format(detail.dateTime, 'yyyy-MM-dd HH:mm')}"></span>
-                        </div>
-                        <form style="text-align: right; margin-right: 20px;" th:if="${!isOwner}" th:action="@{/party/join/{id}(id=${detail.partyId})}" method="post">
-                            <button class="button" type="submit">파티 신청</button>
+                    <div style="text-align: right; margin-right: 10px; font-size: 15px; color: #6c757d">
+                        <span>작성일 : </span><span th:text="${#temporals.format(detail.dateTime, 'yyyy-MM-dd HH:mm')}"></span>
+                        <form th:if="${!isOwner}" th:action="@{/party/join/{id}(id=${detail.partyId})}" method="post">
+                            <button>파티 신청</button>
                         </form>
                     </div>
                 </div>
             </div>
             <div th:if="${isOwner}" th:each="applicant : ${applicants}">
-                <div style="text-align: center; padding-top: 15px; padding-bottom: 15px; background-color: white; border-radius: 5px; border-width: 3px; font-size: 18px; font-weight:bold; display: flex; justify-content: space-between"
-                     class="mb-3 border border-2">
-                    <div style="display: flex; justify-content: space-between; margin-left: 70px; margin-right: 70px;">
-                        <div>
+                <div style="text-align: center; padding: 15px; background-color: white; border-radius: 5px; border: 2px solid rgba(193, 176, 239, 0.97); font-size: 17px; font-weight: bold" class="mb-3">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: none">
                             <span>멤버Id : </span><span th:text="${applicant.memberId}"></span>
                         </div>
                         <div>
                             <span>닉네임 : </span><span th:text="${applicant.nickname}"></span>
                         </div>
-                        <div style="display: flex; justify-content: space-between;">
-                            <form th:action="@{/party/{partyId}/join/accept(partyId=${detail.partyId})}" method="post" style="margin-right: 10px">
+                        <div style="display: flex; justify-content: flex-end;">
+                            <form th:action="@{/party/{partyId}/join/accept(partyId=${detail.partyId})}" method="post" style="margin-right: 10px;">
                                 <input type="hidden" name="targetId" th:value="${applicant.memberId}">
                                 <input type="hidden" name="ownerId" th:value="${detail.ownerId}">
                                 <button class="button">수락</button>
@@ -90,16 +85,23 @@
                 <button class="button" type="submit" style="margin-left: 15px;">확인</button>
             </form>
             <br>
-            <div th:each="comment : ${comments}">
-                <img th:src="@{/img/profile/1.jpg}" width="40px" style="display: inline">
-                <h5 th:text="${comment.getOwner()}" style="display: inline; margin-left: 5px;"></h5>
-                <img th:src="@{/img/red.png}" width="25px" style="margin-right: auto;">
-                <h5>&nbsp</h5>
+            <div th:each="comment : ${comments}" class="mb-3">
+                <div style="display: flex; justify-content: space-between">
+                    <div style="display: flex">
+                        <img th:src="@{/img/profile/1.jpg}" width="40px" style="display: inline">
+                        <h5 th:text="${comment.getOwner()}" style="display: inline; margin-left: 5px;"></h5>
+                        <img th:src="@{/img/red.png}" width="25px" height="25px">
+                    </div>
+                    <div style="justify-content: flex-end">
+                        <button class="button" style="margin-right: 5px">수정</button>
+                        <button class="button">삭제</button>
+                    </div>
+                </div>
+                <h6 th:text="${#temporals.format(comment.getDateTime(), 'yy/MM/dd(E) HH:mm')}" style="text-align: right"></h6>
                 <div th:text="${comment.getContent()}"
-                     style="flex-grow: 1; text-align: center; padding: 5px; background-color: rgba(193, 176, 239, 0.97); border-radius: 5px; border-width: 3px; font-size: 18px; margin-top: 5px;"
+                     style="flex-grow: 1; text-align: center; padding: 5px; background-color: #fff; border: 2px rgba(193, 176, 239, 0.97); border-radius: 5px; font-size: 18px;"
                      class="mb-3 border border-2">
                 </div>
-                <div th:text="${comment.getDateTime()}"></div>
             </div>
         </div>
     </div>
