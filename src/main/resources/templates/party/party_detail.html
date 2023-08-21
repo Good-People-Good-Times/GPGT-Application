@@ -75,36 +75,44 @@
                         <div style="text-align: left; margin-left: 20px; font-size: 15px; color: #6c757d;">
                             <span>작성일 : </span><span th:text="${#temporals.format(detail.dateTime, 'yyyy-MM-dd HH:mm')}"></span>
                         </div>
-                        <form style="text-align: right; margin-right: 20px;" th:if="${!isOwner && !alreadyPartyJoinApply}" th:action="@{/party/join/{id}(id=${detail.partyId})}" method="post">
-                            <button class="button" type="submit">파티 신청</button>
+                        <form style="text-align: right; margin-right: 15px;" th:if="${!isOwner && !alreadyPartyJoinApply}" th:action="@{/party/join/{id}(id=${detail.partyId})}" method="post">
+                            <button class="button5" type="submit">파티 신청</button>
+                        </form>
+                        <form style="text-align: right; margin-right: 15px;" th:if="${isOwner}">
+                            <button style="margin-right: 7px" class="button5" type="submit">수정</button><button class="button5" type="submit">삭제</button>
                         </form>
                     </div>
                 </div>
             </div>
 
-            <form th:action="@{/comments}" method="post" class="row2">
+            <form th:action="@{/comments}" method="post" class="row2" style="display: flex; align-items: flex-end;">
                 <input type="text" name="comment" class="form-control" id="comment"
-                       placeholder="댓글을 입력해주세요." style="width: 550px" value="" required>
+                       placeholder="댓글을 입력해주세요." style="flex: 1;" value="" required>
                 <input type="hidden" name="partyId" th:value="${detail.getPartyId()}">
-                <button class="button" type="submit" style="margin-left: 15px;">확인</button>
+                <button class="button" type="submit" style="margin-left: 15px; height: 37px">확인</button>
             </form>
+
             <br>
             <div th:each="comment : ${comments}" class="mb-3">
+
                 <div style="display: flex; justify-content: space-between">
-                    <div style="display: flex">
-                        <img th:src="@{/img/profile/1.jpg}" width="40px" style="display: inline">
+                    <div style="display: inline">
+                        <img th:src="@{/img/profile/1.jpg}" width="36px" style="display: inline">
                         <h5 th:text="${comment.getOwner()}" style="display: inline; margin-left: 5px;"></h5>
-                        <img th:src="@{/img/red.png}" width="25px" height="25px">
+                        <img th:src="@{/img/red.png}" style="margin-left: 3px; width: 22px; height: 22px">
                     </div>
-                    <div style="justify-content: flex-end">
-                        <button class="button" style="margin-right: 5px">수정</button>
-                        <button class="button">삭제</button>
-                    </div>
+                    <h6 th:text="${#temporals.format(comment.getDateTime(), 'yy/MM/dd(E) HH:mm')}" style="font-size: 15px; color: #6c757d; text-align: right; margin-top: 5px"></h6>
+
                 </div>
-                <h6 th:text="${#temporals.format(comment.getDateTime(), 'yy/MM/dd(E) HH:mm')}" style="text-align: right"></h6>
-                <div th:text="${comment.getContent()}"
-                     style="flex-grow: 1; text-align: center; padding: 5px; background-color: #fff; border: 2px rgba(193, 176, 239, 0.97); border-radius: 5px; font-size: 18px;"
-                     class="mb-3 border border-2">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div th:text="${comment.getContent()}"
+                         style="flex-grow: 1; text-align: left; background-color: #fff; border: 2px rgba(193, 176, 239, 0.97); border-radius: 6px; font-size: 15px; height: 30px; margin-top: 5px"
+                         class="mb-3 border border-2">
+                    </div>
+                    <div style="display: flex; align-items: center; margin-bottom: 10px">
+                        <button class="button5" style="margin-right: 7px; margin-left: 15px">수정</button>
+                        <button class="button5">삭제</button>
+                    </div>
                 </div>
             </div>
         </div>
