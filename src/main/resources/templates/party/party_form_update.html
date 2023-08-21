@@ -1,0 +1,109 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}"/>
+</head>
+
+<div layout:fragment="content" class="container py-5">
+    <div class="input-form-background row">
+        <div class="input-form col-md-12 mx-auto">
+            <h4 style="text-align: center;" class="mb-3">파티 수정</h4>
+            <br>
+            <form th:action="@{/party/{partyId}/update(partyId=${partyUpdateForm.partyId})}" th:object="${partyUpdateForm}" method="post">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="title" style="margin-bottom: 10px; font-weight: bold;">파티명</label>
+                        <input style="width: 620px" type="text" class="form-control" id="title" th:field="*{title}"
+                               required>
+                        <div class="invalid-feedback">
+                            파티명을 입력해주세요.
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="category" style="margin-bottom: 10px; font-weight: bold;">파티유형</label>
+                        <select style="width: 620px" class="form-control" th:field="*{category}" id="category" required>
+                            <option value="TAXI">택시파티</option>
+                            <option value="MOVIE">영화파티</option>
+                            <option value="CAFE">카페파티</option>
+                            <option value="MEAL">식사파티</option>
+                            <option value="EXERCISE">운동파티</option>
+                            <option value="HOBBY">취미파티</option>
+                            <option value="ETC">기타</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            파티 유형을 선택해주세요.
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="people" style="margin-bottom: 10px; font-weight: bold;">인원수</label>
+                        <select style="width: 620px" class="form-control" th:field="*{totalPartyMembers}" id="people"
+                                required>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            인원수를 선택해주세요.
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="date" style="margin-bottom: 10px; font-weight: bold;">시간</label>
+                        <p>
+                            <input style="width: 50%; float: left;" type="date" id="date" value="today">
+                            <input style="width: 50%; float: right;" type="time">
+                        </p>
+                        <div class="invalid-feedback">
+                            날짜와 시간을 선택해주세요
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="title" style="margin-bottom: 10px; font-weight: bold;">장소</label>
+                        <input style="width: 620px" type="text" class="form-control" id="where"
+                               required>
+                        <div class="invalid-feedback">
+                            파티명을 입력해주세요.
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="content" style="margin-bottom: 10px; font-weight: bold;">소개</label>
+                        <textarea style="width: 620px" class="form-control" th:field="*{content}" id="content" required
+                                  placeholder="파티에 대한 상세한 소개 작성해주세요!"></textarea>
+                        <div class="invalid-feedback">
+                            파티 소개 작성은 필수입니다.
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div style="text-align: center;">
+                    <button class="button" type="submit" style="width: 620px">파티 등록</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" th:src="@{/js/signup.js}"></script>
+</div>
+</html>
