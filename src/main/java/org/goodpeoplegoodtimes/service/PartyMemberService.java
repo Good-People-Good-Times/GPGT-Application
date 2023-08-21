@@ -28,12 +28,17 @@ public class PartyMemberService {
     public List<PartyMemberResponseDto> listPartyMember(Long partyId) {
         return partyMemberRepository.fetchPartyMemberList(partyId);
     }
+
     @Transactional
     public Long joinParty(Long partyId, String email) {
         Member applicant = memberService.getMember(email);
         Party party = partyRepository.findById(partyId).orElseThrow(
             () -> new PartyNotFoundException("해당 파티 정보를 찾을 수 없습니다")
         );
+
+        if (partyMemberRepository.existsByMemberAndParty(email, partyId) >= 1) {
+            throw new IllegalArgumentException("이미 파티 신청을 했습니다.");
+        }
 
         partyMemberRepository.save(PartyMember.of(applicant, party));
         return partyId;
@@ -64,6 +69,7 @@ public class PartyMemberService {
             () -> new IllegalArgumentException("해당하는 파티 멤버가 없습니다")
         );
 
+        partyMember.getParty().increaseTotalPartyMembers();
         partyMemberRepository.delete(partyMember);
         return partyId;
     }
@@ -74,7 +80,9 @@ public class PartyMemberService {
             () -> new IllegalArgumentException("파티에 가입 안되어있음.")
         );
 
+        partyMember.getParty().increaseTotalPartyMembers();
         partyMemberRepository.delete(partyMember);
         return partyId;
     }
+
 }

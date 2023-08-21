@@ -16,15 +16,15 @@ import java.util.Optional;
 public interface PartyRepository extends JpaRepository <Party, Long> {
 
     @Query("select new org.goodpeoplegoodtimes.domain.dto.party.response.PartyListResponseDto" +
-            "(p.id, p.title, p.category, p.status, p.createdAt) from Party p order by p.createdAt desc")
+            "(p.id, p.title, p.category, p.status, p.createdAt, p.totalPartyMembers) from Party p order by p.createdAt desc")
     Page<PartyListResponseDto> fetchPartyList(Pageable pageable);
 
     @Query("select new org.goodpeoplegoodtimes.domain.dto.party.response.PartyListResponseDto" +
-            "(p.id, p.title, p.category, p.status, p.createdAt) from Party p where p.title LIKE %:cond% order by p.createdAt desc")
+            "(p.id, p.title, p.category, p.status, p.createdAt, p.totalPartyMembers) from Party p where p.title LIKE %:cond% order by p.createdAt desc")
     Page<PartyListResponseDto> fetchPartyListBySearch(@Param("cond") String cond, Pageable pageable);
 
     @Query("select new org.goodpeoplegoodtimes.domain.dto.party.response.PartyListResponseDto" +
-            "(p.id, p.title, p.category, p.status, p.createdAt) from Party p where p.category = :category order by p.createdAt desc")
+            "(p.id, p.title, p.category, p.status, p.createdAt, p.totalPartyMembers) from Party p where p.category = :category order by p.createdAt desc")
     Page<PartyListResponseDto> fetchPartyListByCategory(@Param("category") Category category, Pageable pageable);
 
     @Query("select new org.goodpeoplegoodtimes.domain.dto.party.response.PartyDetailResponseDto" +

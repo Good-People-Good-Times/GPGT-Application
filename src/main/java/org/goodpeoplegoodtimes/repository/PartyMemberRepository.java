@@ -1,5 +1,7 @@
 package org.goodpeoplegoodtimes.repository;
 
+import org.goodpeoplegoodtimes.domain.Member;
+import org.goodpeoplegoodtimes.domain.Party;
 import org.goodpeoplegoodtimes.domain.PartyMember;
 import org.goodpeoplegoodtimes.domain.dto.party.response.PartyDetailResponseDto;
 import org.goodpeoplegoodtimes.domain.dto.party_member.PartyMemberResponseDto;
@@ -31,8 +33,34 @@ public interface PartyMemberRepository extends JpaRepository<PartyMember, Long> 
         "from PartyMember pm " +
         "LEFT JOIN pm.party p " +
         "LEFT JOIN p.owner ow " +
-        "LEFT JOIN pm.member m with m.email = :email ORDER BY pm.isJoined DESC, pm.createdAt DESC")
+        "LEFT JOIN pm.member m WHERE m.email = :email ORDER BY pm.isJoined DESC, pm.createdAt DESC")
     List<PartyDetailResponseDto> fetchMyPartyList(@Param("email") String email);
+
+    @Query("SELECT new org.goodpeoplegoodtimes.domain.dto.party.response.PartyDetailResponseDto" +
+        "(p.id, ow.id, p.title, p.category, p.status, p.content, ow.nickname, p.modifiedAt) " +
+        "from PartyMember pm " +
+        "LEFT JOIN pm.party p " +
+        "LEFT JOIN p.owner ow " +
+        "LEFT JOIN pm.member m " +
+        "WHERE m.email = :email AND ow.email = :email " +
+        "ORDER BY pm.isJoined DESC, pm.createdAt DESC")
+    List<PartyDetailResponseDto> fetchMyCreatePartyList(@Param("email") String email);
+
+    @Query("SELECT new org.goodpeoplegoodtimes.domain.dto.party.response.PartyDetailResponseDto" +
+        "(p.id, ow.id, p.title, p.category, p.status, p.content, ow.nickname, p.modifiedAt) " +
+        "from PartyMember pm " +
+        "LEFT JOIN pm.party p " +
+        "LEFT JOIN p.owner ow " +
+        "LEFT JOIN pm.member m " +
+        "WHERE m.email = :email AND NOT ow.email = :email " +
+        "ORDER BY pm.isJoined DESC, pm.createdAt DESC")
+    List<PartyDetailResponseDto> fetchMyJoinedPartyList(@Param("email") String email);
+
+    @Query("SELECT count(pm) FROM PartyMember pm " +
+        "LEFT JOIN pm.member m " +
+        "LEFT JOIN pm.party p " +
+        "WHERE m.email = :email AND p.id = :partyId")
+    int existsByMemberAndParty(@Param("email") String email, @Param("partyId") Long partyId);
 
 }
 
