@@ -39,7 +39,9 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests()
                 .antMatchers("/","/party", "/auth/**").permitAll()
+                .antMatchers("/notice/create").hasRole("ADMIN")
                 .antMatchers("/party/**").authenticated()
+
             .and()
             .httpBasic().and()
             .csrf().disable();

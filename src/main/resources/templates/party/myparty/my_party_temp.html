@@ -1,0 +1,76 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/myParty.css}"/>
+</head>
+
+<body>
+<div class="container py-5" layout:fragment="content">
+    <div class="input-form-background row">
+        <div class="party-list col-md-12 mx-auto">
+            <h4 style="text-align: center;" class="mb-3">나의 파티</h4>
+            <div style="display: flex; justify-content: center; margin: 2em 0">
+                <input type="checkbox" id="chk1" style="display: none" checked/><label for="chk1"></label>
+            </div>
+            <div class="row justify-content-center">
+                <div th:each="party : ${myPartyList}" class="card mb-3" style="width: 34rem;">
+                    <a th:href="@{/party/{partyId}(partyId=${party.partyId})}">
+                        <div class="card-body">
+                            <div>
+                                <span th:text="${party.title}" class="card-title" style="font-size: x-large"></span>
+                                <span style="margin-right: 15px; align-self: flex-end;" class="badge rounded-pill"
+                                      th:text="${party.category}"></span>
+                            </div>
+                            <span th:if="${#temporals.format(party.dateTime, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}"
+                                  th:text="${#temporals.format(party.dateTime, 'HH:mm')}"
+                                  class="card-subtitle mb-2 text-muted"></span>
+
+                            <span th:unless="${#temporals.format(party.dateTime, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}"
+                                  th:text="${#temporals.format(party.dateTime, 'yyyy-MM-dd')}"
+                                  class="card-subtitle mb-2 text-muted"></span>
+                            <hr>
+                            <p th:text="${party.content}" class="card-text"></p>
+                            <a href="#" class="card-link">Card link</a>
+                            <a href="#" class="card-link">Another link</a>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const checkbox = document.getElementById('chk1');
+
+        checkbox.addEventListener('change', function () {
+            const isChecked = this.checked;
+            const condition = isChecked ? 'cp' : 'jp';
+
+            fetch(`/getData?cond=${condition}`)
+                .then(response => response.json())
+                .then(data => {
+                    updatePartyList(data);
+                });
+        });
+    });
+
+    function updatePartyList(data) {
+        const partyListContainer = document.querySelector(".party-list .row");
+        partyListContainer.innerHTML = '';
+
+        data.forEach(party => {
+            const partyElement = createPartyElement(party);
+            partyListContainer.appendChild(partyElement);
+        });
+    }
+
+    function createPartyElement(party) {
+    }
+</script>
+</body>
+</html>

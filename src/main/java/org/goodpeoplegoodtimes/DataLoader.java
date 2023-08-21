@@ -35,6 +35,14 @@ public class DataLoader {
                     .build());
             }
 
+            // 관리자 계정 1개 추가.
+            memberRepository.save(Member.builder()
+                .email("admin@admin.com")
+                .password("123123123")
+                .nickname("운영자")
+                .imgNum(1)
+                .role(Role.ADMIN)
+                .build());
 
             Random random = new Random();
             Category[] categories = Category.values();
@@ -65,6 +73,7 @@ public class DataLoader {
                     .status(statuses[random.nextInt(statuses.length)])
                     .content(contents[i])
                     .owner(memberRepository.findById((long) (random.nextInt(5) + 1)).orElseThrow())
+                    .totalPartyMembers(random.nextInt(10) + 1)
                     .build());
             }
 

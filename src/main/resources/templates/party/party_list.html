@@ -15,16 +15,24 @@
         <div class="party-list col-md-12 mx-auto">
             <h4 style="text-align: center;" class="mb-3">파티리스트</h4>
             <br>
-                <div class="mb-3" style="text-align: center; margin-top: 15px;">
-                    <form th:action="@{/party/search}" method="get">
-                        <input type="text" name="cond" placeholder="파티명으로 검색해보세요!" class="form-control" style="display: inline-block; width: 70%;">
-                        <button type="submit" class="button" style="height: 37px; width: 37px">🔍︎</button>
-                    </form>
-                </div>
+            <div class="mb-3" style="text-align: center; margin-top: 15px;">
+                <form th:action="@{/party/search}" method="get">
+                    <input type="text" name="cond" placeholder="파티명으로 검색해보세요!" class="form-control"
+                           style="display: inline-block; width: 70%;">
+                    <button type="submit" class="button" style="height: 37px; width: 37px">🔍︎</button>
+                </form>
+            </div>
             <br>
-            <form th:action="@{/party/search}" method="get" style="display: flex; justify-content: space-between;" class="mx-5">
+            <form th:action="@{/party/search}" method="get"
+                  style="display: flex; justify-content: space-between; margin: 0 7em">
                 <div th:each="category : ${categories}">
-                    <button th:value="${category}" th:text="${category}" name="category" class="badge rounded-pill" style="background-color: white; border: 2px solid rgb(150,122,241); color:rgb(150,122,241);">1</button>
+                    <button th:value="${category}" th:text="${category}" name="category" class="badge rounded-pill"
+                            style="background-color: white;
+                            border: 2px solid rgb(150,122,241);
+                            color:rgb(150,122,241);
+                            padding: 5px 10px;
+                            font-size: 16px;">
+                    </button>
                 </div>
             </form>
             <br>
@@ -37,23 +45,26 @@
                             <a class="link-opacity-100-hover" th:href="@{/party/{id}(id=${party.id})}">
 
                                 <div style="display: flex; justify-content: space-between">
-                                <span style="font-weight: bold; padding-left: 15px" th:text="${party.title}"></span>
-                                <span style="margin-right: 15px; align-self: flex-end;" class="badge rounded-pill" th:text="${party.category}"></span>
+                                    <span style="font-weight: bold; padding-left: 15px" th:text="${party.title}"></span>
+                                    <span style="margin-right: 15px; align-self: flex-end;" class="badge rounded-pill"
+                                          th:text="${party.category}"></span>
                                 </div>
                                 <hr>
                                 <div style="padding-left: 15px">
                                     <div>
                                         <div>
-                                            <span>작성일 : </span><span th:text="${#temporals.format(party.dateTime, 'MM-dd HH:mm:ss')}"></span>
+                                            <span>작성일 : </span><span
+                                                th:text="${#temporals.format(party.dateTime, 'MM-dd HH:mm:ss')}"></span>
                                         </div>
                                         <div>
                                             <span>장소 : </span><span>경기도 용인시</span>
                                         </div>
                                         <div>
-                                            <span>필요 인원수 : </span><span>1명</span>
+                                            <span> 남은 인원 수 : </span><span th:text="${party.totalPartyMembers}"></span>
                                         </div>
                                         <div style="display: flex; justify-content: right; color: cornflowerblue;">
-                                            <span th:text="${party.status.value}" th:classappend="${party.status.value =='마감'} ? 'status-closed'"></span>
+                                            <span th:text="${party.status.value}"
+                                                  th:classappend="${party.status.value =='마감'} ? 'status-closed'"></span>
                                         </div>
                                         <div style="display: flex; justify-content: right; margin-right: 15px">
                                             <span>♡</span>

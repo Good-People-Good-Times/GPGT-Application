@@ -1,0 +1,49 @@
+
+label {
+    display: inline-block;
+    position: relative;
+    width: 250px;
+    height: 45px;
+    background: #eaceff;
+    border-radius: 60px;
+    transition: background 0.4s;
+}
+
+label::after {
+    content: "";
+    position: absolute;
+    left: 2.5px;
+    top: 50%;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    background-color: #fff;
+    transform: translateY(-50%);
+    box-shadow: 1px 3px 4px rgba(0,0,0,0.1);
+    transition: all 0.4s;
+}
+
+label::before {
+    content: "Joined Party";
+    font-size: 24px;
+    font-family: Arial, Helvetica, sans-serif;
+    position: absolute;
+    left: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.4s;
+}
+
+#chk1:checked + label {
+    background: rgb(181, 82, 255)
+}
+
+#chk1:checked + label::after {
+    left: calc(100% - 42.5px);
+}
+
+#chk1:checked + label::before {
+    content: "Create Party";
+    color: #fff;
+    left: 30px;
+}

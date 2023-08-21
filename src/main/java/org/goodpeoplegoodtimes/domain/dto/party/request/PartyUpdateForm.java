@@ -1,25 +1,23 @@
-package org.goodpeoplegoodtimes.domain.dto.party.response;
+package org.goodpeoplegoodtimes.domain.dto.party.request;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.goodpeoplegoodtimes.domain.constant.Category;
-import org.goodpeoplegoodtimes.domain.constant.PartyStatus;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PartyListResponseDto {
+public class PartyUpdateForm {
 
-    private Long id;
+    private Long partyId;
     private String title;
+    private String content;
     private Category category;
-    private PartyStatus status;
-    private LocalDateTime dateTime;
     private int totalPartyMembers;
 
 }

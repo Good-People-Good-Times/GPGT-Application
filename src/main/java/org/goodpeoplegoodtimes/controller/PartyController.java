@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.goodpeoplegoodtimes.domain.constant.Category;
 import org.goodpeoplegoodtimes.domain.dto.party.request.PartyForm;
+import org.goodpeoplegoodtimes.domain.dto.party.request.PartyUpdateForm;
 import org.goodpeoplegoodtimes.domain.dto.party.response.PartyDetailResponseDto;
 import org.goodpeoplegoodtimes.domain.dto.party.response.PartyListResponseDto;
 import org.goodpeoplegoodtimes.service.CommentsService;
@@ -62,6 +63,7 @@ public class PartyController {
 
     @GetMapping(value = "/{partyId}")
     public String displayPartyDetail(@PathVariable Long partyId, Model model, Authentication authentication) {
+        model.addAttribute("alreadyPartyJoinApply", partyService.isAlreadyPartyJoinApply(authentication.getName(), partyId));
         model.addAttribute("isOwner", partyService.isOwnerForParty(partyId, authentication.getName()));
         model.addAttribute("applicants", partyMemberService.listPartyMember(partyId));
         model.addAttribute("comments", commentsService.listComments(partyId));
@@ -82,9 +84,11 @@ public class PartyController {
     }
 
     @GetMapping("/my")
-    public String displayMyPartyList(Authentication authentication, Model model) {
-        model.addAttribute("myPartyList", partyService.getMyPartyList(authentication.getName()));
-        return "party/myparty/my-party";
+    public String displayMyPartyList(@RequestParam(value = "cond", required = false) String cond,
+                                     Authentication authentication, Model model) {
+
+        model.addAttribute("myPartyList", partyService.getMyPartyList(authentication.getName(), cond));
+        return "party/myparty/my_party_temp";
     }
 
     @GetMapping(value = "/scrap")
@@ -101,6 +105,47 @@ public class PartyController {
     public String joinParty(@PathVariable Long partyId, Authentication authentication) {
         partyMemberService.joinParty(partyId, authentication.getName());
         return REDIRECT_TO_PARTY + partyId;
+    }
+
+    @GetMapping(value = "/{partyId}/update")
+    public String updateParty(@PathVariable("partyId") Long partyId,
+                              Authentication authentication, Model model) {
+
+        if (!partyService.isOwnerForParty(partyId, authentication.getName())) {
+            return REDIRECT_TO_PARTY;
+        }
+
+        PartyDetailResponseDto detail = partyService.findPartyDetailById(partyId);
+        model.addAttribute("partyUpdateForm", PartyUpdateForm.builder()
+            .partyId(detail.getPartyId())
+            .title(detail.getTitle())
+            .content(detail.getContent())
+            .category(detail.getCategory())
+            .build());
+
+        return "party/party_form_update";
+    }
+
+    @PostMapping(value = "/{partyId}/update")
+    public String updateParty(@PathVariable("partyId") Long partyId, PartyUpdateForm updateForm,
+                              Authentication authentication) {
+
+        if (!partyService.isOwnerForParty(partyId, authentication.getName())) {
+            return REDIRECT_TO_PARTY;
+        }
+
+        partyService.update(updateForm);
+        return REDIRECT_TO_PARTY + partyId;
+    }
+
+    @GetMapping(value = "/{partyId}/delete")
+    public String deleteParty(@PathVariable("partyId") Long partyId, Authentication authentication) {
+        if (!partyService.isOwnerForParty(partyId, authentication.getName())) {
+            return REDIRECT_TO_PARTY;
+        }
+
+        partyService.delete(partyId);
+        return REDIRECT_TO_PARTY;
     }
 
     private void validatePartyForm(PartyForm partyForm) {

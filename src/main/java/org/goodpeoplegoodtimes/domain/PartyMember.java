@@ -36,5 +36,6 @@ public class PartyMember extends BaseEntity {
 
     public void acceptJoin() {
         this.isJoined = true;
+        party.decreaseTotalPartyMembers();
     }
 }

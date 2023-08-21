@@ -10,9 +10,9 @@
 <div layout:fragment="content" class="container py-5">
     <div class="input-form-background row">
         <div class="input-form col-md-12 mx-auto">
-            <h4 style="text-align: center;" class="mb-3">새로운 파티</h4>
+            <h4 style="text-align: center;" class="mb-3">파티 수정</h4>
             <br>
-            <form th:action="@{/party/create}" th:object="${partyForm}" method="post">
+            <form th:action="@{/party/{partyId}/update(partyId=${partyUpdateForm.partyId})}" th:object="${partyUpdateForm}" method="post">
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="title" style="margin-bottom: 10px; font-weight: bold;">파티명</label>
