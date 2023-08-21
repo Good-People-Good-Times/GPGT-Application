@@ -170,3 +170,12 @@ h4 {
 .badge {
     background-color: rgba(193, 176, 239, 0.97);
 }
+
+.button5 {
+    background-color: white;
+    color: rgba(105, 105, 105, 0.97);
+    border-color: rgba(105, 105, 105, 0.97);
+    border-width: 1px;
+    border-radius: 6px;
+    font-size: 15px;
+}
