@@ -5,8 +5,10 @@ import org.goodpeoplegoodtimes.domain.base.BaseEntity;
 import org.goodpeoplegoodtimes.domain.constant.Category;
 import org.goodpeoplegoodtimes.domain.constant.PartyStatus;
 import org.goodpeoplegoodtimes.domain.dto.party.request.PartyForm;
+import org.goodpeoplegoodtimes.domain.dto.party.request.PartyUpdateForm;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -36,15 +38,37 @@ public class Party extends BaseEntity {
     @JoinColumn(name = "party_owner")
     private Member owner;
 
+    private int totalPartyMembers;
+
+    private LocalDateTime meetingPlannedTime;
 
     public static Party of(PartyForm partyForm, Member member) {
         return Party.builder()
+            .owner(member)
             .title(partyForm.getTitle())
-            .category(partyForm.getCategory())
             .status(PartyStatus.RECRUITING)
             .content(partyForm.getContent())
-            .owner(member)
+            .category(partyForm.getCategory())
+            .totalPartyMembers(partyForm.getTotalPartyMembers())
             .build();
+    }
+
+    public void update(PartyUpdateForm updateForm) {
+        this.title = updateForm.getTitle();
+        this.content = updateForm.getContent();
+        this.category = updateForm.getCategory();
+        this.totalPartyMembers = updateForm.getTotalPartyMembers();
+    }
+
+    public void decreaseTotalPartyMembers() {
+        this.totalPartyMembers -= 1;
+        if (totalPartyMembers == 0) {
+            this.status = PartyStatus.CLOSE;
+        }
+    }
+
+    public void increaseTotalPartyMembers() {
+        this.totalPartyMembers += 1;
     }
 
 }

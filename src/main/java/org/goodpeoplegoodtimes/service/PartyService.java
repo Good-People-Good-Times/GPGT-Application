@@ -3,8 +3,10 @@ package org.goodpeoplegoodtimes.service;
 import lombok.RequiredArgsConstructor;
 import org.goodpeoplegoodtimes.domain.Member;
 import org.goodpeoplegoodtimes.domain.Party;
+import org.goodpeoplegoodtimes.domain.PartyMember;
 import org.goodpeoplegoodtimes.domain.constant.Category;
 import org.goodpeoplegoodtimes.domain.dto.party.request.PartyForm;
+import org.goodpeoplegoodtimes.domain.dto.party.request.PartyUpdateForm;
 import org.goodpeoplegoodtimes.domain.dto.party.response.PartyDetailResponseDto;
 import org.goodpeoplegoodtimes.domain.dto.party.response.PartyListResponseDto;
 import org.goodpeoplegoodtimes.exception.party.PartyNotFoundException;
@@ -29,9 +31,30 @@ public class PartyService {
 
     @Transactional
     public Long createParty(PartyForm partyForm, Authentication authentication) {
+
         Member member = memberService.getMember(authentication.getName());
-        return partyRepository.save(Party.of(partyForm, member)).getId();
+        Party party = Party.of(partyForm, member);
+
+        PartyMember partyMember = PartyMember.of(member, party);
+        partyMember.acceptJoin();
+        party.decreaseTotalPartyMembers();
+
+        partyMemberRepository.save(partyMember);
+        return partyRepository.save(party).getId();
     }
+
+    @Transactional
+    public void update(PartyUpdateForm partyUpdateForm) {
+        Party party = partyRepository.findById(partyUpdateForm.getPartyId()).get();
+        party.update(partyUpdateForm);
+    }
+
+    @Transactional
+    public void delete(Long partyId) {
+        Party party = partyRepository.findById(partyId).get();
+        partyRepository.delete(party);
+    }
+
 
     public Page<PartyListResponseDto> getPartyList(String cond, Category category, Pageable pageable) {
         if (isSearchingByCondition(cond)) {
@@ -53,8 +76,14 @@ public class PartyService {
         );
     }
 
-    public List<PartyDetailResponseDto> getMyPartyList(String email) {
-        return partyMemberRepository.fetchMyPartyList(email);
+    public List<PartyDetailResponseDto> getMyPartyList(String email, String cond) {
+        if (cond == "cp") return partyMemberRepository.fetchMyCreatePartyList(email);
+        else if (cond == "jp") return partyMemberRepository.fetchMyJoinedPartyList(email);
+        else return partyMemberRepository.fetchMyPartyList(email);
+    }
+
+    public boolean isAlreadyPartyJoinApply(String email, Long partyId) {
+        return partyMemberRepository.existsByMemberAndParty(email, partyId) >= 1;
     }
 
     private boolean isSearchingByCondition(String cond) {
