@@ -16,7 +16,8 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="title" style="margin-bottom: 10px; font-weight: bold;">파티명</label>
-                        <input style="width: 620px" type="text" class="form-control" id="title" th:field="*{title}" required>
+                        <input style="width: 620px" type="text" class="form-control" id="title" th:field="*{title}"
+                               required>
                         <div class="invalid-feedback">
                             파티명을 입력해주세요.
                         </div>
@@ -44,7 +45,8 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="people" style="margin-bottom: 10px; font-weight: bold;">인원수</label>
-                        <select style="width: 620px" class="form-control" id="people" required>
+                        <select style="width: 620px" class="form-control" th:field="*{totalPartyMembers}" id="people"
+                                required>
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
@@ -54,7 +56,6 @@
                             <option value="8">8</option>
                             <option value="9">9</option>
                             <option value="10">10</option>
-                            <option value="제한없음">제한없음</option>
                         </select>
                         <div class="invalid-feedback">
                             인원수를 선택해주세요.
@@ -65,12 +66,10 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="date" style="margin-bottom: 10px; font-weight: bold;">시간</label>
-                        <form>
-                            <p>
-                                <input style="width: 50%; float: left;" type="date" id="date" value="today">
-                                <input style="width: 50%; float: right;" type="time">
-                            </p>
-                        </form>
+                        <p>
+                            <input style="width: 50%; float: left;" type="date" id="date" value="today">
+                            <input style="width: 50%; float: right;" type="time">
+                        </p>
                         <div class="invalid-feedback">
                             날짜와 시간을 선택해주세요
                         </div>
@@ -80,7 +79,8 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="title" style="margin-bottom: 10px; font-weight: bold;">장소</label>
-                        <input style="width: 620px" type="text" class="form-control" id="where" th:field="*{title}" required>
+                        <input style="width: 620px" type="text" class="form-control" id="where"
+                               required>
                         <div class="invalid-feedback">
                             파티명을 입력해주세요.
                         </div>
@@ -90,7 +90,8 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="content" style="margin-bottom: 10px; font-weight: bold;">소개</label>
-                        <textarea style="width: 620px" class="form-control" th:field="*{content}" id="content" required placeholder="파티에 대한 상세한 소개 작성해주세요!"></textarea>
+                        <textarea style="width: 620px" class="form-control" th:field="*{content}" id="content" required
+                                  placeholder="파티에 대한 상세한 소개 작성해주세요!"></textarea>
                         <div class="invalid-feedback">
                             파티 소개 작성은 필수입니다.
                         </div>

@@ -75,7 +75,7 @@
                         <div style="text-align: left; margin-left: 20px; font-size: 15px; color: #6c757d;">
                             <span>작성일 : </span><span th:text="${#temporals.format(detail.dateTime, 'yyyy-MM-dd HH:mm')}"></span>
                         </div>
-                        <form style="text-align: right; margin-right: 20px;" th:if="${!isOwner}" th:action="@{/party/join/{id}(id=${detail.partyId})}" method="post">
+                        <form style="text-align: right; margin-right: 20px;" th:if="${!isOwner && !alreadyPartyJoinApply}" th:action="@{/party/join/{id}(id=${detail.partyId})}" method="post">
                             <button class="button" type="submit">파티 신청</button>
                         </form>
                     </div>
