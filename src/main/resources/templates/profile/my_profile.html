@@ -16,22 +16,29 @@
 
             <div class="page" style="text-align: center">
                 <div class="nickname">
-                <b>닉네임: </b><span></span>
+                <b>닉네임 : </b><span></span>
                 <img th:src="@{/img/red.png}" width="25px"/>
                 </div>
+                <br>
 
                 <div class="email">
                 <b>이메일: </b><span>test1@test.com</span>
                 </div>
+                <br>
 
                 <div class="password">
-                <b>비밀번호: </b><span>123123123</span>
-                <button class="button2" type="button">수정</button>
+                <b>비밀번호 재설정 하기</b>
+                    <a th:href="@{/auth/reset/password}">
+                    <button class="button" type="submit"> 수정 </button>
+                    </a>
                 </div>
+                <br>
 
                 <div class="endparty">
                 <b>지금까지 완료한 파티 수: </b><span>10</span>
                 </div>
+
+                <div></div>
             </div>
 
         </div>
