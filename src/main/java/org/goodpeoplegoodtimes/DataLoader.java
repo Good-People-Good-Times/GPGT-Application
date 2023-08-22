@@ -38,7 +38,7 @@ public class DataLoader {
             // 관리자 계정 1개 추가.
             memberRepository.save(Member.builder()
                 .email("admin@admin.com")
-                .password("123123123")
+                .password(passwordEncoder.encode("123123123"))
                 .nickname("운영자")
                 .imgNum(1)
                 .role(Role.ADMIN)

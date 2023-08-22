@@ -21,5 +21,7 @@ public class PartyDetailResponseDto {
     private String content;
     private String owner;
     private LocalDateTime dateTime;
+    private int totalPartyMembers;
+    private int currentPartyMembers;
 
 }

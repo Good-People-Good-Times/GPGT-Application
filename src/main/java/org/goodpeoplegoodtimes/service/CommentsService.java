@@ -39,15 +39,14 @@ public class CommentsService {
         return commentsRepository.fetchCommentsList(partyId);
     }
 
-    public Long updateComments(CommentsRequestDto requestDto, String email, Long commentsId) {
+    public void updateComments(String content, String email, Long commentsId) {
         Member member = memberService.getMember(email);
         if (!commentsRepository.existsCommentsByIdAndMember(commentsId, member)) {
             throw new IllegalArgumentException("예외");
         }
 
         Comments comments = commentsRepository.findById(commentsId).get();
-        comments.updateContent(requestDto.getContent());
-        return commentsId;
+        comments.updateContent(content);
     }
 
     public Long deleteComments(CommentsRequestDto requestDto, String email, Long commentsId) {
