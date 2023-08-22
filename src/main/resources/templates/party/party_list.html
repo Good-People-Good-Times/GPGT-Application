@@ -45,8 +45,8 @@
                             <a class="link-opacity-100-hover" th:href="@{/party/{id}(id=${party.id})}">
 
                                 <div style="display: flex; justify-content: space-between">
-                                    <span style="font-weight: bold; padding-left: 15px" th:text="${party.title}"></span>
-                                    <span style="margin-right: 15px; align-self: flex-end;" class="badge rounded-pill"
+                                    <span style="font-weight: bold; padding-top: 3px; padding-left: 15px" th:text="${party.title}"></span>
+                                    <span style="margin-right: 3px; align-self: flex-end;" class="badge rounded-pill"
                                           th:text="${party.category}"></span>
                                 </div>
                                 <hr>
@@ -67,7 +67,6 @@
                                                   th:classappend="${party.status.value =='마감'} ? 'status-closed'"></span>
                                         </div>
                                         <div style="display: flex; justify-content: right; margin-right: 15px">
-                                            <span>♡</span>
                                         </div>
                                     </div>
                                 </div>

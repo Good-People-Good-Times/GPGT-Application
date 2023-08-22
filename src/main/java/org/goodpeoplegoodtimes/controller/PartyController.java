@@ -91,11 +91,6 @@ public class PartyController {
         return "party/myparty/my_party_temp";
     }
 
-    @GetMapping(value = "/scrap")
-    public String displayScrapPartyPage() {
-        return "scrap/scrap";
-    }
-
     @GetMapping("/party-change")
     public String displayPartyModificationPage() {
         return "party/change/party_change";
