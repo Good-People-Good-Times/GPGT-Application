@@ -58,28 +58,36 @@
             <div style="text-align: center; padding-top: 15px; padding-bottom: 15px; background-color: white; border-radius: 5px; border-width: 3px; font-size: 18px;  font-weight:bold;"
                  class="mb-3 border border-2">
                 <h3><strong th:text="${detail.title}"></strong></h3>
+                <table class="table table-bordered mx-auto" style="width: fit-content;">
+                    <tbody style="font-weight: bold">
+                    <tr style="font-size: 13px">
+                        <td>현재 파티현황:</td>
+                        <td><span th:text="${detail.currentPartyMembers}" style="color: rgba(69,8,232,0.97)"></span>
+                        </td>
+                        <td>/</td>
+                        <td><span th:text="${detail.totalPartyMembers}"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
                 <hr>
                 <div style="font-weight: normal">
-                    <div>
-                        <span>장소 : </span><span>기흥역</span>
-                    </div>
-                    <div>
-                        <span>인원수 : </span><span>4명</span>
-                    </div>
-                    <br>
-                    <div>
+                    <div style="display: flex; min-height: 10em; align-items: center; justify-content: center;">
                         <span th:text="${detail.content}"></span>
                     </div>
-                    <br>
+                    <hr>
                     <div style="display: flex; justify-content: space-between; align-items: center; ">
-                        <div style="text-align: left; margin-left: 20px; font-size: 15px; color: #6c757d;">
-                            <span>작성일 : </span><span th:text="${#temporals.format(detail.dateTime, 'yyyy-MM-dd HH:mm')}"></span>
+                        <div style="text-align: left; margin-left: 20px; font-size: 12px; color: #6c757d;">
+                            <span>작성일 : </span>
+                            <span th:text="${#temporals.format(detail.dateTime, 'yyyy-MM-dd HH:mm')}"></span>
                         </div>
-                        <form style="text-align: right; margin-right: 15px;" th:if="${!isOwner && !alreadyPartyJoinApply}" th:action="@{/party/join/{id}(id=${detail.partyId})}" method="post">
+                        <form style="text-align: right; margin-right: 15px;"
+                              th:if="${!isOwner && !alreadyPartyJoinApply}"
+                              th:action="@{/party/join/{id}(id=${detail.partyId})}" method="post">
                             <button class="button5" type="submit">파티 신청</button>
                         </form>
                         <form style="text-align: right; margin-right: 15px;" th:if="${isOwner}">
-                            <button style="margin-right: 7px" class="button5" type="submit">수정</button><button class="button5" type="submit">삭제</button>
+                            <button style="margin-right: 7px" class="button5" type="submit">수정</button>
+                            <button class="button5" type="submit">삭제</button>
                         </form>
                     </div>
                 </div>
@@ -101,22 +109,78 @@
                         <h5 th:text="${comment.getOwner()}" style="display: inline; margin-left: 5px;"></h5>
                         <img th:src="@{/img/red.png}" style="margin-left: 3px; width: 22px; height: 22px">
                     </div>
-                    <h6 th:text="${#temporals.format(comment.getDateTime(), 'yy/MM/dd(E) HH:mm')}" style="font-size: 15px; color: #6c757d; text-align: right; margin-top: 5px"></h6>
-
+                    <h6 th:text="${#temporals.format(comment.getDateTime(), 'yy/MM/dd(E) HH:mm')}"
+                        style="font-size: 15px; color: #6c757d; text-align: right; margin-top: 5px"></h6>
                 </div>
                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div th:text="${comment.getContent()}"
-                         style="flex-grow: 1; text-align: left; background-color: #fff; border: 2px rgba(193, 176, 239, 0.97); border-radius: 6px; font-size: 15px; height: 30px; margin-top: 5px"
-                         class="mb-3 border border-2">
+                    <div th:id="'comment-content-container-' + ${comment.commentsId}"
+                         style="flex-grow: 1; text-align: left; background-color: #fff; border: 2px rgba(193, 176, 239, 0.97); border-radius: 6px; font-size: 15px; width: 300px; min-height: 30px; height: auto; overflow-y: auto; margin-top: 5px"
+                         class="mb-3 border border-2 p-2">
+<span th:id="'comment-content-' + ${comment.commentsId}" th:text="${comment.content}"
+      th:onclick="'editComment(' + ${comment.commentsId} + ')'"></span>
+
+                        <form th:id="'edit-form-' + ${comment.commentsId}" style="display: none;"
+                              th:action="@{/comments/{commentsId}/update(commentsId=${comment.commentsId})}"
+                              method="post">
+                            <input type="text" name="comment" class="form-control"
+                                   th:id="'edit-input-' + ${comment.commentsId}" th:value="${comment.content}" required>
+                            <input type="hidden" name="partyId" th:value="${detail.partyId}">
+                            <button type="submit" class="button">저장</button>
+                        </form>
                     </div>
                     <div style="display: flex; align-items: center; margin-bottom: 10px">
-                        <button class="button5" style="margin-right: 7px; margin-left: 15px">수정</button>
-                        <button class="button5">삭제</button>
+                        <button type="button" class="button5" style="margin-right: 7px; margin-left: 15px"
+                                th:id="'action-button-1-' + ${comment.commentsId}"
+                                th:onclick="'editComment(' + ${comment.commentsId} + ')'" th:text="수정"></button>
+                        <button class="button5" th:id="'action-button-2-' + ${comment.commentsId}"
+                                th:text="삭제"></button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <script type="text/javascript" th:src="@{/js/signup.js}"></script>
+    <script>
+        function editComment(commentId) {
+            const commentContent = document.querySelector(`#comment-content-${commentId}`);
+            const editForm = document.querySelector(`#edit-form-${commentId}`);
+            const editInput = document.querySelector(`#edit-input-${commentId}`);
+            const actionButton1 = document.querySelector(`#action-button-1-${commentId}`);
+            const actionButton2 = document.querySelector(`#action-button-2-${commentId}`);
+
+            commentContent.style.display = 'none';
+            editForm.style.display = 'block';
+            editInput.focus();
+
+            // REMOVE THIS LINE
+            // actionButton1.onclick = function () {
+            //    editForm.submit();  // "저장" 버튼 클릭시 폼 제출
+            // };
+
+            actionButton1.textContent = "저장";
+            actionButton2.onclick = function () {
+                cancelEdit(commentId);
+            };
+            actionButton2.textContent = "취소";
+        }
+
+        function cancelEdit(commentId) {
+            const commentContent = document.querySelector(`#comment-content-${commentId}`);
+            const editForm = document.querySelector(`#edit-form-${commentId}`);
+            const actionButton1 = document.querySelector(`#action-button-1-${commentId}`);
+            const actionButton2 = document.querySelector(`#action-button-2-${commentId}`);
+
+            commentContent.style.display = 'block';
+            editForm.style.display = 'none';
+
+            actionButton1.onclick = function () {
+                editComment(commentId);
+            };
+            actionButton1.textContent = "수정";
+            actionButton2.onclick = function () {
+            };
+            actionButton2.textContent = "삭제";
+        }
+    </script>
 </div>
 </html>
