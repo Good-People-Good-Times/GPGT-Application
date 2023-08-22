@@ -21,7 +21,7 @@
                     <img th:src="@{/img/yellow.png}" width="33px" style="margin-left: 5px;">
                 </div>
                 <div style="justify-content: flex-end">
-                    <span class="badge rounded-pill" style="text-align: right; font-size: 20px"><span th:text="${detail.status.value}"></span></span>
+                    <span class="badge rounded-pill" style="text-align: right; font-size: 18px"><span th:text="${detail.status.value}"></span></span>
                 </div>
             </div>
             <div style="display: inline-flex; justify-content: space-between; align-items: center; width: 100%;">
@@ -82,7 +82,7 @@
                     </div>
                     <hr>
                     <div style="display: flex; justify-content: space-between; align-items: center; ">
-                        <div style="text-align: left; margin-left: 20px; font-size: 12px; color: #6c757d;">
+                        <div style="text-align: left; margin-left: 20px; font-size: 13px; color: #6c757d;">
                             <span>작성일 : </span>
                             <span th:text="${#temporals.format(detail.dateTime, 'yyyy-MM-dd HH:mm')}"></span>
                         </div>
