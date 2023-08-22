@@ -17,7 +17,7 @@ public interface BoardRepository extends JpaRepository <Board, Long> {
     List<BoardResponseDto> getBoardList();
 
     @Query("select new org.goodpeoplegoodtimes.domain.dto.board.BoardResponseDto" +
-            "(b.id, b.title, b.content, b.member.nickname, b.createdAt) from Board b where b.id =: id")
+            "(b.id, b.title, b.content, b.member.nickname, b.createdAt) from Board b where b.id =:id")
     Optional<BoardResponseDto> getBoardDetail(@Param("id") Long id);
 
 }

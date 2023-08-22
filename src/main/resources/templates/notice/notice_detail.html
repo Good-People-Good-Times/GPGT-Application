@@ -1,0 +1,20 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}"/>
+</head>
+
+<div layout:fragment="content" class="container py-5">
+    <div class="input-form-background row">
+        <div class="input-form col-md-12 mx-auto">
+            <div th:text="${detail.owner}"></div>
+            <div th:text="${detail.title}"></div>
+            <div th:text="${detail.content}"></div>
+            <div th:text="${detail.dateTime}"></div>
+        </div>
+    </div>
+</div>
+</html>

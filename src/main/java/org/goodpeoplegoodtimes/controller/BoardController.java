@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping(value = "/notice")
+@RequestMapping(value = "/board")
 public class BoardController {
 
     private final BoardService boardService;
@@ -29,7 +29,7 @@ public class BoardController {
         return "notice/notice_list";
     }
 
-    @GetMapping("/create")
+    @GetMapping(value = "/create")
     public String displayNoticeCreationForm(Model model) {
         model.addAttribute("boardForm", new BoardForm());
         return "notice/notice_form";
@@ -52,10 +52,9 @@ public class BoardController {
         return "redirect:/board/" + boardId;
     }
 
-    /* @GetMapping(value = "/{id}")
+    @GetMapping(value = "/{id}")
     public String displayPartyDetailPage(@PathVariable("id") String id, Model model) {
         model.addAttribute("detail", boardService.findBoardDetailById(Long.parseLong(id)));
-        return "party/board_detail";
-
-     */
+        return "notice/notice_detail";
+    }
 }
