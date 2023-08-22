@@ -20,20 +20,34 @@
                 <div th:each="party : ${myPartyList}" class="card mb-3" style="width: 34rem;">
                     <a th:href="@{/party/{partyId}(partyId=${party.partyId})}">
                         <div class="card-body">
-                            <div>
-                                <span th:text="${party.title}" class="card-title" style="font-size: x-large"></span>
-                                <span style="margin-right: 15px; align-self: flex-end;" class="badge rounded-pill"
-                                      th:text="${party.category}"></span>
+                            <div style="display: flex; justify-content: space-between">
+                                <div style="vertical-align: center">
+                                    <span th:text="${party.title}" class="card-title" style="font-size: x-large; font-weight: bold"></span>
+                                </div>
+                                <div style="vertical-align: center">
+                                    <span style="margin-right: 5px; margin-top: 5px; align-self: flex-end; font-size: 15px;" class="badge rounded-pill"
+                                          th:text="${party.category}"></span>
+                                </div>
                             </div>
-                            <span th:if="${#temporals.format(party.dateTime, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}"
-                                  th:text="${#temporals.format(party.dateTime, 'HH:mm')}"
-                                  class="card-subtitle mb-2 text-muted"></span>
-
-                            <span th:unless="${#temporals.format(party.dateTime, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}"
-                                  th:text="${#temporals.format(party.dateTime, 'yyyy-MM-dd')}"
-                                  class="card-subtitle mb-2 text-muted"></span>
                             <hr>
-                            <p th:text="${party.content}" class="card-text"></p>
+                            <div>
+                                <div>
+                                    <span>시간 : </span>
+                                    <span>08월 24일 17:00</span>
+                                </div>
+                                <div>
+                                    <span>장소 : </span><span>경기도 용인시</span>
+                                </div>
+                                <div>
+                                    <span> 남은 인원 수 : </span><span th:text="${party.totalPartyMembers}"></span>
+                                </div>
+                                <div style="display: flex; justify-content: right">
+                                    <div style="color: cornflowerblue;">
+                                        <span th:text="${party.status.value}"
+                                              th:classappend="${party.status.value =='마감'} ? 'status-closed'"></span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
