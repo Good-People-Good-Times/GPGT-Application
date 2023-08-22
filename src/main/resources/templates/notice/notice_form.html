@@ -12,11 +12,11 @@
   <div class="input-form-background row">
     <div class="input-form col-md-12 mx-auto">
       <div class="container my-3">
-        <h4  style="text-align: center">공지등록</h4>
-        <form th:action="@{/notice/notice_form}" method="POST">
+        <h4 style="text-align: center">공지등록</h4>
+        <form th:action="@{/board/create}" th:object="${boardForm}" method="POST">
           <div class="mb-3">
-            <label for="subject" class="form-label">제목</label>
-            <input type="text" name="text" id="subject" class="form-control" >
+            <label for="title" class="form-label">제목</label>
+            <input type="text" name="title" id="title" class="form-control" >
           </div>
           <br>
           <div class="mb-3">

@@ -13,22 +13,26 @@
         <div class="input-form col-md-12 mx-auto">
             <div class="container my-3">
                 <h4 style="text-align: center;" class="mb-3">공지사항</h4>
-                <br>
+                <div style="text-align: right">
+                    <a th:href="@{board/create}">
+                        <button style="background-color: white; border: 0; font-size: 16px; margin-bottom: 4px">글쓰기</button>
+                    </a>
+                </div>
                 <table class="table">
                     <thead class="bg-dark text-white bg-opacity-75">
-                    <tr style="text-align: center; background-color: rgba(193, 176, 239, 0.97)" >
+                    <tr style="text-align: center; background-color: rgba(175,147,246,0.84);">
                         <th class="border border-2 border-secondary-subtle">번호</th>
                         <th class="border border-2 border-secondary-subtle">제목</th>
                         <th class="border border-2 border-secondary-subtle">작성일시</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="notice, loop : ${questionList}">
-                        <td th:text="${notice.count}"></td>
+                    <tr th:each="notice, loop : ${list}">
+                        <td th:text="${notice.id}"></td>
                         <td>
-                            <a th:href="@{|/notice/detail/${notice.id}|}" th:text="${notice.subject}"></a>
+                            <a th:href="@{/board/{id}(id=${(notice.id)})}" th:text="${notice.title}"></a>
                         </td>
-                        <td th:text="${#temporals.format(notice.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+                        <td th:text="${#temporals.format(notice.dateTime, 'yyyy-MM-dd HH:mm')}"></td>
                     </tr>
                     </tbody>
                 </table>
