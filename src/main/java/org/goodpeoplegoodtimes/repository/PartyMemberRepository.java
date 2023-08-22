@@ -29,7 +29,7 @@ public interface PartyMemberRepository extends JpaRepository<PartyMember, Long> 
 
 
     @Query("SELECT new org.goodpeoplegoodtimes.domain.dto.party.response.PartyDetailResponseDto" +
-        "(p.id, ow.id, p.title, p.category, p.status, p.content, ow.nickname, p.modifiedAt) " +
+        "(p.id, ow.id, p.title, p.category, p.status, p.content, ow.nickname, p.modifiedAt, p.totalPartyMembers, p.currentPartyMembers) " +
         "from PartyMember pm " +
         "LEFT JOIN pm.party p " +
         "LEFT JOIN p.owner ow " +
@@ -37,7 +37,7 @@ public interface PartyMemberRepository extends JpaRepository<PartyMember, Long> 
     List<PartyDetailResponseDto> fetchMyPartyList(@Param("email") String email);
 
     @Query("SELECT new org.goodpeoplegoodtimes.domain.dto.party.response.PartyDetailResponseDto" +
-        "(p.id, ow.id, p.title, p.category, p.status, p.content, ow.nickname, p.modifiedAt) " +
+        "(p.id, ow.id, p.title, p.category, p.status, p.content, ow.nickname, p.modifiedAt, p.totalPartyMembers, p.currentPartyMembers) " +
         "from PartyMember pm " +
         "LEFT JOIN pm.party p " +
         "LEFT JOIN p.owner ow " +
@@ -47,7 +47,7 @@ public interface PartyMemberRepository extends JpaRepository<PartyMember, Long> 
     List<PartyDetailResponseDto> fetchMyCreatePartyList(@Param("email") String email);
 
     @Query("SELECT new org.goodpeoplegoodtimes.domain.dto.party.response.PartyDetailResponseDto" +
-        "(p.id, ow.id, p.title, p.category, p.status, p.content, ow.nickname, p.modifiedAt) " +
+        "(p.id, ow.id, p.title, p.category, p.status, p.content, ow.nickname, p.modifiedAt, p.totalPartyMembers, p.currentPartyMembers) " +
         "from PartyMember pm " +
         "LEFT JOIN pm.party p " +
         "LEFT JOIN p.owner ow " +

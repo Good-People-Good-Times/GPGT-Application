@@ -40,6 +40,8 @@ public class Party extends BaseEntity {
 
     private int totalPartyMembers;
 
+    private int currentPartyMembers;
+
     private LocalDateTime meetingPlannedTime;
 
     public static Party of(PartyForm partyForm, Member member) {
@@ -61,14 +63,14 @@ public class Party extends BaseEntity {
     }
 
     public void decreaseTotalPartyMembers() {
-        this.totalPartyMembers -= 1;
-        if (totalPartyMembers == 0) {
-            this.status = PartyStatus.CLOSE;
-        }
+        this.currentPartyMembers -= 1;
     }
 
     public void increaseTotalPartyMembers() {
-        this.totalPartyMembers += 1;
+        this.currentPartyMembers += 1;
+        if (currentPartyMembers == totalPartyMembers) {
+            this.status = PartyStatus.CLOSE;
+        }
     }
 
 }

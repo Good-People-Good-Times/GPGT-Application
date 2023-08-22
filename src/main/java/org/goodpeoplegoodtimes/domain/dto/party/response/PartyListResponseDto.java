@@ -21,5 +21,6 @@ public class PartyListResponseDto {
     private PartyStatus status;
     private LocalDateTime dateTime;
     private int totalPartyMembers;
+    private int currentPartyMembers;
 
 }
