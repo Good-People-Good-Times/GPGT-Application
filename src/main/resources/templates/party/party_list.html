@@ -46,25 +46,27 @@
 
                                 <div style="display: flex; justify-content: space-between">
                                     <span style="font-weight: bold; padding-top: 3px; padding-left: 15px" th:text="${party.title}"></span>
-                                    <span style="margin-right: 3px; align-self: flex-end;" class="badge rounded-pill"
+                                    <span style="margin-right: 3px; align-self: flex-end; vertical-align: center" class="badge rounded-pill"
                                           th:text="${party.category}"></span>
                                 </div>
                                 <hr>
                                 <div style="padding-left: 15px">
                                     <div>
                                         <div>
-                                            <span>작성일 : </span><span
-                                                th:text="${#temporals.format(party.dateTime, 'MM-dd HH:mm:ss')}"></span>
+                                            <span>시간 : </span>
+                                                <span>08월 24일 17:00</span>
                                         </div>
                                         <div>
                                             <span>장소 : </span><span>경기도 용인시</span>
                                         </div>
                                         <div>
-                                            <span> 남은 인원 수 : </span><span th:text="${party.totalPartyMembers}"></span>
+                                            <span> 파티 현황 : </span><span th:text="${party.currentPartyMembers}"></span><span> / </span><span th:text="${party.totalPartyMembers}"></span>
                                         </div>
-                                        <div style="display: flex; justify-content: right; color: cornflowerblue;">
-                                            <span th:text="${party.status.value}"
-                                                  th:classappend="${party.status.value =='마감'} ? 'status-closed'"></span>
+                                        <div style="display: flex; justify-content: right">
+                                            <div style="color: cornflowerblue;">
+                                                <span th:text="${party.status.value}"
+                                                      th:classappend="${party.status.value =='마감'} ? 'status-closed'"></span>
+                                            </div>
                                         </div>
                                         <div style="display: flex; justify-content: right; margin-right: 15px">
                                         </div>
