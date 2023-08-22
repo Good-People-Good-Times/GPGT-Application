@@ -66,6 +66,7 @@ public class DataLoader {
 
 
             // 파티 데이터 30개 생성
+            final int num = 1;
             for (int i = 0; i < 30; i++) {
                 partyRepository.save(Party.builder()
                     .title(titles[i])
@@ -74,6 +75,7 @@ public class DataLoader {
                     .content(contents[i])
                     .owner(memberRepository.findById((long) (random.nextInt(5) + 1)).orElseThrow())
                     .totalPartyMembers(random.nextInt(10) + 1)
+                    .currentPartyMembers(num)
                     .build());
             }
 
