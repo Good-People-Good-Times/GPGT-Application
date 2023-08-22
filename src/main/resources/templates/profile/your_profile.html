@@ -19,23 +19,26 @@
                     <b>닉네임: </b><span>하이</span>
                     <img th:src="@{/img/yellow.png}" width="25px"/>
                 </div>
-
+                <br>
                 <div class="endparty">
-                    <b>지금까지 완료한 파티 수: </b><span>6</span>
+                    <b>지금까지 작성한 파티 수: </b><span>6</span>
                 </div>
             </div>
-
             <br>
+            <br>
+
             <div style="text-align: center; padding-top: 15px; padding-bottom: 15px; background-color: white; border-radius: 5px; border-width: 3px; font-size: 18px;  font-weight:bold;"
                 class="mb-3 border border-2">
                 작성한 파티
                 <hr>
-                <div style="font-weight:normal; font-size: 15px;">
-                    - 기흥 택시팟 구해요~
-                    <br>
-                    - 콘크리트 유토피아 볼 사람
-                    <br>
-                    - 명진당 스터디 하실 분?
+                <div th:each="party : ${myPartyList}" style="font-weight:normal; font-size: 15px;">
+                    <div>
+                        <a th:href="@{/party/{partyId}(partyId=${party.partyId})}">
+                            <span>제목 : </span><span th:text="${party.title}"></span>
+                            <span>/ 상태 : </span><span th:text="${party.status.value}"></span>
+                            <br>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
