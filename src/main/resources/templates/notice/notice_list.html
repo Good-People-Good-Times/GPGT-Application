@@ -27,7 +27,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="notice, loop : ${list}">
+                    <tr th:each="notice, loop : ${list}" style="text-align: center;">
                         <td th:text="${notice.id}"></td>
                         <td>
                             <a th:href="@{/board/{id}(id=${(notice.id)})}" th:text="${notice.title}"></a>

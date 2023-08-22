@@ -7,14 +7,25 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}"/>
 </head>
 
+<body>
 <div layout:fragment="content" class="container py-5">
     <div class="input-form-background row">
         <div class="input-form col-md-12 mx-auto">
-            <div th:text="${detail.owner}"></div>
-            <div th:text="${detail.title}"></div>
-            <div th:text="${detail.content}"></div>
-            <div th:text="${detail.dateTime}"></div>
+            <div class="container my-3">
+                <p style="color: rgba(169,150,222,0.97); font-size: 16px">운영자의 한마디..♥</p>
+                <div th:text="${detail.title}" style="font-weight: bold; font-size: 20px"></div>
+                <hr>
+                <div style="text-align: right; font-size: 14px">
+                    작성자 : <span th:text="${detail.owner}"></span>
+                    / 작성일 : <span th:text="${#temporals.format(detail.dateTime, 'yyyy-MM-dd HH:mm')}"></span>
+                </div>
+                <br>
+                <div th:text="${detail.content}"></div>
+
+
+            </div>
         </div>
     </div>
 </div>
+</body>
 </html>
