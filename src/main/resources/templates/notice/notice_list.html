@@ -1,5 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layouts/layout}">
 
 <head>
@@ -13,9 +14,9 @@
         <div class="input-form col-md-12 mx-auto">
             <div class="container my-3">
                 <h4 style="text-align: center;" class="mb-3">공지사항</h4>
-                <div style="text-align: right">
+                <div style="text-align: right" >
                     <a th:href="@{board/create}">
-                        <button class="button5" style="font-size: 16px; margin-bottom: 4px">글쓰기</button>
+                        <button sec:authorize="hasRole('ADMIN')" class="button5" style="font-size: 16px; margin-bottom: 4px">글쓰기</button>
                     </a>
                 </div>
                 <table class="table">
