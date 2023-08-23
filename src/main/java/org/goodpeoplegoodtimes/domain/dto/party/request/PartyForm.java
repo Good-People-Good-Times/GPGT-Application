@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.goodpeoplegoodtimes.domain.constant.Category;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @Builder
@@ -19,5 +21,8 @@ public class PartyForm {
     private String content;
     private Category category;
     private int totalPartyMembers;
+    private String date;
+    private String time;
+    private String place;
 
 }

@@ -35,13 +35,12 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-
-    public static Member of(SignupForm signupForm, String encodedPassword) {
+    public static Member of(SignupForm signupForm, String encodedPassword, int imgNum) {
         return Member.builder()
             .email(signupForm.getEmail())
             .password(encodedPassword)
             .nickname(signupForm.getNickname())
-            .imgNum(signupForm.getImgNum())
+            .imgNum(imgNum)
             .role(Role.USER)
             .build();
     }

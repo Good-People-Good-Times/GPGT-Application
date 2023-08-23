@@ -23,6 +23,4 @@ public class SignupForm {
     @NotEmpty(message = "닉네임을 입려해주세요.")
     private String nickname;
 
-    private int imgNum;
-
 }

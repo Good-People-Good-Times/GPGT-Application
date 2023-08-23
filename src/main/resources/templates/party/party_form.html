@@ -67,8 +67,8 @@
                     <div class="col-md-6 mb-3">
                         <label for="date" style="margin-bottom: 10px; font-weight: bold;">시간</label>
                         <p>
-                            <input style="width: 50%; float: left;" type="date" id="date" value="today">
-                            <input style="width: 50%; float: right;" type="time">
+                            <input th:field="*{date}"style="width: 50%; float: left;" type="date" id="date">
+                            <input th:field="*{time}"style="width: 50%; float: right;" type="time">
                         </p>
                         <div class="invalid-feedback">
                             날짜와 시간을 선택해주세요
@@ -79,7 +79,7 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="title" style="margin-bottom: 10px; font-weight: bold;">장소</label>
-                        <input style="width: 620px" type="text" class="form-control" id="where"
+                        <input th:field="*{place}" style="width: 620px" type="text" class="form-control" id="where"
                                required>
                         <div class="invalid-feedback">
                             파티명을 입력해주세요.

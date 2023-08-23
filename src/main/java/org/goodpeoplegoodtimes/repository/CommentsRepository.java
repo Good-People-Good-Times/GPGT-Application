@@ -11,12 +11,14 @@ import java.util.List;
 
 public interface CommentsRepository extends JpaRepository<Comments, Long> {
     @Query("SELECT new org.goodpeoplegoodtimes.domain.dto.comments.CommentsResponseDto" +
-        "(c.id, c.member.nickname, c.content, c.createdAt) " +
+        "(c.id, c.content, c.modifiedAt, m.id, m.email, m.nickname, m.imgNum, m.role) " +
         "FROM Comments c " +
         "LEFT JOIN c.party p " +
+        "LEFT JOIN c.member m " +
         "WHERE p.id = :id " +
         "ORDER BY c.createdAt desc")
     List<CommentsResponseDto> fetchCommentsList(@Param("id") Long id);
+
     boolean existsCommentsByIdAndMember(Long id, Member member);
 }
 

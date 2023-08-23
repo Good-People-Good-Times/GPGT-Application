@@ -1,10 +1,9 @@
 package org.goodpeoplegoodtimes.service;
 
-import groovy.util.logging.Slf4j;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.goodpeoplegoodtimes.domain.Comments;
 import org.goodpeoplegoodtimes.domain.Member;
-import org.goodpeoplegoodtimes.domain.dto.comments.CommentsRequestDto;
 import org.goodpeoplegoodtimes.domain.dto.comments.CommentsResponseDto;
 import org.goodpeoplegoodtimes.exception.party.PartyNotFoundException;
 import org.goodpeoplegoodtimes.repository.CommentsRepository;
@@ -24,6 +23,10 @@ public class CommentsService {
     private final PartyRepository partyRepository;
     private final MemberService memberService;
 
+    public List<CommentsResponseDto> listComments(Long partyId) {
+        return commentsRepository.fetchCommentsList(partyId);
+    }
+
     @Transactional
     public Long saveComments(String comment, String email, Long partyId) {
         Comments comments = commentsRepository.save(Comments.of(
@@ -35,10 +38,7 @@ public class CommentsService {
         return partyId;
     }
 
-    public List<CommentsResponseDto> listComments(Long partyId) {
-        return commentsRepository.fetchCommentsList(partyId);
-    }
-
+    @Transactional
     public void updateComments(String content, String email, Long commentsId) {
         Member member = memberService.getMember(email);
         if (!commentsRepository.existsCommentsByIdAndMember(commentsId, member)) {
@@ -49,7 +49,8 @@ public class CommentsService {
         comments.updateContent(content);
     }
 
-    public Long deleteComments(CommentsRequestDto requestDto, String email, Long commentsId) {
+    @Transactional
+    public Long deleteComments(String email, Long commentsId) {
         Member member = memberService.getMember(email);
         if (!commentsRepository.existsCommentsByIdAndMember(commentsId, member)) {
             throw new IllegalArgumentException("예외");

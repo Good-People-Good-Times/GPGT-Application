@@ -5,8 +5,10 @@ import org.goodpeoplegoodtimes.domain.Member;
 import org.goodpeoplegoodtimes.domain.Party;
 import org.goodpeoplegoodtimes.domain.PartyMember;
 import org.goodpeoplegoodtimes.domain.constant.Category;
+import org.goodpeoplegoodtimes.domain.dto.member.ProfileResponseDto;
 import org.goodpeoplegoodtimes.domain.dto.party.request.PartyForm;
 import org.goodpeoplegoodtimes.domain.dto.party.request.PartyUpdateForm;
+import org.goodpeoplegoodtimes.domain.dto.party.response.MyPartyResponseDto;
 import org.goodpeoplegoodtimes.domain.dto.party.response.PartyDetailResponseDto;
 import org.goodpeoplegoodtimes.domain.dto.party.response.PartyListResponseDto;
 import org.goodpeoplegoodtimes.exception.party.PartyNotFoundException;
@@ -30,7 +32,7 @@ public class PartyService {
     private final PartyMemberRepository partyMemberRepository;
 
     @Transactional
-    public Long createParty(PartyForm partyForm, Authentication authentication) {
+    public Long create(PartyForm partyForm, Authentication authentication) {
 
         Member member = memberService.getMember(authentication.getName());
         Party party = Party.of(partyForm, member);
@@ -55,7 +57,7 @@ public class PartyService {
     }
 
 
-    public Page<PartyListResponseDto> getPartyList(String cond, Category category, Pageable pageable) {
+    public Page<PartyListResponseDto> fetchList(String cond, Category category, Pageable pageable) {
         if (isSearchingByCondition(cond)) {
             return partyRepository.fetchPartyListBySearch(cond, pageable);
         } else if (isFilteringByCategory(category)) {
@@ -70,15 +72,19 @@ public class PartyService {
     }
 
     public PartyDetailResponseDto findPartyDetailById(Long id) {
-        return partyRepository.fetchPartyDetail(id).orElseThrow(
-                () -> new PartyNotFoundException("파티를 찾을 수 없습니다.")
+        PartyDetailResponseDto partyDetailResponseDto = partyRepository.fetchPartyDetail(id).orElseThrow(
+            () -> new PartyNotFoundException("파티를 찾을 수 없습니다.")
         );
+        partyDetailResponseDto.setJoinedPartyCount(partyMemberRepository.getJoinedPartyCount(partyDetailResponseDto.getMember().getEmail()));
+        return partyDetailResponseDto;
     }
 
-    public List<PartyDetailResponseDto> getMyPartyList(String email, String cond) {
-        if (cond == "cp") return partyMemberRepository.fetchMyCreatePartyList(email);
-        else if (cond == "jp") return partyMemberRepository.fetchMyJoinedPartyList(email);
-        else return partyMemberRepository.fetchMyPartyList(email);
+    public List<MyPartyResponseDto> getMyPartyList(String email) {
+        return partyMemberRepository.fetchMyPartyList(email);
+    }
+
+    public List<ProfileResponseDto> getJoinedPartyMemberList(Long partyId) {
+        return partyMemberRepository.fetchJoinedPartyMebmerList(partyId);
     }
 
     public boolean isAlreadyPartyJoinApply(String email, Long partyId) {

@@ -1,9 +1,8 @@
 package org.goodpeoplegoodtimes.repository;
 
-import org.goodpeoplegoodtimes.domain.Member;
-import org.goodpeoplegoodtimes.domain.Party;
 import org.goodpeoplegoodtimes.domain.PartyMember;
-import org.goodpeoplegoodtimes.domain.dto.party.response.PartyDetailResponseDto;
+import org.goodpeoplegoodtimes.domain.dto.member.ProfileResponseDto;
+import org.goodpeoplegoodtimes.domain.dto.party.response.MyPartyResponseDto;
 import org.goodpeoplegoodtimes.domain.dto.party_member.PartyMemberResponseDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -28,39 +27,32 @@ public interface PartyMemberRepository extends JpaRepository<PartyMember, Long> 
     Optional<PartyMember> findPartyMemberByPartyAndMember(@Param("partyId") Long partyId, @Param("memberId") Long memberId);
 
 
-    @Query("SELECT new org.goodpeoplegoodtimes.domain.dto.party.response.PartyDetailResponseDto" +
-        "(p.id, ow.id, p.title, p.category, p.status, p.content, ow.nickname, p.modifiedAt, p.totalPartyMembers, p.currentPartyMembers) " +
-        "from PartyMember pm " +
-        "LEFT JOIN pm.party p " +
-        "LEFT JOIN p.owner ow " +
-        "LEFT JOIN pm.member m WHERE m.email = :email ORDER BY pm.isJoined DESC, pm.createdAt DESC")
-    List<PartyDetailResponseDto> fetchMyPartyList(@Param("email") String email);
-
-    @Query("SELECT new org.goodpeoplegoodtimes.domain.dto.party.response.PartyDetailResponseDto" +
-        "(p.id, ow.id, p.title, p.category, p.status, p.content, ow.nickname, p.modifiedAt, p.totalPartyMembers, p.currentPartyMembers) " +
+    @Query("SELECT new org.goodpeoplegoodtimes.domain.dto.party.response.MyPartyResponseDto" +
+        "(p.id, p.place, p.title, p.content, m.email, ow.email, p.category, p.status, pm.isJoined) " +
         "from PartyMember pm " +
         "LEFT JOIN pm.party p " +
         "LEFT JOIN p.owner ow " +
         "LEFT JOIN pm.member m " +
-        "WHERE m.email = :email AND ow.email = :email " +
-        "ORDER BY pm.isJoined DESC, pm.createdAt DESC")
-    List<PartyDetailResponseDto> fetchMyCreatePartyList(@Param("email") String email);
+        "WHERE m.email = :email " +
+        "ORDER BY pm.isJoined DESC, pm.modifiedAt DESC")
+    List<MyPartyResponseDto> fetchMyPartyList(@Param("email") String email);
 
-    @Query("SELECT new org.goodpeoplegoodtimes.domain.dto.party.response.PartyDetailResponseDto" +
-        "(p.id, ow.id, p.title, p.category, p.status, p.content, ow.nickname, p.modifiedAt, p.totalPartyMembers, p.currentPartyMembers) " +
-        "from PartyMember pm " +
-        "LEFT JOIN pm.party p " +
-        "LEFT JOIN p.owner ow " +
-        "LEFT JOIN pm.member m " +
-        "WHERE m.email = :email AND NOT ow.email = :email " +
-        "ORDER BY pm.isJoined DESC, pm.createdAt DESC")
-    List<PartyDetailResponseDto> fetchMyJoinedPartyList(@Param("email") String email);
 
     @Query("SELECT count(pm) FROM PartyMember pm " +
         "LEFT JOIN pm.member m " +
         "LEFT JOIN pm.party p " +
         "WHERE m.email = :email AND p.id = :partyId")
     int existsByMemberAndParty(@Param("email") String email, @Param("partyId") Long partyId);
+
+
+    @Query("SELECT Count(pm) FROM PartyMember pm LEFT JOIN pm.member m WHERE m.email = :email AND pm.isJoined IS TRUE")
+    int getJoinedPartyCount(@Param("email") String email);
+
+
+    @Query("SELECT new org.goodpeoplegoodtimes.domain.dto.member.ProfileResponseDto(m.id,  m.imgNum, m.nickname, m.email) " +
+        "FROM PartyMember pm LEFT JOIN pm.member m LEFT JOIN pm.party p WHERE p.id = :partyId")
+    List<ProfileResponseDto> fetchJoinedPartyMebmerList(@Param("partyId") Long partyId);
+
 
 }
 

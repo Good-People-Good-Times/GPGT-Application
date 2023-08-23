@@ -39,7 +39,7 @@ public class PartyController {
             Model model) {
 
         Pageable pageable = PageRequest.of(page, PAGE_SIZE);
-        Page<PartyListResponseDto> partyPage = partyService.getPartyList(cond, category, pageable);
+        Page<PartyListResponseDto> partyPage = partyService.fetchList(cond, category, pageable);
 
         model.addAttribute("parties", partyPage.getContent());
         model.addAttribute("totalPages", partyPage.getTotalPages());
@@ -56,13 +56,16 @@ public class PartyController {
 
     @PostMapping(value = "/create")
     public String createParty(PartyForm partyForm, Authentication authentication) {
+        log.info("\nday : {}\n time : {}\n", partyForm.getTime().getClass(), partyForm.getTime().getClass());
         validatePartyForm(partyForm);
-        Long savedId = partyService.createParty(partyForm, authentication);
+        Long savedId = partyService.create(partyForm, authentication);
         return REDIRECT_TO_PARTY + savedId;
     }
 
     @GetMapping(value = "/{partyId}")
     public String displayPartyDetail(@PathVariable Long partyId, Model model, Authentication authentication) {
+
+        model.addAttribute("joinedPartyMemberList", partyService.getJoinedPartyMemberList(partyId));
         model.addAttribute("alreadyPartyJoinApply", partyService.isAlreadyPartyJoinApply(authentication.getName(), partyId));
         model.addAttribute("isOwner", partyService.isOwnerForParty(partyId, authentication.getName()));
         model.addAttribute("applicants", partyMemberService.listPartyMember(partyId));
@@ -84,13 +87,16 @@ public class PartyController {
     }
 
     @GetMapping("/my")
-    public String displayMyPartyList(@RequestParam(value = "cond", required = false) String cond,
-                                     Authentication authentication, Model model) {
+    public String displayMyPartyList(Authentication authentication, Model model) {
 
-        model.addAttribute("myPartyList", partyService.getMyPartyList(authentication.getName(), cond));
-        return "party/myparty/my_party_temp";
+        model.addAttribute("myPartyList", partyService.getMyPartyList(authentication.getName()));
+        return "party/myparty/my_party";
     }
 
+    @GetMapping("/party-change")
+    public String displayPartyModificationPage() {
+        return "party/change/party_change";
+    }
 
     @PostMapping(value = "/join/{partyId}")
     public String joinParty(@PathVariable Long partyId, Authentication authentication) {
@@ -107,13 +113,15 @@ public class PartyController {
         }
 
         PartyDetailResponseDto detail = partyService.findPartyDetailById(partyId);
-        model.addAttribute("partyUpdateForm", PartyUpdateForm.builder()
+        PartyUpdateForm update = PartyUpdateForm.builder()
             .partyId(detail.getPartyId())
             .title(detail.getTitle())
             .content(detail.getContent())
             .category(detail.getCategory())
-            .build());
+            .build();
 
+        partyService.update(update);
+        model.addAttribute("partyUpdateForm", update);
         return "party/party_form_update";
     }
 

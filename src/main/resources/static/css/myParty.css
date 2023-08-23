@@ -47,3 +47,7 @@ label::before {
     color: #fff;
     left: 30px;
 }
+
+.status-closed {
+    color: red;
+}

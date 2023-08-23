@@ -118,6 +118,9 @@
                 </div>
                 <div class="mb-4"></div>
 
+                <p th:if="${emailDupError}" th:text="emailDupError" style="color: red"></p>
+                <p th:if="${nickNameDupError}" th:text="nickNameDupError" style="color: red"></p>
+
                 <div style="text-align: center;">
                     <button class="button" type="submit" style="font-weight: bold; width: 250px">가입 완료</button>
                 </div>

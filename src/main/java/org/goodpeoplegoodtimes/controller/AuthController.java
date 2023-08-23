@@ -3,6 +3,8 @@ package org.goodpeoplegoodtimes.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.goodpeoplegoodtimes.domain.dto.auth.SignupForm;
+import org.goodpeoplegoodtimes.exception.member.EmailAlreadyExistsException;
+import org.goodpeoplegoodtimes.exception.member.NicknameAlreadyExistsException;
 import org.goodpeoplegoodtimes.service.MemberService;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.stereotype.Controller;
@@ -38,6 +40,22 @@ public class AuthController {
         return "auth/signup_page";
     }
 
+    @GetMapping(value = "/signup/check")
+    public String checkEmailDuplication(@RequestParam("email") String email, Model model) {
+
+        if (!memberService.validateEmailDuplication(email)) {
+            SignupForm signupForm = new SignupForm();
+            signupForm.setEmail(email);
+
+            model.addAttribute("emailCheckRes", "해당 이메일을 사용할 수 있습니다.");
+            model.addAttribute("form", signupForm);
+            return "auth/signup_page";
+        }
+
+        model.addAttribute("emailCheckRes", "해당 이메일을 사용할 수 없습니다.");
+        return "auth/signup_page";
+    }
+
     @PostMapping(value = "/signup")
     public String submitSignup(@Valid SignupForm signupForm,
                                BindingResult bindingResult,
@@ -50,7 +68,19 @@ public class AuthController {
             model.addAttribute("form", signupForm);
             return "auth/signup_page";
         }
-        memberService.save(signupForm);
+
+        try {
+            memberService.save(signupForm);
+        } catch (EmailAlreadyExistsException e ) {
+            model.addAttribute("emailDupError", "이미 존재하는 이메일입니다.");
+            model.addAttribute("form", signupForm);
+            return "auth/signup_page";
+        } catch (NicknameAlreadyExistsException e) {
+            model.addAttribute("nickNameDupError", "이미 존재하는 닉네임입니다.");
+            model.addAttribute("form", signupForm);
+            return "auth/signup_page";
+        }
+
         return "redirect:/auth/login";
     }
 
