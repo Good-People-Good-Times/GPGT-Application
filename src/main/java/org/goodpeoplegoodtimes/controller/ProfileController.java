@@ -22,7 +22,7 @@ public class ProfileController {
     @GetMapping(value = "/my_profile")
     public String displayMyProfile(@RequestParam(value = "cond", required = false) String cond,
                                    Authentication authentication, Model model) {
-        model.addAttribute("myPartyList", partyService.getMyPartyList(authentication.getName(), cond));
+        model.addAttribute("myPartyList", partyService.getMyPartyList(authentication.getName()));
         return "profile/my_profile";
     }
 
@@ -30,7 +30,7 @@ public class ProfileController {
     @GetMapping(value = "/your_profile")
     public String displayOtherUserProfile(@RequestParam(value = "cond", required = false) String cond,
                                           Authentication authentication, Model model) {
-        model.addAttribute("myPartyList", partyService.getMyPartyList(authentication.getName(), cond));
+        model.addAttribute("myPartyList", partyService.getMyPartyList(authentication.getName()));
         return "profile/your_profile";
     }
 

@@ -60,7 +60,7 @@ public class PartyServiceTest {
         given(partyRepository.save(any(Party.class))).willReturn(party);
 
         // when
-        Long savedId = partyService.createParty(partyForm, authentication);
+        Long savedId = partyService.create(partyForm, authentication);
 
         // then
         then(partyRepository).should().save(any(Party.class));

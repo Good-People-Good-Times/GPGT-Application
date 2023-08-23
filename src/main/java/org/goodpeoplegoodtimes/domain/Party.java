@@ -8,7 +8,9 @@ import org.goodpeoplegoodtimes.domain.dto.party.request.PartyForm;
 import org.goodpeoplegoodtimes.domain.dto.party.request.PartyUpdateForm;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -44,6 +46,8 @@ public class Party extends BaseEntity {
 
     private LocalDateTime meetingPlannedTime;
 
+    private String place;
+
     public static Party of(PartyForm partyForm, Member member) {
         return Party.builder()
             .owner(member)
@@ -52,6 +56,8 @@ public class Party extends BaseEntity {
             .content(partyForm.getContent())
             .category(partyForm.getCategory())
             .totalPartyMembers(partyForm.getTotalPartyMembers())
+            .meetingPlannedTime(LocalDateTime.of(LocalDate.parse(partyForm.getDate()), LocalTime.parse(partyForm.getTime())))
+            .place(partyForm.getPlace())
             .build();
     }
 

@@ -68,6 +68,8 @@ public class PartyMemberService {
         PartyMember partyMember = partyMemberRepository.findPartyMemberByPartyAndMember(partyId, targetId).orElseThrow(
             () -> new IllegalArgumentException("해당하는 파티 멤버가 없습니다")
         );
+
+        partyMember.getParty().increaseTotalPartyMembers();
         partyMemberRepository.delete(partyMember);
         return partyId;
     }
@@ -78,7 +80,7 @@ public class PartyMemberService {
             () -> new IllegalArgumentException("파티에 가입 안되어있음.")
         );
 
-        partyMember.getParty().decreaseTotalPartyMembers();
+        partyMember.getParty().increaseTotalPartyMembers();
         partyMemberRepository.delete(partyMember);
         return partyId;
     }

@@ -54,10 +54,10 @@
                                     <div>
                                         <div>
                                             <span>시간 : </span>
-                                                <span>08월 24일 17:00</span>
+                                            <span th:text="${#temporals.format(party.dateTime, 'MM-dd hh:mm')}"></span>
                                         </div>
                                         <div>
-                                            <span>장소 : </span><span>경기도 용인시</span>
+                                            <span>장소 : </span><span th:text="${party.place}"></span>
                                         </div>
                                         <div>
                                             <span> 모집 현황 : </span><span th:text="${party.currentPartyMembers}"></span><span> / </span><span th:text="${party.totalPartyMembers}"></span>

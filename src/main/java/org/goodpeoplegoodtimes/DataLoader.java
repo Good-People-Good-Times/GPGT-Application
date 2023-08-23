@@ -3,16 +3,22 @@ package org.goodpeoplegoodtimes;
 
 import org.goodpeoplegoodtimes.domain.Member;
 import org.goodpeoplegoodtimes.domain.Party;
+import org.goodpeoplegoodtimes.domain.PartyMember;
 import org.goodpeoplegoodtimes.domain.constant.Category;
 import org.goodpeoplegoodtimes.domain.constant.PartyStatus;
 import org.goodpeoplegoodtimes.domain.constant.Role;
+import org.goodpeoplegoodtimes.domain.dto.party.request.PartyForm;
 import org.goodpeoplegoodtimes.repository.MemberRepository;
+import org.goodpeoplegoodtimes.repository.PartyMemberRepository;
 import org.goodpeoplegoodtimes.repository.PartyRepository;
+import org.goodpeoplegoodtimes.service.PartyService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Random;
 
 @Configuration
@@ -21,21 +27,24 @@ public class DataLoader {
     @Bean
     public CommandLineRunner testDataSet(MemberRepository memberRepository,
                                          PartyRepository partyRepository,
-                                         PasswordEncoder passwordEncoder) {
+                                         PasswordEncoder passwordEncoder,
+                                         PartyMemberRepository partyMemberRepository,
+                                         Random random) {
         return args -> {
 
-            // 멤버 데이터 5개 생성
+            Member[] members = new Member[5];
             for (int i = 1; i <= 5; i++) {
-                memberRepository.save(Member.builder()
+                Member member = Member.builder()
                     .email("test" + i + "@test.com")
                     .password(passwordEncoder.encode("123123123"))
                     .nickname("테스터" + i)
-                    .imgNum(i % 5 == 0 ? 1 : i)
+                    .imgNum(random.nextInt(4) + 1)
                     .role(Role.USER)
-                    .build());
+                    .build();
+                memberRepository.save(member);
+                members[i - 1] = member;
             }
 
-            // 관리자 계정 1개 추가.
             memberRepository.save(Member.builder()
                 .email("admin@admin.com")
                 .password(passwordEncoder.encode("123123123"))
@@ -44,7 +53,6 @@ public class DataLoader {
                 .role(Role.ADMIN)
                 .build());
 
-            Random random = new Random();
             Category[] categories = Category.values();
             PartyStatus[] statuses = PartyStatus.values();
             String[] titles = {
@@ -64,21 +72,37 @@ public class DataLoader {
                 "다양한 취미를 같이 즐기실 분?", "좋은 카페에서 대화하실 분?", "운동을 시작하실 분?", "저녁에 식사하실 분?", "아침에 출근할 택시팟 구합니다!"
             };
 
+            String[] koreanCities = {
+                "서울", "부산", "인천", "대구", "대전", "광주", "울산", "수원", "고양", "용인",
+                "창원", "청주", "안산", "전주", "포항", "성남", "안양", "부천", "화성", "남양주",
+                "천안", "제주", "통영", "아산", "경주", "강릉", "김해", "춘천", "원주", "시흥"
+            };
+
+
 
             // 파티 데이터 30개 생성
             final int num = 1;
             for (int i = 0; i < 30; i++) {
-                partyRepository.save(Party.builder()
+                Member member = memberRepository.findById((long) (random.nextInt(5) + 1)).orElseThrow();
+                Party party = Party.builder()
                     .title(titles[i])
                     .category(categories[random.nextInt(categories.length)])
                     .status(statuses[random.nextInt(statuses.length)])
                     .content(contents[i])
-                    .owner(memberRepository.findById((long) (random.nextInt(5) + 1)).orElseThrow())
-                    .totalPartyMembers(random.nextInt(10) + 1)
+                    .owner(member)
+                    .totalPartyMembers(random.nextInt(9) + 2)
                     .currentPartyMembers(num)
-                    .build());
-            }
+                    .meetingPlannedTime(LocalDateTime.of(2023, 8, LocalDate.now().getDayOfMonth(), random.nextInt(23) + 1, random.nextInt(59) + 1))
+                    .place(koreanCities[random.nextInt(30)])
+                    .build();
 
+                partyRepository.save(party);
+
+                PartyMember partyMember = PartyMember.of(member, party);
+                partyMember.acceptJoin();
+                party.increaseTotalPartyMembers();
+                partyMemberRepository.save(partyMember);
+            }
         };
     }
 }
