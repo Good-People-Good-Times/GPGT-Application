@@ -12,40 +12,22 @@
 <div class="container py-5" layout:fragment="content">
     <div class="input-form-background row">
         <div class="party-list col-md-12 mx-auto">
-            <h4 style="text-align: center;" class="mb-3">내 파티</h4>
-            <div style="display: flex; justify-content: center; margin: 2em 0">
-                <input type="checkbox" id="chk1" style="display: none" checked/><label for="chk1"></label>
-            </div>
+            <h4 style="text-align: center;" class="mb-3">나의 파티</h4>
             <div class="row justify-content-center">
                 <div th:each="party : ${myPartyList}" class="card mb-3" style="width: 34rem;">
                     <a th:href="@{/party/{partyId}(partyId=${party.partyId})}">
-                        <div class="card-body">
+                        <div th:classappend="${!party.isJoined()} ? 'bg-secondary'" class="card-body">
                             <div style="display: flex; justify-content: space-between">
-                                <div style="vertical-align: center">
-                                    <span th:text="${party.title}" class="card-title" style="font-size: x-large; font-weight: bold"></span>
-                                </div>
                                 <div style="vertical-align: center">
                                     <span style="margin-right: 5px; margin-top: 5px; align-self: flex-end; font-size: 15px;" class="badge rounded-pill"
                                           th:text="${party.category}"></span>
                                 </div>
-                            </div>
-                            <hr>
-                            <div>
-                                <div>
-                                    <span>시간 : </span>
-                                    <span>08월 24일 17:00</span>
+                                <div style="vertical-align: center">
+                                    <span th:classappend="${party.ownerEmail == party.email} ? 'text-danger'" th:text="${party.title}" class="card-title" style="font-size: x-large; font-weight: bold"></span>
                                 </div>
-                                <div>
-                                    <span>장소 : </span><span>경기도 용인시</span>
-                                </div>
-                                <div>
-                                    <span> 남은 인원 수 : </span><span th:text="${party.totalPartyMembers}"></span>
-                                </div>
-                                <div style="display: flex; justify-content: right">
-                                    <div style="color: cornflowerblue;">
+                                <div style="color: cornflowerblue;">
                                         <span th:text="${party.status.value}"
-                                              th:classappend="${party.status.value =='마감'} ? 'status-closed'"></span>
-                                    </div>
+                                              th:classappend="${party.status.value == '마감'} ? 'status-closed'"></span>
                                 </div>
                             </div>
                         </div>
@@ -55,34 +37,5 @@
         </div>
     </div>
 </div>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const checkbox = document.getElementById('chk1');
-
-        checkbox.addEventListener('change', function () {
-            const isChecked = this.checked;
-            const condition = isChecked ? 'cp' : 'jp';
-
-            fetch(`/getData?cond=${condition}`)
-                .then(response => response.json())
-                .then(data => {
-                    updatePartyList(data);
-                });
-        });
-    });
-
-    function updatePartyList(data) {
-        const partyListContainer = document.querySelector(".party-list .row");
-        partyListContainer.innerHTML = '';
-
-        data.forEach(party => {
-            const partyElement = createPartyElement(party);
-            partyListContainer.appendChild(partyElement);
-        });
-    }
-
-    function createPartyElement(party) {
-    }
-</script>
 </body>
 </html>
