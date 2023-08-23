@@ -30,7 +30,7 @@
                     <table class="table table-bordered mx-auto" style="width: fit-content; margin-top: 13px">
                         <tbody style="font-weight: bold">
                         <tr style="font-size: 13px">
-                            <td>현재 파티현황:</td>
+                            <td>모집 현황:</td>
                             <td><span th:text="${detail.currentPartyMembers}" style="color: rgba(69,8,232,0.97)"></span>
                             </td>
                             <td>/</td>
@@ -92,7 +92,9 @@
                             <button style="width: 85px; height: 35px; font-size: 16px;" class="button" type="submit">파티 신청</button>
                         </form>
                         <form style="text-align: right; margin-right: 15px;" th:if="${isOwner}">
+                            <a th:href="@{/party/{id}(id=${detail.partyId})/update}">
                             <button style="margin-right: 7px" class="button5" type="submit">수정</button>
+                            </a>
                             <button class="button5" type="submit">삭제</button>
                         </form>
                     </div>

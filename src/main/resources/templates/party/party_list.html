@@ -13,7 +13,7 @@
 <div class="container py-5" layout:fragment="content">
     <div class="input-form-background row">
         <div class="party-list col-md-12 mx-auto">
-            <h4 style="text-align: center;" class="mb-3">파티리스트</h4>
+            <h4 style="text-align: center;" class="mb-3">파티 현황</h4>
             <br>
             <div class="mb-3" style="text-align: center; margin-top: 15px;">
                 <form th:action="@{/party/search}" method="get">
@@ -60,7 +60,7 @@
                                             <span>장소 : </span><span>경기도 용인시</span>
                                         </div>
                                         <div>
-                                            <span> 파티 현황 : </span><span th:text="${party.currentPartyMembers}"></span><span> / </span><span th:text="${party.totalPartyMembers}"></span>
+                                            <span> 모집 현황 : </span><span th:text="${party.currentPartyMembers}"></span><span> / </span><span th:text="${party.totalPartyMembers}"></span>
                                         </div>
                                         <div style="display: flex; justify-content: right">
                                             <div style="color: cornflowerblue;">

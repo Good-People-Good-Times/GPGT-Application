@@ -14,19 +14,23 @@
             <form th:action="@{/auth/signup}" th:object="${form}" method="post"
                   class="validation-form" novalidate>
                 <br>
+                <div style="text-align: center; margin-left: 10px">
+                    <div class="img_container">
+                        <img th:src="@{/img/profile/1.jpg}" width="100px"/>
+                    </div>
+                    <div class="img_container">
+                        <img th:src="@{/img/profile/2.jpg}" width="100px"/>
+                    </div>
+                    <div class="img_container">
+                        <img th:src="@{/img/profile/3.jpg}" width="100px"/>
+                    </div>
+                    <div class="img_container">
+                        <img th:src="@{/img/profile/4.jpg}" width="100px"/>
+                    </div>
+                </div>
+                <br>
                 <div style="text-align: center">
-                    <div class="img_container">
-                        <img th:src="@{/img/profile/1.jpg}" width="120px"/>
-                    </div>
-                    <div class="img_container">
-                        <img th:src="@{/img/profile/2.jpg}" width="120px"/>
-                    </div>
-                    <div class="img_container">
-                        <img th:src="@{/img/profile/3.jpg}" width="120px"/>
-                    </div>
-                    <div class="img_container">
-                        <img th:src="@{/img/profile/4.jpg}" width="120px"/>
-                    </div>
+                    <h6 style="font-size : 12px; color: gray">프로필은 4마리 동물 중에 랜덤으로 지정됩니다!</h6>
                 </div>
                 <br>
                 <!-- ========== 이메일 ========== -->

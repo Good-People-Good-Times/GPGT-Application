@@ -91,10 +91,6 @@ public class PartyController {
         return "party/myparty/my_party_temp";
     }
 
-    @GetMapping("/party-change")
-    public String displayPartyModificationPage() {
-        return "party/change/party_change";
-    }
 
     @PostMapping(value = "/join/{partyId}")
     public String joinParty(@PathVariable Long partyId, Authentication authentication) {
