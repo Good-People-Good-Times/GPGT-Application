@@ -37,7 +37,6 @@ public class PartyService {
 
         PartyMember partyMember = PartyMember.of(member, party);
         partyMember.acceptJoin();
-        party.increaseTotalPartyMembers();
 
         partyMemberRepository.save(partyMember);
         return partyRepository.save(party).getId();
