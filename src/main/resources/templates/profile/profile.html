@@ -15,7 +15,6 @@
             <div class="page" style="text-align: center">
                 <div class="nickname">
                     <b>닉네임 : </b><span th:text="${profile.nickname}"></span>
-                    <img th:src="@{/img/red.png}" width="25px"/>
                 </div>
                 <br>
 
@@ -23,16 +22,9 @@
                     <b>이메일: </b><span th:text="${profile.email}">test1@test.com</span>
                 </div>
                 <br>
+                <div>
 
-                <div class="password">
-                    <b>비밀번호 재설정 하기</b>
-                    <a th:href="@{/auth/reset/password}">
-                        <button class="button" type="submit"> 수정 </button>
-                    </a>
                 </div>
-                <br>
-
-                <div></div>
             </div>
 
         </div>
