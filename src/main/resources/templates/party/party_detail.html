@@ -15,7 +15,6 @@
                         <div th:if="${isOwner}" style="color: slategray; font-size: 17px;">파티장</div>
                         <div th:text="${detail.getMember.nickname}"></div>
                     </h4>
-                    <img th:src="@{/img/yellow.png}" width="33px" style="margin-left: 5px;">
                 </div>
                 <div style="justify-content: flex-end">
                     <span class="badge rounded-pill" style="text-align: right; font-size: 18px"><span th:text="${detail.status.value}"></span></span>
@@ -112,7 +111,6 @@
                     <div style="display: inline">
                         <img th:src="@{'/img/profile/' + ${comment.member.imgNum} + '.jpg'}" width="36px" style="display: inline">
                         <h5 th:text="${comment.member.nickname}" style="display: inline; margin-left: 5px;"></h5>
-                        <img th:src="@{/img/red.png}" style="margin-left: 3px; width: 22px; height: 22px">
                         <button class="btn btn-sm" th:id="'action-button-1-' + ${comment.commentsId}"
                                 style="color: #949494"
                                 th:onclick="'editComment(' + ${comment.commentsId} + ')'">수정
