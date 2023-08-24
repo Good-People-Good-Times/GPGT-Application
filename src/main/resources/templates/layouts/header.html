@@ -7,7 +7,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" type="text/css" th:href="@{/css/nav.css}"/>
         <script>
-
         </script>
     </head>
     <body>
@@ -18,7 +17,6 @@
                 <b>좋사좋시</b>
             </div>
         </a>
-
         <ul class="navbar_menu">
             <li><a th:href="@{/party}">파티현황</a></li>
             <li sec:authorize="isAuthenticated()"><a th:href="@{/party/create}">파티생성</a></li>
@@ -30,8 +28,8 @@
         <div sec:authorize="isAnonymous()" class="navbar_menu small" style="margin-right: 5px">
         </div>
         <div sec:authorize="isAuthenticated()" class="navbar_my">
-            <a th:href="@{/profile/my_profile}">
-                <img th:src="@{/img/profile/1.jpg}" width="60px"/>
+            <a th:href="@{/members/profile}">
+                <img th:src="@{'/img/profile/' + ${profile.imgNum} + '.jpg'}" width="60px"/>
             </a>
         </div>
     </nav>

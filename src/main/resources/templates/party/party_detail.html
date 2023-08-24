@@ -62,12 +62,12 @@
                 </div>
             </div>
             <div style="display: flex; justify-content: start; align-items: center; overflow-x: auto; margin-bottom: 8px">
-                <div th:each="pm : ${joinedPartyMemberList}" style="white-space: nowrap;">
+                <form th:action="@{/members/profile/{memberId}(memberId=${pm.memberId})}" th:each="pm : ${joinedPartyMemberList}" style="white-space: nowrap;" method="get">
                     <button class="border border-2 rounded-2" style="height: 60px; background-color: white; margin-right: 3px; overflow: hidden; text-overflow: ellipsis;">
                         <img th:src="@{'/img/profile/' + ${pm.imgNum} + '.jpg'}" width="40px" height="40px;" style="display: inline; border-radius: 50%; vertical-align: center">
                         <span th:text="${pm.nickname}" style="font-size: 14px; margin-left: 5px;"></span>
                     </button>
-                </div>
+                </form>
             </div>
             <div style="text-align: center; padding-top: 15px; padding-bottom: 15px; background-color: white; border-radius: 5px; border-width: 3px; font-size: 18px;  font-weight:bold;"
                  class="mb-3 border border-2">
@@ -124,7 +124,7 @@
                         </form>
                     </div>
                     <h6 th:text="${#temporals.format(comment.getDateTime(), 'yy/MM/dd(E) HH:mm')}"
-                        style="font-size: 15px; color: #6c757d; text-align: right; margin-top: 5px"></h6>
+                        style="font-size: 10px; color: #b6b8bb; text-align: right; margin-top: 5px"></h6>
                 </div>
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div th:id="'comment-content-container-' + ${comment.commentsId}"

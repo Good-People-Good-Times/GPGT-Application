@@ -1,12 +1,10 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
-
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}"/>
 </head>
-
 <div layout:fragment="content" class="container py-5">
     <div class="input-form-background row">
         <div class="input-form col-md-8 mx-auto">
@@ -41,7 +39,7 @@
                         </div>
                         <div>
                             <input type="email" name="email" class="form-control" id="email" th:field="*{email}"
-                               placeholder="you@example.com" required>
+                                   placeholder="you@example.com" required>
                         </div>
                         <div class="invalid-feedback">
                             이메일을 입력해주세요.
@@ -55,11 +53,11 @@
                     <div class="col-md-5 mb-3">
                         <div style="text-align: left; margin-bottom: 10px">
                             <br>
-                        <label class="login_info" for="nickname">닉네임</label>
+                            <label class="login_info" for="nickname">닉네임</label>
                         </div>
                         <div>
-                        <input type="text" name="nickname" class="form-control" minlength="2" id="nickname" th:field="*{nickname}"
-                               placeholder="2자 이상 입력해주세요." value="" required>
+                            <input type="text" name="nickname" class="form-control" minlength="2" id="nickname" th:field="*{nickname}"
+                                   placeholder="2자 이상 입력해주세요." value="" required>
                         </div>
                         <div class="invalid-feedback">
                             닉네임을 2자 이상 입력해주세요
@@ -74,12 +72,12 @@
                         <div>
                             <div style="text-align: left; margin-bottom: 10px">
                                 <br>
-                            <label class="login_info" for="password">비밀번호</label>
+                                <label class="login_info" for="password">비밀번호</label>
                             </div>
                             <div>
-                            <input type="password" name="password" class="form-control" id="password" minlength="8" th:field="*{password}"
-                           placeholder="8자이상, 특수문자 포함"
-                           value="" required>
+                                <input type="password" name="password" class="form-control" id="password" minlength="8" th:field="*{password}"
+                                       placeholder="8자이상, 특수문자 포함"
+                                       value="" required>
                             </div>
                         </div>
                         <div class="invalid-feedback">비밀번호를 8자 이상 입력해주세요.</div>
@@ -89,20 +87,18 @@
                     <div class="col-md-5 mb-3">
                         <div style="text-align: left; margin-bottom: 10px">
                             <br>
-                        <label class="login_info" for="password2">비밀번호 확인</label>
+                            <label class="login_info" for="password2">비밀번호 확인</label>
                         </div>
                         <div>
-                        <input type="password" class="form-control" id="password2" minlength="8"
-                           placeholder="다시 한 번 입력해주세요." value="" required>
-                        <div class="invalid-feedback">비밀번호를 다시 입력해주세요.</div>
+                            <input type="password" class="form-control" id="password2" minlength="8"
+                                   placeholder="다시 한 번 입력해주세요." value="" required>
+                            <div class="invalid-feedback">비밀번호를 다시 입력해주세요.</div>
                         </div>
                     </div>
                 </div>
                 <br>
                 <p class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Email Error</p>
-
                 <!-- ========== 개인정보수집 ========== -->
-
                 <div style="text-align: center;" class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" id="aggrement" required>
                     <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
@@ -115,11 +111,9 @@
                 <div style="text-align: center;">
                     <button class="button" type="submit" style="font-weight: bold; width: 250px">가입 완료</button>
                 </div>
-
             </form>
         </div>
     </div>
-
     <script type="text/javascript" th:src="@{/js/signup.js}"></script>
 </div>
 </html>

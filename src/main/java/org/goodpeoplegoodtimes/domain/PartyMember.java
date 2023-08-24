@@ -12,15 +12,12 @@ public class PartyMember extends BaseEntity {
     @Column(name = "party_member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "party_id")
     private Party party;
-
     private boolean isJoined;
     public static PartyMember of(Member member, Party party) {
         return PartyMember.builder()

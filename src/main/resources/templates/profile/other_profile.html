@@ -1,0 +1,44 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<head>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}"/>
+</head>
+
+<div layout:fragment="content" class="container py-5">
+  <div class="input-form-background row">
+    <div class="input-form col-md-5 mx-auto">
+      <h4 style="text-align: center;" class="mb-3">프로필</h4>
+      <br>
+      <div style="text-align: center"><img th:src="@{'/img/profile/' + ${other_profile.imgNum} + '.jpg'}" width="250px"/></div>
+      <br>
+
+      <div class="page" style="text-align: center">
+        <div class="nickname">
+          <b>닉네임 : </b><span th:text="${other_profile.nickname}"></span>
+          <img th:src="@{/img/red.png}" width="25px"/>
+        </div>
+        <br>
+
+        <div class="email">
+          <b>이메일: </b><span th:text="${other_profile.email}">test1@test.com</span>
+        </div>
+        <br>
+
+        <div class="password">
+          <b>비밀번호 재설정 하기</b>
+          <a th:href="@{/auth/reset/password}">
+            <button class="button" type="submit"> 수정 </button>
+          </a>
+        </div>
+        <br>
+        <div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="text/javascript" th:src="@{/js/signup.js}"></script>
+</div>
+</html>

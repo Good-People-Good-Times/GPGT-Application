@@ -37,7 +37,9 @@ public class Party extends BaseEntity {
     private int totalPartyMembers;
     private int currentPartyMembers;
     private LocalDateTime meetingPlannedTime;
+
     private String place;
+
     public static Party of(PartyForm partyForm, Member member) {
         return Party.builder()
                 .owner(member)
