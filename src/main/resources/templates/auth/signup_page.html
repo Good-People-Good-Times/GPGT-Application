@@ -34,8 +34,8 @@
                 </div>
                 <br>
                 <!-- ========== 이메일 ========== -->
-                <div class="row1">
-                    <div class="col-md-6 mb-3">
+                <div class="row2">
+                    <div class="col-md-5 mb-3">
                         <div style="text-align: left; margin-bottom: 10px;">
                             <label class="login_info" for="email">이메일</label>
                         </div>
@@ -47,16 +47,12 @@
                             이메일을 입력해주세요.
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <br>
-                        <button class="button" type="button" style="margin-left: 30px; margin-top: 13px">중복 확인</button>
-                    </div>
                     <p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</p>
                 </div>
 
                 <!-- ========== 닉네임 ========== -->
-                <div class="row1">
-                    <div class="col-md-6 mb-3">
+                <div class="row2">
+                    <div class="col-md-5 mb-3">
                         <div style="text-align: left; margin-bottom: 10px">
                             <br>
                         <label class="login_info" for="nickname">닉네임</label>
@@ -68,11 +64,6 @@
                         <div class="invalid-feedback">
                             닉네임을 2자 이상 입력해주세요
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <br>
-                        <br>
-                        <button class="button" type="button" style="margin-left: 30px; margin-top: 13px">중복 확인</button>
                     </div>
                     <p class="error" th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}">Email Error</p>
                 </div>
@@ -118,8 +109,8 @@
                 </div>
                 <div class="mb-4"></div>
 
-                <p th:if="${emailDupError}" th:text="emailDupError" style="color: red; text-align: center"></p>
-                <p th:if="${nickNameDupError}" th:text="nickNameDupError" style="color: red; text-align: center"></p>
+                <p th:if="${emailDupError}" th:text="${emailDupError}" style="color: red; text-align: center"></p>
+                <p th:if="${nickNameDupError}" th:text="${nickNameDupError}" style="color: red; text-align: center"></p>
 
                 <div style="text-align: center;">
                     <button class="button" type="submit" style="font-weight: bold; width: 250px">가입 완료</button>
