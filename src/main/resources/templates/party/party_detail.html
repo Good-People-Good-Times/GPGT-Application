@@ -1,16 +1,13 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
-
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}"/>
 </head>
-
 <div layout:fragment="content" class="container py-5">
     <div class="input-form-background row">
         <div class="input-form col-md-12 mx-auto">
-
             <div style="display: flex; align-items: center; justify-content: space-between;">
                 <div style="display: flex; align-items: center;">
                     <img th:src="@{'/img/profile/' + ${detail.getMember.imgNum} + '.jpg'}" width="70px" style="display: inline">
@@ -40,16 +37,6 @@
                     </table>
                 </div>
             </div>
-            <div style="display: flex; justify-content: start; align-items: center; overflow-x: auto;">
-                <div th:each="pm : ${joinedPartyMemberList}" style="white-space: nowrap;">
-                    <button style="border: 3px solid #b091ec; border-radius: 45%; height: 60px; background-color: white; margin-right: 3px; overflow: hidden; text-overflow: ellipsis;">
-                        <img th:src="@{'/img/profile/' + ${pm.imgNum} + '.jpg'}" width="40px" height="40px;" style="display: inline; border-radius: 50%; vertical-align: center">
-                        <span th:text="${pm.nickname}" style="font-size: 14px; margin-left: 5px;"></span>
-                    </button>
-                </div>
-            </div>
-            <br><br>
-
             <div th:if="${isOwner}" th:each="applicant : ${applicants}">
                 <div style="text-align: center; padding: 15px; background-color: white; border-radius: 5px; border: 2px solid rgba(193, 176, 239, 0.97); font-size: 17px; font-weight: bold" class="mb-3">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -74,7 +61,14 @@
                     </div>
                 </div>
             </div>
-
+            <div style="display: flex; justify-content: start; align-items: center; overflow-x: auto; margin-bottom: 8px">
+                <div th:each="pm : ${joinedPartyMemberList}" style="white-space: nowrap;">
+                    <button class="border border-2 rounded-2" style="height: 60px; background-color: white; margin-right: 3px; overflow: hidden; text-overflow: ellipsis;">
+                        <img th:src="@{'/img/profile/' + ${pm.imgNum} + '.jpg'}" width="40px" height="40px;" style="display: inline; border-radius: 50%; vertical-align: center">
+                        <span th:text="${pm.nickname}" style="font-size: 14px; margin-left: 5px;"></span>
+                    </button>
+                </div>
+            </div>
             <div style="text-align: center; padding-top: 15px; padding-bottom: 15px; background-color: white; border-radius: 5px; border-width: 3px; font-size: 18px;  font-weight:bold;"
                  class="mb-3 border border-2">
                 <h3 style="padding-left: 5px; padding-right: 5px;"><strong th:text="${detail.title}"></strong></h3>
@@ -106,17 +100,14 @@
                     </div>
                 </div>
             </div>
-
             <form th:action="@{/comments}" method="post" class="row2" style="display: flex; align-items: flex-end;">
                 <input type="text" name="comment" class="form-control" id="comment"
                        placeholder="댓글을 입력해주세요." style="flex: 1; font-size: 16px" value="" required>
                 <input type="hidden" name="partyId" th:value="${detail.getPartyId()}">
                 <button class="button" type="submit" style="font-size: 16px; margin-left: 15px; height: 37px">확인</button>
             </form>
-
             <br>
             <div th:each="comment : ${comments}" class="mb-3">
-
                 <div style="display: flex; justify-content: space-between">
                     <div style="display: inline">
                         <img th:src="@{'/img/profile/' + ${comment.member.imgNum} + '.jpg'}" width="36px" style="display: inline">
@@ -139,8 +130,7 @@
                     <div th:id="'comment-content-container-' + ${comment.commentsId}"
                          style="flex-grow: 1; text-align: left; background-color: #fff; border: 2px rgba(193, 176, 239, 0.97); border-radius: 6px; font-size: 15px; width: 300px; min-height: 30px; height: auto; overflow-y: auto; margin-top: 5px"
                          class="mb-3 border border-2 p-2">
-                    <span th:id="'comment-content-' + ${comment.commentsId}" th:text="${comment.content}" th:onclick="'editComment(' + ${comment.commentsId} + ')'"></span>
-
+                        <span th:id="'comment-content-' + ${comment.commentsId}" th:text="${comment.content}" th:onclick="'editComment(' + ${comment.commentsId} + ')'"></span>
                         <form th:id="'edit-form-' + ${comment.commentsId}" style="display: none;"
                               th:action="@{/comments/{commentsId}/update(commentsId=${comment.commentsId})}"
                               method="post">
@@ -168,32 +158,25 @@
             const editInput = document.querySelector(`#edit-input-${commentId}`);
             const actionButton1 = document.querySelector(`#action-button-1-${commentId}`);
             const actionButton2 = document.querySelector(`#action-button-2-${commentId}`);
-
             commentContent.style.display = 'none';
             editForm.style.display = 'block';
             editInput.focus();
-
             actionButton1.style.display = 'none';
             actionButton2.style.display = 'none';
         }
-
         function cancelEdit(commentId) {
             const commentContent = document.querySelector(`#comment-content-${commentId}`);
             const editForm = document.querySelector(`#edit-form-${commentId}`);
             const actionButton1 = document.querySelector(`#action-button-1-${commentId}`);
             const actionButton2 = document.querySelector(`#action-button-2-${commentId}`);
-
             commentContent.style.display = 'block';
             editForm.style.display = 'none';
-
             actionButton1.style.display = 'inline';
             actionButton2.style.display = 'inline';
-
             actionButton1.onclick = function () {
                 editComment(commentId);
             };
             actionButton1.textContent = "수정";
-
             actionButton2.textContent = "삭제";
         }
     </script>
