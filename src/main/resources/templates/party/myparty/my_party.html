@@ -11,23 +11,41 @@
 <body>
 <div class="container py-5" layout:fragment="content">
     <div class="input-form-background row">
-        <div class="party-list col-md-12 mx-auto">
+        <div class="party-list col-md-12 mx-auto" style="justify-content: center">
             <h4 style="text-align: center;" class="mb-3">나의 파티</h4>
+            <br>
+            <div style="text-align: center; justify-content: center;" class="card mb-3">
+                <br>
+                <strong> 제목의 색마다 다른 의미를 가지고 있습니다! </strong>
+                <br>
+                <div class="text-danger">
+                    빨간색 : 현재 파티 가입 대기중 / 아래에 표시됩니다.
+                </div>
+                <div class="text-success">
+                    녹색 : 본인이 만든 파티 / 가운데에 표시됩니다.
+                </div>
+                <div >
+                    검은색 : 파티 가입 완료 / 위에 표시됩니다.
+                </div>
+                <br>
+            </div>
+            <br>
             <div class="row justify-content-center">
-                <div th:each="party : ${myPartyList}" class="card mb-3" style="width: 34rem;">
+                <div th:each="party : ${myPartyList}" class="card mb-3" style="width: 34rem;" >
                     <a th:href="@{/party/{partyId}(partyId=${party.partyId})}">
-                        <div th:classappend="${!party.isJoined()} ? 'bg-secondary'" class="card-body">
+                        <div th:classappend="${!party.isJoined()} ? 'text-danger'" class="card-body">
                             <div style="display: flex; justify-content: space-between">
                                 <div style="vertical-align: center">
-                                    <span style="margin-right: 5px; margin-top: 5px; align-self: flex-end; font-size: 15px;" class="badge rounded-pill"
-                                          th:text="${party.category}"></span>
+                                    <span style="margin-right: 5px; margin-top: 5px; align-self: flex-end; font-size: 15px;" class="badge rounded-pill" th:text="${party.category}"></span>
+
                                 </div>
                                 <div style="vertical-align: center">
-                                    <span th:classappend="${party.ownerEmail == party.email} ? 'text-danger'" th:text="${party.title}" class="card-title" style="font-size: x-large; font-weight: bold"></span>
+                                    <span th:classappend="${party.ownerEmail == party.email} ? 'text-success'" th:text="${party.title}" class="card-title" style="font-size: large; font-weight: bold"></span>
                                 </div>
-                                <div style="color: cornflowerblue;">
-                                        <span th:text="${party.status.value}"
-                                              th:classappend="${party.status.value == '마감'} ? 'status-closed'"></span>
+                                <div style="color: cornflowerblue; vertical-align: center;">
+                                    <span th:text="${party.status.value}"
+                                          th:classappend="${party.status.value == '마감'} ? 'status-closed'"
+                                    ></span>
                                 </div>
                             </div>
                         </div>

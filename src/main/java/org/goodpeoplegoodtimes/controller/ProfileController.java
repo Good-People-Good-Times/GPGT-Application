@@ -23,7 +23,7 @@ public class ProfileController {
     public String displayMyProfile(@RequestParam(value = "cond", required = false) String cond,
                                    Authentication authentication, Model model) {
         model.addAttribute("myPartyList", partyService.getMyPartyList(authentication.getName()));
-        return "profile/my_profile";
+        return "profile";
     }
 
 

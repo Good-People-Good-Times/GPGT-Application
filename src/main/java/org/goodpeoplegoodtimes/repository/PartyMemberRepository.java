@@ -18,6 +18,8 @@ public interface PartyMemberRepository extends JpaRepository<PartyMember, Long> 
     List<PartyMemberResponseDto> fetchPartyMemberList(@Param("id") Long partyId);
     @Query("SELECT pm FROM PartyMember pm JOIN FETCH pm.party p JOIN FETCH pm.member m WHERE p.id = :partyId AND m.id = :memberId")
     Optional<PartyMember> findPartyMemberByPartyAndMember(@Param("partyId") Long partyId, @Param("memberId") Long memberId);
+
+
     @Query("SELECT new org.goodpeoplegoodtimes.domain.dto.party.response.MyPartyResponseDto" +
             "(p.id, p.place, p.title, p.content, m.email, ow.email, p.category, p.status, pm.isJoined) " +
             "from PartyMember pm " +
@@ -27,6 +29,8 @@ public interface PartyMemberRepository extends JpaRepository<PartyMember, Long> 
             "WHERE m.email = :email " +
             "ORDER BY pm.isJoined DESC, pm.modifiedAt DESC")
     List<MyPartyResponseDto> fetchMyPartyList(@Param("email") String email);
+
+
     @Query("SELECT count(pm) FROM PartyMember pm " +
             "LEFT JOIN pm.member m " +
             "LEFT JOIN pm.party p " +
@@ -35,7 +39,10 @@ public interface PartyMemberRepository extends JpaRepository<PartyMember, Long> 
 
 
     @Query("SELECT Count(pm) FROM PartyMember pm LEFT JOIN pm.member m WHERE m.email = :email AND pm.isJoined = true")
-    int getJoinedPartyCount(@Param("email") String email);
+    int getJoinedPartyCountByEmail(@Param("email") String email);
+
+    @Query("SELECT Count(pm) FROM PartyMember pm LEFT JOIN pm.member m WHERE m.id = :id AND pm.isJoined = true")
+    int getJoinedPartyCountById(@Param("id") Long id);
 
 
     @Query("SELECT new org.goodpeoplegoodtimes.domain.dto.member.ProfileResponseDto(m.id,  m.imgNum, m.nickname, m.email) " +
